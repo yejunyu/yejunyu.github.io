@@ -75,7 +75,7 @@
     <article id="post-python常见的错误" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/19/python常见的错误/" class="article-date">
-  <time datetime="2017-05-19T13:40:51.053Z" itemprop="datePublished">2017-05-19</time>
+  <time datetime="2017-05-19T13:47:26.188Z" itemprop="datePublished">2017-05-19</time>
 </a>
     
   </div>
@@ -108,7 +108,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + numEggs + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">而你实际想要这样做：</div><div class="line"></div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + str (numEggs) + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">或者：</div><div class="line"> </div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have %s eggs.'</span> % (numEggs))</div></pre></td></tr></table></figure>
 </li>
 <li><p>在字符串首尾忘记加引号（导致 <strong>“SyntaxError: EOL while scanning string literal”</strong>）<br> 该错误发生在如下代码中：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">print (Hello!')</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">print ('Hello!)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">myName =   'Al'</div><div class="line">print ('My name is ' + myName + . How are you?')</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">print (Hello!')</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">print ('Hello!)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">myName = 'Al'</div><div class="line">print ('My name is ' + myName + .How are you?')</div></pre></td></tr></table></figure>
 </li>
 <li><p>变量或者函数名拼写错误（导致 <strong>“NameError: name ‘fooba’ is not defined”</strong>）<br>该错误发生在如下代码中：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">foobar = <span class="string">'Al'</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'My name is '</span> + fooba)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = ruond(<span class="number">4.2</span>)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = Round (<span class="number">4.2</span>)</div></pre></td></tr></table></figure>
@@ -137,9 +137,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spam = range (<span class="number">10</span>)</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">也许这才是你想做：</div><div class="line"></div><div class="line">spam = list (range (<span class="number">10</span>))</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<blockquote>
-<p>（注意：在 Python 2 中 spam = range(10) 是能行的，因为在 Python 2 中 range() 返回的是list值，但是在 Python 3 中就会产生以上错误）</p>
-</blockquote>
+<p><strong>(注意：在 Python 2 中 spam = range(10) 是能行的，因为在 Python 2 中 range() 返回的是list值，但是在 Python 3 中就会产生以上错误)</strong></p>
 <ol>
 <li><p>不错在 ++ 或者 – 自增自减操作符。（导致 <strong>“SyntaxError: invalid syntax”</strong>）</p>
 <p>如果你习惯于例如 C++ , Java , PHP 等其他的语言，也许你会想要尝试使用 ++ 或者 – 自增自减一个变量。在Python中是没有这样的操作符的。</p>
@@ -156,7 +154,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vw86sa0000hjv53eautq2m" class="article-share-link" data-share="baidu" data-title="">分享到</a>
+        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vwgsjl0000qbv54ya6ix3s" class="article-share-link" data-share="baidu" data-title="">分享到</a>
       
 
       
