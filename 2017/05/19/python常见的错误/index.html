@@ -4,20 +4,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>yejunyuのblog</title>
+  <title>大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。1）忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中：12if   spam = =   42">
+  <meta name="description" content="python中常见的错误当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam ==">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yejunyuのblog">
+<meta property="og:title" content="大葉子の林中小屋">
 <meta property="og:url" content="http://yoursite.com/2017/05/19/python常见的错误/index.html">
-<meta property="og:site_name" content="yejunyuのblog">
-<meta property="og:description" content="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。1）忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中：12if   spam = =   42">
-<meta property="og:updated_time" content="2017-05-19T10:03:47.943Z">
+<meta property="og:site_name" content="大葉子の林中小屋">
+<meta property="og:description" content="python中常见的错误当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam ==">
+<meta property="og:updated_time" content="2017-05-19T13:26:10.422Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yejunyuのblog">
-<meta name="twitter:description" content="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。1）忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中：12if   spam = =   42">
+<meta name="twitter:title" content="大葉子の林中小屋">
+<meta name="twitter:description" content="python中常见的错误当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam ==">
   
-    <link rel="alternative" href="/atom.xml" title="yejunyuのblog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -34,11 +34,11 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">yejunyuのblog</a>
+        <a href="/" id="logo">大葉子の林中小屋</a>
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">让你见识一下暴风城的力量</a>
+          <a href="/" id="subtitle">彩彩啊，你要多吃菜啊</a>
         </h2>
       
     </div>
@@ -74,7 +74,7 @@
       <section id="main"><article id="post-python常见的错误" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/19/python常见的错误/" class="article-date">
-  <time datetime="2017-05-19T10:03:47.943Z" itemprop="datePublished">2017-05-19</time>
+  <time datetime="2017-05-19T13:26:10.478Z" itemprop="datePublished">2017-05-19</time>
 </a>
     
   </div>
@@ -83,29 +83,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。<br>1）忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）<br>该错误将发生在类似如下代码中：<br>1<br>2<br>if   spam = =   42<br>     print ( ‘Hello!’ )<br>2)使用 = 而不是 ==（导致“SyntaxError: invalid syntax”）<br> = 是赋值操作符而 == 是等于比较操作。该错误发生在如下代码中：<br>1<br>2<br>if   spam =   42 :<br>     print ( ‘Hello!’ )<br>3）错误的使用缩进量。（导致“IndentationError：unexpected indent”、“IndentationError：unindent does not match any outer indetation level”以及“IndentationError：expected an indented block”）<br>记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>print ( ‘Hello!’ )<br>     print ( ‘Howdy!’ )</p>
-<p>或者：</p>
-<p>if   spam = =   42 :<br>     print ( ‘Hello!’ )<br>   print ( ‘Howdy!’ )</p>
-<p>或者：</p>
-<p>if   spam = =   42 :<br>print ( ‘Hello!’ )<br>4）在 for 循环语句中忘记调用 len() (导致“TypeError: ‘list’ object cannot be interpreted as an integer”)<br>通常你想要通过索引来迭代一个list或者string的元素，这需要调用 range() 函数。要记得返回len 值而不是返回这个列表。<br>该错误发生在如下代码中：<br>1<br>2<br>3<br>spam =   [ ‘cat’ , ‘dog’ , ‘mouse’ ]<br>for   i in   range (spam):<br>     print (spam[i])<br>5）尝试修改string的值（导致“TypeError: ‘str’ object does not support item assignment”）<br>string是一种不可变的数据类型，该错误发生在如下代码中：<br>1<br>2<br>3<br>spam =   ‘I have a pet cat.’<br>spam[ 13 ] =   ‘r’<br>print (spam)<br>而你实际想要这样做：<br>1<br>2<br>3<br>spam =   ‘I have a pet cat.’<br>spam =   spam[: 13 ] +   ‘r’   +   spam[ 14 :]<br>print (spam)<br>6）尝试连接非字符串值与字符串（导致 “TypeError: Can’t convert ‘int’ object to str implicitly”）<br>该错误发生在如下代码中：<br>1<br>2<br>numEggs =   12<br>print ( ‘I have ‘   +   numEggs +   ‘ eggs.’ )</p>
-<p>而你实际想要这样做：<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>numEggs =   12<br>print ( ‘I have ‘   +   str (numEggs) +   ‘ eggs.’ )</p>
-<p>或者：</p>
-<p>numEggs =   12<br>print ( ‘I have %s eggs.’   %   (numEggs))<br>7）在字符串首尾忘记加引号（导致“SyntaxError: EOL while scanning string literal”）<br>该错误发生在如下代码中：</p>
-<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>print (Hello!’)</p>
-<p>或者:</p>
-<p>print (‘Hello!)</p>
-<p>或者:</p>
-<p>myName =   ‘Al’<br>print ( ‘My name is ‘   +   myName +   . How are you?’)<br>8）变量或者函数名拼写错误（导致“NameError: name ‘fooba’ is not defined”）<br>该错误发生在如下代码中：<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>foobar =   ‘Al’<br>print ( ‘My name is ‘   +   fooba)</p>
-<p>或者:</p>
-<p>spam =   ruond( 4.2 )</p>
-<p>或者:</p>
-<p>spam =   Round ( 4.2 )<br>9）方法名拼写错误（导致 “AttributeError: ‘str’ object has no attribute ‘lowerr’”）<br>该错误发生在如下代码中：<br>1<br>2<br>spam =   ‘THIS IS IN LOWERCASE.’<br>spam =   spam.lowerr()<br>10）引用超过list最大索引（导致“IndexError: list index out of range”）<br>该错误发生在如下代码中：<br>1<br>2<br>spam =   [ ‘cat’ , ‘dog’ , ‘mouse’ ]<br>print (spam[ 6 ])<br>11）使用不存在的字典键值（导致“KeyError：‘spam’”）<br>该错误发生在如下代码中：<br>1<br>2<br>spam =   { ‘cat’ : ‘Zophie’ , ‘dog’ : ‘Basil’ , ‘mouse’ : ‘Whiskers’ }<br>print ( ‘The name of my pet zebra is ‘   +   spam[ ‘zebra’ ])<br>12）尝试使用Python关键字作为变量名（导致“SyntaxError：invalid syntax”）<br>Python关键不能用作变量名，该错误发生在如下代码中：<br>1<br>class   =   ‘algebra’<br>Python3的关键字有：and, as, assert, break, class, continue, def, del, elif, else, except, False, finally, for, from, global, if, import, in, is, lambda, None, nonlocal, not, or, pass, raise, return, True, try, while, with, yield<br>13）在一个定义新变量中使用增值操作符（导致“NameError: name ‘foobar’ is not defined”）<br>不要在声明变量时使用0或者空字符串作为初始值，这样使用自增操作符的一句spam += 1等于spam = spam + 1，这意味着spam需要指定一个有效的初始值。<br>该错误发生在如下代码中：<br>1<br>2<br>3<br>spam =   0<br>spam + =   42<br>eggs + =   42<br>14）在定义局部变量前在函数中使用局部变量（此时有与局部变量同名的全局变量存在）（导致“UnboundLocalError: local variable ‘foobar’ referenced before assignment”）<br>在函数中使用局部变来那个而同时又存在同名全局变量时是很复杂的，使用规则是：如果在函数中定义了任何东西，如果它只是在函数中使用那它就是局部的，反之就是全局变量。<br>这意味着你不能在定义它之前把它当全局变量在函数中使用。<br>该错误发生在如下代码中：<br>1<br>2<br>3<br>4<br>5<br>someVar =   42<br>def   myFunction():<br>     print (someVar)<br>     someVar =   100<br>myFunction()<br>15）尝试使用 range()创建整数列表（导致“TypeError: ‘range’ object does not support item assignment”）<br>有时你想要得到一个有序的整数列表，所以 range() 看上去是生成此列表的不错方式。然而，你需要记住 range() 返回的是 “range object”，而不是实际的 list 值。<br>该错误发生在如下代码中：<br>1<br>2<br>spam =   range ( 10 )<br>spam[ 4 ] =   - 1<br>也许这才是你想做：<br>1<br>2<br>spam =   list ( range ( 10 ))<br>spam[ 4 ] =   - 1<br>（注意：在 Python 2 中 spam = range(10) 是能行的，因为在 Python 2 中 range() 返回的是list值，但是在 Python 3 中就会产生以上错误）<br>16）不错在 ++ 或者 – 自增自减操作符。（导致“SyntaxError: invalid syntax”）<br>如果你习惯于例如 C++ , Java , PHP 等其他的语言，也许你会想要尝试使用 ++ 或者 – 自增自减一个变量。在Python中是没有这样的操作符的。<br>该错误发生在如下代码中：<br>1<br>2<br>spam =   1<br>spam + +<br>也许这才是你想做的：<br>1<br>2<br>spam =   1<br>spam + =   1<br>17）忘记为方法的第一个参数添加self参数（导致“TypeError: myMethod() takes no arguments (1 given)”）<br>该错误发生在如下代码中：<br>1<br>2<br>3<br>4<br>5<br>class   Foo():<br>     def   myMethod():<br>         print ( ‘Hello!’ )<br>a =   Foo()<br>a.myMethod()</p>
+        <h1 id="python中常见的错误"><a href="#python中常见的错误" class="headerlink" title="python中常见的错误"></a>python中常见的错误</h1><h4 id="当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。"><a href="#当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。" class="headerlink" title="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。"></a>当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。</h4><ol>
+<li><p>忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 <strong>“SyntaxError ：invalid syntax”</strong>）<br>该错误将发生在类似如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span></div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用 = 而不是 ==（导致 <strong>“SyntaxError: invalid syntax”</strong>）<br>= 是赋值操作符而 == 是等于比较操作。该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> spam = <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>错误的使用缩进量。</p>
+<p>（导致 <strong>“IndentationError：unexpected indent”、”IndentationError：unindent does not match any outer indetation level”</strong> 以及 <strong>“IndentationError：expected an indented block”</strong>）</p>
+<p> 记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> 或者這樣：</div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">   <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">应该这样： </div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
+<ol>
+<li><p>在 for 循环语句中忘记调用 len() </p>
+<p> (导致 <strong>“TypeError: ‘list’ object cannot be interpreted as an integer”</strong>)</p>
+<p> 通常你想要通过索引来迭代一个list或者string的元素，这需要调用 range() 函数。要记得返回len 值而不是返回这个列表。<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spam = [<span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'mouse'</span>]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(spam):</div><div class="line">    <span class="keyword">print</span> (spam[i])</div></pre></td></tr></table></figure>
+</li>
+<li><p>尝试修改string的值（导致 <strong>“TypeError: ‘str’ object does not support item assignment”</strong>）<br>string是一种不可变的数据类型，该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spam = <span class="string">'I have a pet cat.'</span></div><div class="line">spam[<span class="number">13</span>] = <span class="string">'r'</span></div><div class="line"><span class="keyword">print</span> (spam)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">而你实际想要这样做：</div><div class="line"></div><div class="line">spam = <span class="string">'I have a pet cat.'</span></div><div class="line">spam = spam[:<span class="number">13</span>] + <span class="string">'r'</span> + spam[<span class="number">14</span>:]</div><div class="line"><span class="keyword">print</span> (spam)</div></pre></td></tr></table></figure>
+<ol>
+<li><p>尝试连接非字符串值与字符串（导致 <strong>“TypeError: Can’t convert ‘int’ object to str implicitly”</strong>）<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + numEggs + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">而你实际想要这样做：</div><div class="line"></div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + str (numEggs) + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">或者：</div><div class="line"> </div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have %s eggs.'</span> % (numEggs))</div></pre></td></tr></table></figure>
+</li>
+<li><p>在字符串首尾忘记加引号（导致 **”SyntaxError: EOL while scanning string literal”）<br>该错误发生在如下代码中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">print (Hello!')</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">print ('Hello!)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">myName =   'Al'</div><div class="line">print ('My name is ' + myName + . How are you?')</div></pre></td></tr></table></figure>
+</li>
+<li><p>变量或者函数名拼写错误（导致 <strong>“NameError: name ‘fooba’ is not defined”</strong>）<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">foobar = <span class="string">'Al'</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'My name is '</span> + fooba)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = ruond(<span class="number">4.2</span>)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = Round (<span class="number">4.2</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>方法名拼写错误（导致 <strong>“AttributeError: ‘str’ object has no attribute ‘lowerr’”</strong>）<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = <span class="string">'THIS IS IN LOWERCASE.'</span></div><div class="line">spam = spam.lowerr()</div></pre></td></tr></table></figure>
+</li>
+<li><p>引用超过list最大索引（导致 <strong>“IndexError: list index out of range”</strong>）<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = [<span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'mouse'</span>]</div><div class="line"><span class="keyword">print</span> (spam[<span class="number">6</span>])</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用不存在的字典键值（导致 <strong>“KeyError：‘spam’”</strong>）<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = &#123;<span class="string">'cat'</span> : <span class="string">'Zophie'</span> , <span class="string">'dog'</span> : <span class="string">'Basil'</span> , <span class="string">'mouse'</span> : <span class="string">'Whiskers'</span>&#125;</div><div class="line"><span class="keyword">print</span> ( <span class="string">'The name of my pet zebra is '</span> + spam[<span class="string">'zebra'</span>])</div></pre></td></tr></table></figure>
+</li>
+<li><p>尝试使用Python关键字作为变量名（导致 <strong>“SyntaxError：invalid syntax”</strong>）<br>Python关键不能用作变量名，该错误发生在如下代码中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class = 'algebra'</div><div class="line">Python3的关键字有：and, as, assert, break, class, continue, def, del, elif, else, except, False, finally, for, from, global, if, import, in, is, lambda, None, nonlocal, not, or, pass, raise, return, True, try, while, with, yield</div></pre></td></tr></table></figure>
+</li>
+<li><p>在一个定义新变量中使用增值操作符（导致 <strong>“NameError: name ‘foobar’ is not defined”</strong>）<br>不要在声明变量时使用0或者空字符串作为初始值，这样使用自增操作符的一句spam += 1等于spam = spam + 1，这意味着spam需要指定一个有效的初始值。<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spam = <span class="number">0</span></div><div class="line">spam += <span class="number">42</span></div><div class="line">eggs += <span class="number">42</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在定义局部变量前在函数中使用局部变量（此时有与局部变量同名的全局变量存在）（导致 <strong>“UnboundLocalError: local variable ‘foobar’ referenced before assignment”</strong>）</p>
+<p>在函数中使用局部变来那个而同时又存在同名全局变量时是很复杂的，使用规则是：如果在函数中定义了任何东西，如果它只是在函数中使用那它就是局部的，反之就是全局变量。</p>
+<p>这意味着你不能在定义它之前把它当全局变量在函数中使用。<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">someVar = <span class="number">42</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myFunction</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> (someVar)</div><div class="line">    someVar = <span class="number">100</span></div><div class="line">myFunction()</div></pre></td></tr></table></figure>
+</li>
+<li><p>尝试使用 range()创建整数列表（导致 <strong>“TypeError: ‘range’ object does not support item assignment”</strong>）<br>有时你想要得到一个有序的整数列表，所以 range() 看上去是生成此列表的不错方式。然而，你需要记住 range() 返回的是 “range object”，而不是实际的 list 值。<br>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spam = range (<span class="number">10</span>)</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">也许这才是你想做：</div><div class="line"></div><div class="line">spam = list (range (<span class="number">10</span>))</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>（注意：在 Python 2 中 spam = range(10) 是能行的，因为在 Python 2 中 range() 返回的是list值，但是在 Python 3 中就会产生以上错误）</p>
+</blockquote>
+<ol>
+<li><p>不错在 ++ 或者 – 自增自减操作符。（导致 <strong>“SyntaxError: invalid syntax”</strong>）</p>
+<p>如果你习惯于例如 C++ , Java , PHP 等其他的语言，也许你会想要尝试使用 ++ 或者 – 自增自减一个变量。在Python中是没有这样的操作符的。</p>
+<p>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spam = <span class="number">1</span></div><div class="line">spam ++</div><div class="line"></div><div class="line">也许这才是你想做的：</div><div class="line"></div><div class="line">spam = <span class="number">1</span></div><div class="line">spam += <span class="number">1</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>忘记为方法的第一个参数添加self参数（导致 <strong>“TypeError: myMethod() takes no arguments (1 given)”</strong>）</p>
+<p>该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myMethod</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">a = Foo()</div><div class="line">a.myMethod()</div></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vp8ik90000q6v58092jm2x" class="article-share-link" data-share="baidu" data-title="">分享到</a>
+        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vvpnwl0000xrv5579f2g23" class="article-share-link" data-share="baidu" data-title="">分享到</a>
       
 
       
