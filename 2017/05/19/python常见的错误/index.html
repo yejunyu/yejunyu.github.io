@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/19/python常见的错误/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="python中常见的错误当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam ==">
-<meta property="og:updated_time" content="2017-05-19T13:47:26.048Z">
+<meta property="og:updated_time" content="2017-05-19T13:48:57.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大葉子の林中小屋">
 <meta name="twitter:description" content="python中常见的错误当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam ==">
@@ -74,7 +74,7 @@
       <section id="main"><article id="post-python常见的错误" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/19/python常见的错误/" class="article-date">
-  <time datetime="2017-05-19T13:47:26.188Z" itemprop="datePublished">2017-05-19</time>
+  <time datetime="2017-05-19T13:48:58.025Z" itemprop="datePublished">2017-05-19</time>
 </a>
     
   </div>
@@ -133,11 +133,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">someVar = <span class="number">42</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myFunction</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> (someVar)</div><div class="line">    someVar = <span class="number">100</span></div><div class="line">myFunction()</div></pre></td></tr></table></figure>
 </li>
 <li><p>尝试使用 range()创建整数列表（导致 <strong>“TypeError: ‘range’ object does not support item assignment”</strong>）<br>有时你想要得到一个有序的整数列表，所以 range() 看上去是生成此列表的不错方式。然而，你需要记住 range() 返回的是 “range object”，而不是实际的 list 值。<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spam = range (<span class="number">10</span>)</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">也许这才是你想做：</div><div class="line"></div><div class="line">spam = list (range (<span class="number">10</span>))</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">spam = range (<span class="number">10</span>)</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">也许这才是你想做：</div><div class="line"></div><div class="line">spam = list (range (<span class="number">10</span>))</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">(注意：在 Python <span class="number">2</span> 中 spam = range(<span class="number">10</span>) 是能行的，因为在 Python <span class="number">2</span> 中 range() 返回的是list值，但是在 Python <span class="number">3</span> 中就会产生以上错误)</div></pre></td></tr></table></figure>
 </li>
-</ol>
-<p><strong>(注意：在 Python 2 中 spam = range(10) 是能行的，因为在 Python 2 中 range() 返回的是list值，但是在 Python 3 中就会产生以上错误)</strong></p>
-<ol>
 <li><p>不错在 ++ 或者 – 自增自减操作符。（导致 <strong>“SyntaxError: invalid syntax”</strong>）</p>
 <p>如果你习惯于例如 C++ , Java , PHP 等其他的语言，也许你会想要尝试使用 ++ 或者 – 自增自减一个变量。在Python中是没有这样的操作符的。</p>
 <p>该错误发生在如下代码中：</p>
@@ -153,7 +150,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vwgsjl0000qbv54ya6ix3s" class="article-share-link" data-share="baidu" data-title="">分享到</a>
+        <a data-url="http://yoursite.com/2017/05/19/python常见的错误/" data-id="cj2vwikma0000upv52op9b0ao" class="article-share-link" data-share="baidu" data-title="">分享到</a>
       
 
       
