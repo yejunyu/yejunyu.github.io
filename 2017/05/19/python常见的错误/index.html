@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/19/python常见的错误/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam == 42    print">
-<meta property="og:updated_time" content="2017-05-19T14:07:56.712Z">
+<meta property="og:updated_time" content="2017-05-27T06:28:23.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中常见的错误">
 <meta name="twitter:description" content="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。 忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 “SyntaxError ：invalid syntax”）该错误将发生在类似如下代码中： 12if spam == 42    print">
@@ -199,6 +199,9 @@
 <p> 记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div><div class="line"></div><div class="line"> 或者這樣：</div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">   <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div><div class="line"></div><div class="line">应该这样： </div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
 </li>
+</ol>
+<a id="more"></a>
+<ol>
 <li><p>在 for 循环语句中忘记调用 len() </p>
 <p> (导致 <strong>“TypeError: ‘list’ object cannot be interpreted as an integer”</strong>)</p>
 <p> 通常你想要通过索引来迭代一个list或者string的元素，这需要调用 range() 函数。要记得返回len 值而不是返回这个列表。<br>该错误发生在如下代码中：</p>
@@ -363,11 +366,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/05/19/phantomjs/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/20/Anaconda安装/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          phantomjs
+          Anaconda安装
         
       </div>
     </a>
@@ -508,6 +511,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">python,爬虫</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>

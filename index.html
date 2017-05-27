@@ -194,49 +194,10 @@
 <p>个人尝试了很多类似的发行版，最终选择了Anaconda，因为其强大而方便的包管理与环境管理的功能。该文主要介绍下Anaconda，对Anaconda的理解，并简要总结下相关的操作。</p>
 <h2 id="Anaconda概述"><a href="#Anaconda概述" class="headerlink" title="Anaconda概述"></a>Anaconda概述</h2><p><a href="https://www.continuum.io/why-anaconda" target="_blank" rel="external">Anaconda</a>是一个用于科学计算的Python发行版，支持 Linux, Mac, Windows系统，提供了包管理与环境管理的功能，可以很方便地解决多版本python并存、切换以及各种第三方包安装问题。Anaconda利用工具/命令<code>conda</code>来进行package和environment的管理，并且已经包含了Python和相关的配套工具。</p>
 <p>这里先解释下conda、anaconda这些概念的差别。<code>conda</code>可以理解为一个工具，也是一个可执行命令，其核心功能是<strong>包管理</strong>与<strong>环境管理</strong>。包管理与pip的使用类似，环境管理则允许用户方便地安装不同版本的python并可以快速切换。Anaconda则是一个打包的集合，里面预装好了conda、某个版本的python、众多packages、科学计算工具等等，所以也称为Python的一种发行版。其实还有Miniconda，顾名思义，它只包含最基本的内容——python与conda，以及相关的必须依赖项，对于空间要求严格的用户，Miniconda是一种选择。</p>
-<p>进入下文之前，说明一下conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。</p>
-<h2 id="Anaconda的安装"><a href="#Anaconda的安装" class="headerlink" title="Anaconda的安装"></a>Anaconda的安装</h2><p>Anaconda的下载页参见<a href="https://www.continuum.io/downloads" target="_blank" rel="external">官网下载</a>，Linux、Mac、Windows均支持。</p>
-<p>安装时，会发现有两个不同版本的Anaconda，分别对应Python 2.7和Python 3.5，两个版本其实除了这点区别外其他都一样。后面我们会看到，安装哪个版本并不本质，因为通过环境管理，我们可以很方便地切换运行时的Python版本。（由于我常用的Python是2.7和3.4，因此倾向于直接安装Python 2.7对应的Anaconda）</p>
-<p>下载后直接按照说明安装即可。这里想提醒一点：尽量按照Anaconda默认的行为安装——不使用root权限，仅为个人安装，安装目录设置在个人主目录下（Windows就无所谓了）。这样的好处是，同一台机器上的不同用户完全可以安装、配置自己的Anaconda，不会互相影响。</p>
-<p>对于Mac、Linux系统，Anaconda安装好后，实际上就是在主目录下多了个文件夹（<code>~/anaconda</code>）而已，Windows会写入注册表。安装时，安装程序会把bin目录加入PATH（Linux/Mac写入<code>~/.bashrc</code>，Windows添加到系统变量PATH），这些操作也完全可以自己完成。以Linux/Mac为例，安装完成后设置PATH的操作是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 将anaconda的bin目录加入PATH，根据版本不同，也可能是~/anaconda3/bin</div><div class="line">echo &apos;export PATH=&quot;~/anaconda2/bin:$PATH&quot;&apos; &gt;&gt; ~/.bashrc</div><div class="line"># 更新bashrc以立即生效</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
-<p>配置好PATH后，可以通过<code>which conda</code>或<code>conda --version</code>命令检查是否正确。假如安装的是Python 2.7对应的版本，运行<code>python --version</code>或<code>python -V</code>可以得到Python 2.7.12 :: Anaconda 4.1.1 (64-bit)，也说明该发行版默认的环境是Python 2.7。</p>
-<h2 id="Conda的环境管理"><a href="#Conda的环境管理" class="headerlink" title="Conda的环境管理"></a>Conda的环境管理</h2><p>Conda的环境管理功能允许我们同时安装若干不同版本的Python，并能自由切换。对于上述安装过程，假设我们采用的是Python 2.7对应的安装包，那么Python 2.7就是默认的环境（默认名字是<code>root</code>，注意这个root不是超级管理员的意思）。</p>
-<p>假设我们需要安装Python 3.4，此时，我们需要做的操作如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># 创建一个名为python34的环境，指定Python版本是3.4（不用管是3.4.x，conda会为我们自动寻找3.4.x中的最新版本）</div><div class="line">conda create --name python34 python=3.4</div><div class="line"></div><div class="line"># 安装好后，使用activate激活某个环境</div><div class="line">activate python34 # for Windows</div><div class="line">source activate python34 # for Linux &amp; Mac</div><div class="line"># 激活后，会发现terminal输入的地方多了python34的字样，实际上，此时系统做的事情就是把默认2.7环境从PATH中去除，再把3.4对应的命令加入PATH</div><div class="line"></div><div class="line"># 此时，再次输入</div><div class="line">python --version</div><div class="line"># 可以得到`Python 3.4.5 :: Anaconda 4.1.1 (64-bit)`，即系统已经切换到了3.4的环境</div><div class="line"></div><div class="line"># 如果想返回默认的python 2.7环境，运行</div><div class="line">deactivate python34 # for Windows</div><div class="line">source deactivate python34 # for Linux &amp; Mac</div><div class="line"></div><div class="line"># 删除一个已有的环境</div><div class="line">conda remove --name python34 --all</div></pre></td></tr></table></figure>
-<p>用户安装的不同python环境都会被放在目录<code>~/anaconda/envs</code>下，可以在命令中运行<code>conda info -e</code>查看已安装的环境，当前被激活的环境会显示有一个星号或者括号。</p>
-<p>说明：有些用户可能经常使用python 3.4环境，因此直接把<code>~/anaconda/envs/python34</code>下面的bin或者Scripts加入PATH，去除anaconda对应的那个bin目录。这个办法，怎么说呢，也是可以的，但总觉得不是那么elegant……</p>
-<p>如果直接按上面说的这么改PATH，你会发现conda命令又找不到了（当然找不到啦，因为conda在<code>~/anaconda/bin</code>里呢），这时候怎么办呢？方法有二：1. 显式地给出conda的绝对地址 2. 在python34环境中也安装conda工具（推荐）。</p>
-<h2 id="Conda的包管理"><a href="#Conda的包管理" class="headerlink" title="Conda的包管理"></a>Conda的包管理</h2><p>Conda的包管理就比较好理解了，这部分功能与<code>pip</code>类似。</p>
-<p>例如，如果需要安装scipy：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 安装scipy</div><div class="line">conda install scipy</div><div class="line"># conda会从从远程搜索scipy的相关信息和依赖项目，对于python 3.4，conda会同时安装numpy和mkl（运算加速的库）</div><div class="line"></div><div class="line"># 查看已经安装的packages</div><div class="line">conda list</div><div class="line"># 最新版的conda是从site-packages文件夹中搜索已经安装的包，不依赖于pip，因此可以显示出通过各种方式安装的包</div></pre></td></tr></table></figure>
-<p>conda的一些常用操作如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"># 查看当前环境下已安装的包</div><div class="line">conda list</div><div class="line"></div><div class="line"># 查看某个指定环境的已安装包</div><div class="line">conda list -n python34</div><div class="line"></div><div class="line"># 查找package信息</div><div class="line">conda search numpy</div><div class="line"></div><div class="line"># 安装package</div><div class="line">conda install -n python34 numpy</div><div class="line"># 如果不用-n指定环境名称，则被安装在当前活跃环境</div><div class="line"># 也可以通过-c指定通过某个channel安装</div><div class="line"></div><div class="line"># 更新package</div><div class="line">conda update -n python34 numpy</div><div class="line"></div><div class="line"># 删除package</div><div class="line">conda remove -n python34 numpy</div></pre></td></tr></table></figure>
-<p>前面已经提到，conda将conda、python等都视为package，因此，完全可以使用conda来管理conda和python的版本，例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 更新conda，保持conda最新</div><div class="line">conda update conda</div><div class="line"></div><div class="line"># 更新anaconda</div><div class="line">conda update anaconda</div><div class="line"></div><div class="line"># 更新python</div><div class="line">conda update python</div><div class="line"># 假设当前环境是python 3.4, conda会将python升级为3.4.x系列的当前最新版本</div></pre></td></tr></table></figure>
-<p>补充：如果创建新的python环境，比如3.4，运行<code>conda create -n python34 python=3.4</code>之后，conda仅安装python 3.4相关的必须项，如python, pip等，如果希望该环境像默认环境那样，安装anaconda集合包，只需要：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 在当前环境下安装anaconda包集合</div><div class="line">conda install anaconda</div><div class="line"></div><div class="line"># 结合创建环境的命令，以上操作可以合并为</div><div class="line">conda create -n python34 python=3.4 anaconda</div><div class="line"># 也可以不用全部安装，根据需求安装自己需要的package即可</div></pre></td></tr></table></figure>
-<h2 id="设置国内镜像"><a href="#设置国内镜像" class="headerlink" title="设置国内镜像"></a>设置国内镜像</h2><p>如果需要安装很多packages，你会发现conda下载的速度经常很慢，因为Anaconda.org的服务器在国外。所幸的是，清华TUNA镜像源有Anaconda仓库的镜像，我们将其加入conda的配置即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 添加Anaconda的TUNA镜像</div><div class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</div><div class="line"># TUNA的help中镜像地址加有引号，需要去掉</div><div class="line"></div><div class="line"># 设置搜索时显示通道地址</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure>
-<p>执行完上述命令后，会生成<code>~/.condarc</code>(Linux/Mac)或<code>C:\Users\USER_NAME\.condarc</code>文件，记录着我们对conda的配置，直接手动创建、编辑该文件是相同的效果。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Anaconda具有跨平台、包管理、环境管理的特点，因此很适合快速在新的机器上部署Python环境。总结而言，整套安装、配置流程如下：</p>
-<ul>
-<li>下载Anaconda、安装</li>
-<li>配置PATH（bashrc或环境变量），更改TUNA镜像源</li>
-<li>创建所需的不用版本的python环境</li>
-<li>Just Try!</li>
-</ul>
-<blockquote>
-<p>cheat-sheet 下载：<br><a href="http://conda.pydata.org/docs/_downloads/conda-cheatsheet.pdf" target="_blank" rel="external">Conda cheat sheet</a></p>
-</blockquote>
-<hr>
-<p>参考资料</p>
-<ul>
-<li><a href="https://www.continuum.io/why-anaconda" target="_blank" rel="external">Anaconda Homepage</a></li>
-<li><a href="https://docs.continuum.io/anaconda/index" target="_blank" rel="external">Anaconda Documentation</a></li>
-<li><a href="http://conda.pydata.org/docs/index.html" target="_blank" rel="external">Conda Docs</a></li>
-</ul>
-
+<p>进入下文之前，说明一下conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。<br>
+        
+          <a class="article-more-a" href="/2017/05/20/Anaconda安装/#more">more >></a>
+        
       
 
       
@@ -244,58 +205,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">python,爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/05/20/Anaconda安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-phantomjs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/19/phantomjs/">phantomjs</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/19/phantomjs/" class="archive-article-date">
-  	<time datetime="2017-05-19T14:06:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/19/phantomjs/">展开全文 >></a>
         </p>
       
 
@@ -342,57 +267,10 @@
 <p> 记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div><div class="line"></div><div class="line"> 或者這樣：</div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">   <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</div><div class="line"></div><div class="line">应该这样： </div><div class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</div><div class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
 </li>
-<li><p>在 for 循环语句中忘记调用 len() </p>
-<p> (导致 <strong>“TypeError: ‘list’ object cannot be interpreted as an integer”</strong>)</p>
-<p> 通常你想要通过索引来迭代一个list或者string的元素，这需要调用 range() 函数。要记得返回len 值而不是返回这个列表。<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spam = [<span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'mouse'</span>]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(spam):</div><div class="line">    <span class="keyword">print</span> (spam[i])</div></pre></td></tr></table></figure>
-</li>
-<li><p>尝试修改string的值（导致 <strong>“TypeError: ‘str’ object does not support item assignment”</strong>）<br>string是一种不可变的数据类型，该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">spam = <span class="string">'I have a pet cat.'</span></div><div class="line">spam[<span class="number">13</span>] = <span class="string">'r'</span></div><div class="line"><span class="keyword">print</span> (spam)</div><div class="line"></div><div class="line">而你实际想要这样做：</div><div class="line"></div><div class="line">spam = <span class="string">'I have a pet cat.'</span></div><div class="line">spam = spam[:<span class="number">13</span>] + <span class="string">'r'</span> + spam[<span class="number">14</span>:]</div><div class="line"><span class="keyword">print</span> (spam)</div></pre></td></tr></table></figure>
-</li>
-<li><p>尝试连接非字符串值与字符串（导致 <strong>“TypeError: Can’t convert ‘int’ object to str implicitly”</strong>）<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + numEggs + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">而你实际想要这样做：</div><div class="line"></div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have '</span> + str (numEggs) + <span class="string">' eggs.'</span>)</div><div class="line"> </div><div class="line">或者：</div><div class="line"> </div><div class="line">numEggs = <span class="number">12</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'I have %s eggs.'</span> % (numEggs))</div></pre></td></tr></table></figure>
-</li>
-<li><p>在字符串首尾忘记加引号（导致 <strong>“SyntaxError: EOL while scanning string literal”</strong>）<br> 该错误发生在如下代码中：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">print (Hello!')</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">print ('Hello!)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">myName = 'Al'</div><div class="line">print ('My name is ' + myName + .How are you?')</div></pre></td></tr></table></figure>
-</li>
-<li><p>变量或者函数名拼写错误（导致 <strong>“NameError: name ‘fooba’ is not defined”</strong>）<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">foobar = <span class="string">'Al'</span></div><div class="line"><span class="keyword">print</span> (<span class="string">'My name is '</span> + fooba)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = ruond(<span class="number">4.2</span>)</div><div class="line"> </div><div class="line">或者:</div><div class="line"> </div><div class="line">spam = Round (<span class="number">4.2</span>)</div></pre></td></tr></table></figure>
-</li>
-<li><p>方法名拼写错误（导致 <strong>“AttributeError: ‘str’ object has no attribute ‘lowerr’”</strong>）<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = <span class="string">'THIS IS IN LOWERCASE.'</span></div><div class="line">spam = spam.lowerr()</div></pre></td></tr></table></figure>
-</li>
-<li><p>引用超过list最大索引（导致 <strong>“IndexError: list index out of range”</strong>）<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = [<span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'mouse'</span>]</div><div class="line"><span class="keyword">print</span> (spam[<span class="number">6</span>])</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用不存在的字典键值（导致 <strong>“KeyError：‘spam’”</strong>）<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spam = &#123;<span class="string">'cat'</span> : <span class="string">'Zophie'</span> , <span class="string">'dog'</span> : <span class="string">'Basil'</span> , <span class="string">'mouse'</span> : <span class="string">'Whiskers'</span>&#125;</div><div class="line"><span class="keyword">print</span> ( <span class="string">'The name of my pet zebra is '</span> + spam[<span class="string">'zebra'</span>])</div></pre></td></tr></table></figure>
-</li>
-<li><p>尝试使用Python关键字作为变量名（导致 <strong>“SyntaxError：invalid syntax”</strong>）<br>Python关键不能用作变量名，该错误发生在如下代码中：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class = 'algebra'</div><div class="line">Python3的关键字有：and, as, assert, break, class, continue, def, del, elif, else, except, False, finally, for, from, global, if, import, in, is, lambda, None, nonlocal, not, or, pass, raise, return, True, try, while, with, yield</div></pre></td></tr></table></figure>
-</li>
-<li><p>在一个定义新变量中使用增值操作符（导致 <strong>“NameError: name ‘foobar’ is not defined”</strong>）<br>不要在声明变量时使用0或者空字符串作为初始值，这样使用自增操作符的一句spam += 1等于spam = spam + 1，这意味着spam需要指定一个有效的初始值。<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spam = <span class="number">0</span></div><div class="line">spam += <span class="number">42</span></div><div class="line">eggs += <span class="number">42</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在定义局部变量前在函数中使用局部变量（此时有与局部变量同名的全局变量存在）（导致 <strong>“UnboundLocalError: local variable ‘foobar’ referenced before assignment”</strong>）</p>
-<p>在函数中使用局部变来那个而同时又存在同名全局变量时是很复杂的，使用规则是：如果在函数中定义了任何东西，如果它只是在函数中使用那它就是局部的，反之就是全局变量。</p>
-<p>这意味着你不能在定义它之前把它当全局变量在函数中使用。<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">someVar = <span class="number">42</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myFunction</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> (someVar)</div><div class="line">    someVar = <span class="number">100</span></div><div class="line">myFunction()</div></pre></td></tr></table></figure>
-</li>
-<li><p>尝试使用 range()创建整数列表（导致 <strong>“TypeError: ‘range’ object does not support item assignment”</strong>）<br>有时你想要得到一个有序的整数列表，所以 range() 看上去是生成此列表的不错方式。然而，你需要记住 range() 返回的是 “range object”，而不是实际的 list 值。<br>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">spam = range (<span class="number">10</span>)</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">也许这才是你想做：</div><div class="line"></div><div class="line">spam = list (range (<span class="number">10</span>))</div><div class="line">spam[<span class="number">4</span>] = <span class="number">-1</span></div><div class="line"></div><div class="line">(注意：在 Python <span class="number">2</span> 中 spam = range(<span class="number">10</span>) 是能行的，因为在 Python <span class="number">2</span> 中 range() 返回的是list值，但是在 Python <span class="number">3</span> 中就会产生以上错误)</div></pre></td></tr></table></figure>
-</li>
-<li><p>不错在 ++ 或者 – 自增自减操作符。（导致 <strong>“SyntaxError: invalid syntax”</strong>）</p>
-<p>如果你习惯于例如 C++ , Java , PHP 等其他的语言，也许你会想要尝试使用 ++ 或者 – 自增自减一个变量。在Python中是没有这样的操作符的。</p>
-<p>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spam = <span class="number">1</span></div><div class="line">spam ++</div><div class="line"></div><div class="line">也许这才是你想做的：</div><div class="line"></div><div class="line">spam = <span class="number">1</span></div><div class="line">spam += <span class="number">1</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>忘记为方法的第一个参数添加self参数（导致 <strong>“TypeError: myMethod() takes no arguments (1 given)”</strong>）</p>
-<p>该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myMethod</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</div><div class="line">a = Foo()</div><div class="line">a.myMethod()</div></pre></td></tr></table></figure>
-</li>
 </ol>
-
+        
+          <a class="article-more-a" href="/2017/05/19/python常见的错误/#more">more >></a>
+        
       
 
       
@@ -542,6 +420,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">python,爬虫</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>

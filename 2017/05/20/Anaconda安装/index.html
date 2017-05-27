@@ -9,12 +9,13 @@
   <title>Anaconda安装 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="转载：http://www.jianshu.com/p/2f3be7781451#  序Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，有不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便pythoners直接使用，此外，还有">
+<meta name="keywords" content="python,爬虫">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Anaconda安装">
 <meta property="og:url" content="http://yoursite.com/2017/05/20/Anaconda安装/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="转载：http://www.jianshu.com/p/2f3be7781451#  序Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，有不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便pythoners直接使用，此外，还有">
-<meta property="og:updated_time" content="2017-05-20T09:23:35.981Z">
+<meta property="og:updated_time" content="2017-05-27T06:29:17.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Anaconda安装">
 <meta name="twitter:description" content="转载：http://www.jianshu.com/p/2f3be7781451#  序Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，有不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便pythoners直接使用，此外，还有">
@@ -193,7 +194,7 @@
 <p>个人尝试了很多类似的发行版，最终选择了Anaconda，因为其强大而方便的包管理与环境管理的功能。该文主要介绍下Anaconda，对Anaconda的理解，并简要总结下相关的操作。</p>
 <h2 id="Anaconda概述"><a href="#Anaconda概述" class="headerlink" title="Anaconda概述"></a>Anaconda概述</h2><p><a href="https://www.continuum.io/why-anaconda" target="_blank" rel="external">Anaconda</a>是一个用于科学计算的Python发行版，支持 Linux, Mac, Windows系统，提供了包管理与环境管理的功能，可以很方便地解决多版本python并存、切换以及各种第三方包安装问题。Anaconda利用工具/命令<code>conda</code>来进行package和environment的管理，并且已经包含了Python和相关的配套工具。</p>
 <p>这里先解释下conda、anaconda这些概念的差别。<code>conda</code>可以理解为一个工具，也是一个可执行命令，其核心功能是<strong>包管理</strong>与<strong>环境管理</strong>。包管理与pip的使用类似，环境管理则允许用户方便地安装不同版本的python并可以快速切换。Anaconda则是一个打包的集合，里面预装好了conda、某个版本的python、众多packages、科学计算工具等等，所以也称为Python的一种发行版。其实还有Miniconda，顾名思义，它只包含最基本的内容——python与conda，以及相关的必须依赖项，对于空间要求严格的用户，Miniconda是一种选择。</p>
-<p>进入下文之前，说明一下conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。</p>
+<p>进入下文之前，说明一下conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。<br><a id="more"></a></p>
 <h2 id="Anaconda的安装"><a href="#Anaconda的安装" class="headerlink" title="Anaconda的安装"></a>Anaconda的安装</h2><p>Anaconda的下载页参见<a href="https://www.continuum.io/downloads" target="_blank" rel="external">官网下载</a>，Linux、Mac、Windows均支持。</p>
 <p>安装时，会发现有两个不同版本的Anaconda，分别对应Python 2.7和Python 3.5，两个版本其实除了这点区别外其他都一样。后面我们会看到，安装哪个版本并不本质，因为通过环境管理，我们可以很方便地切换运行时的Python版本。（由于我常用的Python是2.7和3.4，因此倾向于直接安装Python 2.7对应的Anaconda）</p>
 <p>下载后直接按照说明安装即可。这里想提醒一点：尽量按照Anaconda默认的行为安装——不使用root权限，仅为个人安装，安装目录设置在个人主目录下（Windows就无所谓了）。这样的好处是，同一台机器上的不同用户完全可以安装、配置自己的Anaconda，不会互相影响。</p>
@@ -274,6 +275,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">python,爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -339,8 +351,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2017/05/19/phantomjs/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">phantomjs</div>
+    <a href="/2017/05/19/python常见的错误/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python中常见的错误</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -479,6 +491,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">python,爬虫</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
