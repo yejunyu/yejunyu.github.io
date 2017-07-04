@@ -286,7 +286,7 @@
 <p> [mysqld]<br> port = 3307</p>
 </li>
 <li><p>授权       </p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</div><div class="line">FLUSH PRIVILEGES;</div></pre></td></tr></table></figure>
+ <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </div><div class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</div><div class="line">FLUSH PRIVILEGES;</div></pre></td></tr></table></figure>
 </li>
 <li><p>开启数据库快速回滚<br> [mysqld]<br> server_id = 1<br> log-bin=mysql-bin  #开启 MYSQL 二进制日志<br> max_binlog_size = 1000M<br> expire-logs-days=7  #只保留 7 天的二进制日志，以防磁盘被日志填满 </p>
 <p> binlog_format = row<br> binlog_row_image = full  </p>
@@ -600,11 +600,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
             
             <div class="clearfix"></div>
