@@ -285,6 +285,8 @@
 <p> [client]<br> port = 3307</p>
 <p> [mysqld]<br> port = 3307</p>
 </li>
+<li><p>创建用户<br> CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’; </p>
+</li>
 <li><p>授权       </p>
  <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </div><div class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</div><div class="line">FLUSH PRIVILEGES;</div></pre></td></tr></table></figure>
 </li>
@@ -596,7 +598,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,7 +606,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
