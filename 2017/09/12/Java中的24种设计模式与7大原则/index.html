@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java中的24种设计模式与7大原则 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="转载 知乎 一.创建型模式  抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
+  <meta name="description" content="转载 知乎  一.创建型模式 抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中的24种设计模式与7大原则">
 <meta property="og:url" content="http://yoursite.com/2017/09/12/Java中的24种设计模式与7大原则/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="转载 知乎 一.创建型模式  抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
-<meta property="og:updated_time" content="2017-09-12T03:35:18.084Z">
+<meta property="og:description" content="转载 知乎  一.创建型模式 抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
+<meta property="og:updated_time" content="2017-09-12T03:37:37.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的24种设计模式与7大原则">
-<meta name="twitter:description" content="转载 知乎 一.创建型模式  抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
+<meta name="twitter:description" content="转载 知乎  一.创建型模式 抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -189,8 +189,8 @@
       
         <blockquote>
 <p>转载 <a href="https://zhuanlan.zhihu.com/p/26935579" target="_blank" rel="external">知乎</a></p>
-<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2></blockquote>
-<ol>
+</blockquote>
+<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2><ol>
 <li>抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类.</li>
 <li>生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</li>
 <li>工厂模式(factory method pattern): 定义了一个创建对象的接口, 但由子类决定要实例化的类是哪一个. 工厂方法让类把实例化推迟到子类.</li>
@@ -228,21 +228,13 @@
 </li>
 </ol>
 <ul>
-<li><ol>
-<li>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</li>
-</ol>
+<li><p>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</p>
 </li>
-<li><ol>
-<li>子类中可以增加自己特有的方法。</li>
-</ol>
+<li><p>子类中可以增加自己特有的方法。</p>
 </li>
-<li><ol>
-<li>当子类的方法重载父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松。</li>
-</ol>
+<li><p>当子类的方法重载父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松。</p>
 </li>
-<li><ol>
-<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。</li>
-</ol>
+<li><p>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。</p>
 </li>
 </ul>
 <p>一句话总结：尽量不要重写父类的已经实现了的方法，可以用接口等其他方法绕过</p>
@@ -515,11 +507,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
