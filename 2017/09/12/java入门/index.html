@@ -6,16 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>大葉子の林中小屋</title>
+  <title>java入门 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java入门">
+<meta property="og:url" content="http://yoursite.com/2017/09/12/java入门/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:updated_time" content="2017-09-12T03:35:10.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
+<meta name="twitter:title" content="java入门">
 <meta name="twitter:description" content="我真不会玩王者荣耀">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
@@ -165,145 +167,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Java中的24种设计模式与7大原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-java入门" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/Java中的24种设计模式与7大原则/">Java中的24种设计模式与7大原则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/Java中的24种设计模式与7大原则/" class="archive-article-date">
-  	<time datetime="2017-09-12T03:18:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>转载 <a href="https://zhuanlan.zhihu.com/p/26935579" target="_blank" rel="external">知乎</a></p>
-<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2></blockquote>
-<ol>
-<li>抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类.</li>
-<li>生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</li>
-<li>工厂模式(factory method pattern): 定义了一个创建对象的接口, 但由子类决定要实例化的类是哪一个. 工厂方法让类把实例化推迟到子类.</li>
-<li>原型模式(prototype pattern): 当创建给定类的实例过程很昂贵或很复杂时, 就使用原形模式.</li>
-<li>单例了模式(Singleton pattern): 确保一个类只有一个实例, 并提供全局访问点.</li>
-<li>多例模式(Multition pattern): 在一个解决方案中结合两个或多个模式, 以解决一般或重复发生的问题.</li>
-</ol>
-<h2 id="二-结构型模式"><a href="#二-结构型模式" class="headerlink" title="二.结构型模式"></a><strong>二.结构型模式</strong></h2><ol>
-<li>适配器模式(Adapter pattern): 将一个类的接口, 转换成客户期望的另一个接口. 适配器让原本接口不兼容的类可以合作无间. 对象适配器使用组合, 类适配器使用多重继承.</li>
-<li>桥接模式(Bridge pattern): 使用桥接模式通过将实现和抽象放在两个不同的类层次中而使它们可以独立改变.</li>
-<li>组合模式(composite pattern): 允许你将对象组合成树形结构来表现”整体/部分”层次结构. 组合能让客户以一致的方式处理个别对象以及对象组合.</li>
-<li>装饰者模式(decorator pattern): 动态地将责任附加到对象上, 若要扩展功能, 装饰者提供了比继承更有弹性的替代方案.</li>
-<li>外观模式(facade pattern): 提供了一个统一的接口, 用来访问子系统中的一群接口. 外观定义了一个高层接口, 让子系统更容易使用.</li>
-<li>亨元模式(Flyweight Pattern): 如想让某个类的一个实例能用来提供许多”虚拟实例”, 就使用蝇量模式.</li>
-<li>代理模式(Proxy pattern): 为另一个对象提供一个替身或占位符以控制对这个对象的访问.</li>
-</ol>
-<h2 id="三-行为型模式"><a href="#三-行为型模式" class="headerlink" title="三.行为型模式"></a><strong>三.行为型模式</strong></h2><ol>
-<li>责任链模式(Chain of responsibility pattern): 通过责任链模式, 你可以为某个请求创建一个对象链. 每个对象依序检查此请求并对其进行处理或者将它传给链中的下一个对象.</li>
-<li>命令模式(Command pattern): 将”请求”封闭成对象, 以便使用不同的请求,队列或者日志来参数化其他对象. 命令模式也支持可撤销的操作.</li>
-<li>解释器模式(Interpreter pattern): 使用解释器模式为语言创建解释器.</li>
-<li>迭代器模式(iterator pattern): 提供一种方法顺序访问一个聚合对象中的各个元素, 而又不暴露其内部的表示.</li>
-<li>中介者模式(Mediator pattern) : 使用中介者模式来集中相关对象之间复杂的沟通和控制方式.</li>
-<li>备忘录模式(Memento pattern): 当你需要让对象返回之前的状态时(例如, 你的用户请求”撤销”), 你使用备忘录模式.</li>
-<li>观察者模式(observer pattern): 在对象之间定义一对多的依赖, 这样一来, 当一个对象改变状态, 依赖它的对象都会收到通知, 并自动更新.</li>
-<li>状态模式(State pattern): 允许对象在内部状态改变时改变它的行为, 对象看起来好象改了它的类.</li>
-<li>策略模式(strategy pattern): 定义了算法族, 分别封闭起来, 让它们之间可以互相替换, 此模式让算法的变化独立于使用算法的客户.</li>
-<li>模板方法模式(Template pattern): 在一个方法中定义一个算法的骨架, 而将一些步骤延迟到子类中. 模板方法使得子类可以在不改变算法结构的情况下, 重新定义算法中的某些步骤.</li>
-<li>访问者模式(visitor pattern): 当你想要为一个对象的组合增加新的能力, 且封装并不重要时, 就使用访问者模式.</li>
-</ol>
-<hr>
-<h2 id="七大设计原则"><a href="#七大设计原则" class="headerlink" title="七大设计原则:"></a><strong>七大设计原则:</strong></h2><ol>
-<li><p>单一职责原则【SINGLE RESPONSIBILITY PRINCIPLE】：一个类负责一项职责.</p>
-</li>
-<li><p>里氏替换原则【LISKOV SUBSTITUTION PRINCIPLE】：继承与派生的规则.</p>
-</li>
-</ol>
-<ul>
-<li><ol>
-<li>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</li>
-</ol>
-</li>
-<li><ol>
-<li>子类中可以增加自己特有的方法。</li>
-</ol>
-</li>
-<li><ol>
-<li>当子类的方法重载父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松。</li>
-</ol>
-</li>
-<li><ol>
-<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。</li>
-</ol>
-</li>
-</ul>
-<p>一句话总结：尽量不要重写父类的已经实现了的方法，可以用接口等其他方法绕过</p>
-<ol>
-<li><p>依赖倒置原则【DEPENDENCE INVERSION PRINCIPLE】：高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象。即针对接口编程，不要针对实现编程.</p>
-</li>
-<li><p>接口隔离原则【INTERFACE SEGREGATION PRINCIPLE】：建立单一接口，不要建立庞大臃肿的接口，尽量细化接口，接口中的方法尽量少.</p>
-</li>
-<li><p>迪米特法则【LOW OF DEMETER】：低耦合，高内聚.<br>通俗的来讲，就是一个类对自己依赖的类知道的越少越好。也就是说，对于被依赖的类来说，无论逻辑多么复杂，都尽量地的将逻辑封装在类的内部，对外除了提供的public方法，不对外泄漏任何信息。</p>
-</li>
-<li><p>开闭原则【OPEN CLOSE PRINCIPLE】：一个软件实体如类、模块和函数应该对扩展开放，对修改关闭.</p>
-</li>
-<li><p>组合/聚合复用原则【Composition/Aggregation Reuse Principle(CARP) 】：尽量使用组合和聚合少使用继承的关系来达到复用的原则.</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-java入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/java入门/">java入门</a>
+    <h1 class="article-title" itemprop="name">
+      java入门
     </h1>
   
 
@@ -320,6 +191,37 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢喂食<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -338,256 +240,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/java入门/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/09/12/java入门/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-mongo基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/mongo基础/">mongo基础</a>
-    </h1>
+    <a href="/2017/09/12/Java中的24种设计模式与7大原则/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Java中的24种设计模式与7大原则
+        
+      </div>
+    </a>
   
-
-        
-        <a href="/2017/06/16/mongo基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>安装:略(详见官网)</p>
-</li>
-<li><p>安全设置和远程登录<br> mongo为了方便使用，安装完是没有安全验证和用户名和密码的，如果是公网ip很容易遭受攻击(本人在安装完第二天就遇到过，数据被清空，只留了个要求打钱的邮箱。。。)</p>
-<p> 简单说下配置</p>
-<p> 首先进入mongo   </p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&gt; use admin</div><div class="line">switched to db admin</div><div class="line">&gt; db.createUser(</div><div class="line">...   &#123;</div><div class="line">...     user: <span class="string">"dba"</span>,</div><div class="line">...     pwd: <span class="string">"dba"</span>,</div><div class="line">...     roles: [ &#123; role: <span class="string">"root"</span>, db: <span class="string">"admin"</span> &#125; ]</div><div class="line">...   &#125;</div><div class="line">... )</div><div class="line">Successfully added user: &#123;</div><div class="line">    <span class="string">"user"</span> : <span class="string">"dba"</span>,</div><div class="line">    <span class="string">"roles"</span> : [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"role"</span> : <span class="string">"root"</span>,</div><div class="line">            <span class="string">"db"</span> : <span class="string">"admin"</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">user：用户名</div><div class="line"></div><div class="line">pwd：密码</div><div class="line"></div><div class="line">roles：指定用户的角色，可以用一个空数组给新用户设定空角色；在roles字段,可以指定内置角色和用户定义的角色。role里的角色可以选：</div><div class="line"></div><div class="line">Built-In Roles（内置角色）：</div><div class="line">1. 数据库用户角色：read、readWrite;</div><div class="line">2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；</div><div class="line">3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；</div><div class="line">4. 备份恢复角色：backup、restore；</div><div class="line">5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase</div><div class="line">6. 超级用户角色：root  </div><div class="line">// 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）</div><div class="line">7. 内部角色：__system</div><div class="line">    具体角色： </div><div class="line"></div><div class="line">Read：允许用户读取指定数据库</div><div class="line">readWrite：允许用户读写指定数据库</div><div class="line">dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile</div><div class="line">userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户</div><div class="line">clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。</div><div class="line">readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</div><div class="line">readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</div><div class="line">userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</div><div class="line">dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。</div><div class="line">root：只在admin数据库中可用。超级账号，超级权限</div></pre></td></tr></table></figure>
-<blockquote>
-<p>/etc/mongod.conf  </p>
-</blockquote>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">net:</div><div class="line">  port: <span class="number">27018</span></div><div class="line">#  bindIp: <span class="number">127.0</span>.<span class="number">0.1</span>  # Listen to <span class="meta">local</span> <span class="keyword">interface</span> only, comment to listen on <span class="built_in">all</span> interfaces.</div><div class="line"> </div><div class="line">security:</div><div class="line">  authorization: enabled</div></pre></td></tr></table></figure>
-<p> yaml 语法, security:后新行空两个空格，冒号后需要一个空格</p>
-<p> 重启mongo</p>
-<blockquote>
-<p>systemctl restart mongod.service</p>
-</blockquote>
-<p> 现在进入mongo需要先认证了</p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.auth(<span class="string">'用户'</span>,<span class="string">'密码'</span>)  #用创建的readWrite帐号进行写入</div><div class="line"><span class="number">1</span> #代表认证成功</div></pre></td></tr></table></figure>
-</li>
-<li><p>增删改查:略</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/mongo基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
   
-    <article id="post-mysql基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    <a href="/2017/06/16/mongo基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongo基础</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/mysql基础/">mysql基础</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/16/mysql基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>安装:略(详见官网)</p>
-</li>
-<li><p>修改root用户密码<br> 5.5以前，rpm包安装完MySQL后，root用户密码为空</p>
-<p> 5.6中，rpm包安装完MySQL后，会随机生成一个root密码，保存在/root/.mysql_secret</p>
-<p> 5.7以后，使用mysqld –initialize初始化时，默认会自动生成随机密码，并且不创建除root@localhost 外的其他账号，也不创建test库；</p>
-</li>
-<li><blockquote>
-<p>/etc/my.conf     </p>
-</blockquote>
-<p> [client]<br> port = 3307</p>
-<p> [mysqld]<br> port = 3307</p>
-</li>
-<li><p>创建用户<br> CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’; </p>
-</li>
-<li><p>授权       </p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </div><div class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</div><div class="line">FLUSH PRIVILEGES;</div></pre></td></tr></table></figure>
-</li>
-<li><p>开启数据库快速回滚<br> [mysqld]<br> server_id = 1<br> log-bin=mysql-bin  #开启 MYSQL 二进制日志<br> max_binlog_size = 1000M<br> expire-logs-days=7  #只保留 7 天的二进制日志，以防磁盘被日志填满 </p>
-<p> binlog_format = row<br> binlog_row_image = full  </p>
-<p> 进入数据库 show master logs;<br> <a href="https://github.com/danfengcao/binlog2sql" target="_blank" rel="external">详细用法</a></p>
-</li>
-<li><p>增删改查:略</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/mysql基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Anaconda安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/20/Anaconda安装/">Anaconda安装</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/20/Anaconda安装/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:25:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>转载：<a href="http://www.jianshu.com/p/2f3be7781451#" target="_blank" rel="external">http://www.jianshu.com/p/2f3be7781451#</a></p>
-</blockquote>
-<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，有不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便pythoners直接使用，此外，还有virtualenv、pyenv等工具管理虚拟环境。</p>
-<p>个人尝试了很多类似的发行版，最终选择了Anaconda，因为其强大而方便的包管理与环境管理的功能。该文主要介绍下Anaconda，对Anaconda的理解，并简要总结下相关的操作。</p>
-<h2 id="Anaconda概述"><a href="#Anaconda概述" class="headerlink" title="Anaconda概述"></a>Anaconda概述</h2><p><a href="https://www.continuum.io/why-anaconda" target="_blank" rel="external">Anaconda</a>是一个用于科学计算的Python发行版，支持 Linux, Mac, Windows系统，提供了包管理与环境管理的功能，可以很方便地解决多版本python并存、切换以及各种第三方包安装问题。Anaconda利用工具/命令<code>conda</code>来进行package和environment的管理，并且已经包含了Python和相关的配套工具。</p>
-<p>这里先解释下conda、anaconda这些概念的差别。<code>conda</code>可以理解为一个工具，也是一个可执行命令，其核心功能是<strong>包管理</strong>与<strong>环境管理</strong>。包管理与pip的使用类似，环境管理则允许用户方便地安装不同版本的python并可以快速切换。Anaconda则是一个打包的集合，里面预装好了conda、某个版本的python、众多packages、科学计算工具等等，所以也称为Python的一种发行版。其实还有Miniconda，顾名思义，它只包含最基本的内容——python与conda，以及相关的必须依赖项，对于空间要求严格的用户，Miniconda是一种选择。</p>
-<p>进入下文之前，说明一下conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。<br>
-        
-          <a class="article-more-a" href="/2017/05/20/Anaconda安装/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/20/Anaconda安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -595,9 +324,21 @@
 
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: document.location.href, 
+    sourceId: "",
+    productKey: "b65c2c13be3c4d7aab371f2cecfb5f21",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
   
 
 
@@ -621,8 +362,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
