@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)内核相关参数(/etc/sysctl.conf)  网络相关 net.core.somaxconn = 65535 net.core.netdev_max_backlog = 65535 net.ipv4.tcp_max_syn_backlog = 65535 net.ipv4.tcp_fin_timeout = 10 net.ipv">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-15T15:44:50.000Z">
+<meta property="og:updated_time" content="2017-11-15T15:49:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 优化详解">
 <meta name="twitter:description" content="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)内核相关参数(/etc/sysctl.conf)  网络相关 net.core.somaxconn = 65535 net.core.netdev_max_backlog = 65535 net.ipv4.tcp_max_syn_backlog = 65535 net.ipv4.tcp_fin_timeout = 10 net.ipv">
@@ -222,7 +222,8 @@
 <p>noop anticipatory deadline [cfq]</p>
 </blockquote>
 <ol>
-<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1><ol>
+<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1><a id="more"></a>
+<ol>
 <li><h2 id="优化思路-数据来自localhost-centos7-2G-RAM-1cpu"><a href="#优化思路-数据来自localhost-centos7-2G-RAM-1cpu" class="headerlink" title="优化思路(数据来自localhost,centos7,2G RAM,1cpu)"></a>优化思路(数据来自localhost,centos7,2G RAM,1cpu)</h2><ol>
 <li><p>连接 Connections</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like 'max_connections';</span><br><span class="line">+<span class="comment">-----------------+-------+</span></span><br><span class="line">| variable_name　 | value |</span><br><span class="line">+<span class="comment">-----------------+-------+</span></span><br><span class="line">| max_connections | 151　 |</span><br><span class="line">+<span class="comment">-----------------+-------+ </span></span><br><span class="line">查一下服务器响应的最大连接数</span><br><span class="line">mysql&gt; show global status like 'max_used_connections';</span><br><span class="line">+<span class="comment">----------------------+-------+</span></span><br><span class="line">| Variable_name        | Value |</span><br><span class="line">+<span class="comment">----------------------+-------+</span></span><br><span class="line">| Max_used_connections | 14    |</span><br><span class="line">+<span class="comment">----------------------+-------+</span></span><br><span class="line">可见我使用的连接数没有达到最大连接数,比较理想的是</span><br><span class="line"></span><br><span class="line">max_used_connections / max_connections * 100% ≈ 85% </span><br><span class="line">最大连接数占上限连接数的85％左右，如果发现比例在10%以下，mysql服务器连接数上限设置的过高了。</span><br></pre></td></tr></table></figure>
@@ -578,11 +579,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
