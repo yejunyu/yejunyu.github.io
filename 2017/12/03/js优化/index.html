@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 大葉子の林中小屋</title>
+  <title>js优化 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="避免全局查找在一个函数中会用到全局对象存储为局部变量来减少全局查找，因为访问局部变量的速度要比访问全局变量的速度更快些123456789function search() &amp;#123;    // 当我要使用当前页面地址和主机域名    alert(window.location.href + window.location.host)&amp;#125;// 最好的方式是如下这样 先用一个简单变量保存起">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js优化">
+<meta property="og:url" content="http://yoursite.com/2017/12/03/js优化/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="避免全局查找在一个函数中会用到全局对象存储为局部变量来减少全局查找，因为访问局部变量的速度要比访问全局变量的速度更快些123456789function search() &amp;#123;    // 当我要使用当前页面地址和主机域名    alert(window.location.href + window.location.host)&amp;#125;// 最好的方式是如下这样 先用一个简单变量保存起">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-03T14:18:38.345Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="js优化">
+<meta name="twitter:description" content="避免全局查找在一个函数中会用到全局对象存储为局部变量来减少全局查找，因为访问局部变量的速度要比访问全局变量的速度更快些123456789function search() &amp;#123;    // 当我要使用当前页面地址和主机域名    alert(window.location.href + window.location.host)&amp;#125;// 最好的方式是如下这样 先用一个简单变量保存起">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,185 +159,189 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-js优化" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js优化
+    </h1>
+  
+
+        
+        <a href="/2017/12/03/js优化/" class="archive-article-date">
+  	<time datetime="2017-12-03T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="避免全局查找"><a href="#避免全局查找" class="headerlink" title="避免全局查找"></a>避免全局查找</h3><p>在一个函数中会用到全局对象存储为局部变量来减少全局查找，因为访问局部变量的速度要比访问全局变量的速度更快些<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function search() &#123;</span><br><span class="line">    // 当我要使用当前页面地址和主机域名</span><br><span class="line">    alert(window.location.href + window.location.host)</span><br><span class="line">&#125;</span><br><span class="line">// 最好的方式是如下这样 先用一个简单变量保存起来</span><br><span class="line">function search() &#123;</span><br><span class="line">    var location = window.location</span><br><span class="line">    alert(location.href + location.host)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><p>如果针对的是不断运行的代码，<strong>不应该使用 setTimeout，而应该是用 setInterval</strong>，因为 setTimeout 每一次都会初始化一个定时器，而 setInterval 只会在开始的时候初始化一个定时器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var timeoutTimes = 0</span><br><span class="line">function timeout() &#123;</span><br><span class="line">    timeoutTimes++</span><br><span class="line">    if (timeoutTimes &lt; 10)&#123;</span><br><span class="line">        setTimeout(timeout, 10)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">timeout()</span><br><span class="line">// 可以替换为</span><br><span class="line">var intervalTimes = 0</span><br><span class="line">function interval() &#123;</span><br><span class="line">    intervalTimes++</span><br><span class="line">    if (intervalTimes &gt;= 10)&#123;</span><br><span class="line">        clearInterval(interv)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var interv = setInterval(interval, 10)</span><br></pre></td></tr></table></figure></p>
+<h3 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h3><p>如果要连接多个字符串,应该少使用 +=,如<br>s+=a<br>s+=b<br>s+=c<br>应该写成 s+=a + b + c<br>二如果是收集字符串,比如多次对同一个字符串进行+=操作的话,最好使用一个缓存,使用JavaScript 数组来收集,最后<strong>使用 join 方法连接起来</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var buf = []</span><br><span class="line">for (let i = 0;i &lt; 100;i++)&#123;</span><br><span class="line">    buf.push(i.toString())</span><br><span class="line">&#125;</span><br><span class="line">var all = buf.join(&quot;&quot;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="数字转字符串"><a href="#数字转字符串" class="headerlink" title="数字转字符串"></a>数字转字符串</h3><p>一般最好用 “” + 1 来将数字转换成字符串，虽然看起来比较丑一点，但事实上这个效率是最高的，性能上来说：<br>(“”+)&gt;String()&gt;.toString()&gt;new String()</p>
+<h3 id="浮点数转换成整型"><a href="#浮点数转换成整型" class="headerlink" title="浮点数转换成整型"></a>浮点数转换成整型</h3><p>很多人喜欢使用 parseInt()，其实 parseInt() 是用于将字符串转换成数字，而不是浮点数和整型之间的转换，我们应该使用 Math.floor()<code>去掉小数部分,负数减一去掉小数</code> 或者 Math.round()<code>四舍五入</code></p>
+<h3 id="各种类型的转换"><a href="#各种类型的转换" class="headerlink" title="各种类型的转换"></a>各种类型的转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var myVar = &quot;3.14159&quot;,</span><br><span class="line">str = &quot;&quot; + myVar,       // to string</span><br><span class="line">i_int = ~~myVar,        // to integer</span><br><span class="line">f_float = 1 * myVar,    // to float</span><br><span class="line">b_bool = !!myVar,       /* to boolean - any string with length</span><br><span class="line">                            and any number except 0 are true */</span><br><span class="line">array = [myVar];        // to array</span><br></pre></td></tr></table></figure>
+<p>如果定义了 toString() 方法来进行类型转换的话，推荐显式调用 toString()，因为内部的操作在尝试所有可能性之后，会尝试对象的 toString() 方法尝试能否转化为 String，所以直接调用这个方法效率会更高</p>
+<h3 id="多个类型声明"><a href="#多个类型声明" class="headerlink" title="多个类型声明"></a>多个类型声明</h3><p>在 JavaScript 中所有变量都可以使用单个 var 语句来声明，这样就是组合在一起的语句，以减少整个脚本的执行时间，就如上面代码一样，上面代码格式也挺规范，让人一看就明了。</p>
+<h3 id="插入迭代器"><a href="#插入迭代器" class="headerlink" title="插入迭代器"></a>插入迭代器</h3><p>如<code>var name=values[i];i++;</code>前面两条语句可以写成<code>var name=values[i++];</code></p>
+<h3 id="使用直接量"><a href="#使用直接量" class="headerlink" title="使用直接量"></a>使用直接量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var aTest = new Array()   // 替换为</span><br><span class="line">var aTest = [];</span><br><span class="line">var aTest = new Object    // 替换为</span><br><span class="line">var aTest = &#123;&#125;;</span><br><span class="line">var reg = new RegExp();   // 替换为</span><br><span class="line">var reg = /../;</span><br><span class="line">//如果要创建具有一些特性的一般对象，也可以使用字面量，如下：</span><br><span class="line">var oFruit = new O;</span><br><span class="line">oFruit.color = &quot;red&quot;;</span><br><span class="line">oFruit.name = &quot;apple&quot;;</span><br><span class="line">//前面的代码可用对象字面量来改写成这样：</span><br><span class="line">var oFruit = &#123; color: &quot;red&quot;, name: &quot;apple&quot; &#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-DocumentFragment-优化多次-append"><a href="#使用-DocumentFragment-优化多次-append" class="headerlink" title="使用 DocumentFragment 优化多次 append"></a>使用 DocumentFragment 优化多次 append</h3><p>一旦需要更新 DOM, 请考虑使用文档碎片来构建 DOM 结构，然后再将其添加到现存的文档中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    document.body.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">//可以替换为：</span><br><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用一次-innerHTML-赋值代替构建-dom-元素"><a href="#使用一次-innerHTML-赋值代替构建-dom-元素" class="headerlink" title="使用一次 innerHTML 赋值代替构建 dom 元素"></a>使用一次 innerHTML 赋值代替构建 dom 元素</h3><p>对于大的 DOM 更改，使用 innerHTML 要比使用标准的 DOM 方法创建同样的 DOM 结构快得多。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br><span class="line">//可以替换为：</span><br><span class="line">var html = [];</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    html.push(&apos;&lt;p&gt;&apos; + i + &apos;&lt;/p&gt;&apos;);</span><br><span class="line">&#125;</span><br><span class="line">document.body.innerHTML = html.join(&apos;&apos;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过模板元素-clone，替代-createElement"><a href="#通过模板元素-clone，替代-createElement" class="headerlink" title="通过模板元素 clone，替代 createElement"></a>通过模板元素 clone，替代 createElement</h3><p>很多人喜欢在 JavaScript 中使用 document.write 来给页面生成内容。事实上这样的效率较低，如果需要直接插入 HTML，可以找一个容器元素，比如指定一个 div 或者 span，并设置他们的 innerHTML 来将自己的 HTML 代码插入到页面中。通常我们可能会使用字符串直接写 HTML 来创建节点，其实这样做，1 无法保证代码的有效性 2 字符串操作效率低，所以应该是用 document.createElement() 方法，而如果文档中存在现成的样板节点，应该是用 cloneNode() 方法，因为使用 createElement() 方法之后，你需要设置多次元素的属性，使用 cloneNode() 则可以减少属性的设置次数——同样如果需要创建很多元素，应该先准备一个样板节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br><span class="line">//替换为：</span><br><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">var pEl = document.getElementsByTagName(&apos;p&apos;)[0];</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = pEl.cloneNode(false);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/mongo基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/mongo基础/">mongo基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/03/js优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/mysql基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/03/zsh-的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">zsh 的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/mysql基础/">mysql基础</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/20/Anaconda安装/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:25:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/20/Anaconda安装/">Anaconda安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/19/python常见的错误/" class="archive-article-date">
-  	<time datetime="2017-05-19T13:25:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/19/python常见的错误/">python中常见的错误</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -359,8 +365,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
