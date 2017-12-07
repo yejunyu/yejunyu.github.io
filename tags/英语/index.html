@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>mysql基础 | 大葉子の林中小屋</title>
+  <title>Tag: 英语 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装:略(详见官网)  修改root用户密码 5.5以前，rpm包安装完MySQL后，root用户密码为空  5.6中，rpm包安装完MySQL后，会随机生成一个root密码，保存在/root/.mysql_secret  5.7以后，使用mysqld –initialize初始化时，默认会自动生成随机密码，并且不创建除root@localhost 外的其他账号，也不创建test库；   /et">
-<meta name="keywords" content="数据库,mysql">
-<meta property="og:type" content="article">
-<meta property="og:title" content="mysql基础">
-<meta property="og:url" content="http://yoursite.com/2017/06/16/mysql基础/index.html">
+  <meta name="description" content="我真不会玩王者荣耀">
+<meta property="og:type" content="website">
+<meta property="og:title" content="大葉子の林中小屋">
+<meta property="og:url" content="http://yoursite.com/tags/英语/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="安装:略(详见官网)  修改root用户密码 5.5以前，rpm包安装完MySQL后，root用户密码为空  5.6中，rpm包安装完MySQL后，会随机生成一个root密码，保存在/root/.mysql_secret  5.7以后，使用mysqld –initialize初始化时，默认会自动生成随机密码，并且不创建除root@localhost 外的其他账号，也不创建test库；   /et">
+<meta property="og:description" content="我真不会玩王者荣耀">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-14T13:44:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql基础">
-<meta name="twitter:description" content="安装:略(详见官网)  修改root用户密码 5.5以前，rpm包安装完MySQL后，root用户密码为空  5.6中，rpm包安装完MySQL后，会随机生成一个root密码，保存在/root/.mysql_secret  5.7以后，使用mysqld –initialize初始化时，默认会自动生成随机密码，并且不创建除root@localhost 外的其他账号，也不创建test库；   /et">
+<meta name="twitter:title" content="大葉子の林中小屋">
+<meta name="twitter:description" content="我真不会玩王者荣耀">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -159,214 +157,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql基础" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      mysql基础
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/12/07/动词总结/" class="archive-article-date">
+  	<time datetime="2017-12-07T13:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/12/07/动词总结/">动词总结</a>
     </h1>
   
 
-        
-        <a href="/2017/06/16/mysql基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>安装:略(详见官网)</p>
-</li>
-<li><p>修改root用户密码<br> 5.5以前，rpm包安装完MySQL后，root用户密码为空</p>
-<p> 5.6中，rpm包安装完MySQL后，会随机生成一个root密码，保存在/root/.mysql_secret</p>
-<p> 5.7以后，使用mysqld –initialize初始化时，默认会自动生成随机密码，并且不创建除root@localhost 外的其他账号，也不创建test库；</p>
-</li>
-<li><blockquote>
-<p>/etc/my.conf     </p>
-</blockquote>
-<p> [client]<br> port = 3307</p>
-<p> [mysqld]<br> port = 3307</p>
-</li>
-<li><p>创建用户<br> CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’; </p>
-</li>
-<li><p>授权       </p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </span><br><span class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启数据库快速回滚<br> [mysqld]<br> server_id = 1<br> log-bin=mysql-bin  #开启 MYSQL 二进制日志<br> max_binlog_size = 1000M<br> expire-logs-days=7  #只保留 7 天的二进制日志，以防磁盘被日志填满 </p>
-<p> binlog_format = row<br> binlog_row_image = full  </p>
-<p> 进入数据库 show master logs;<br> <a href="https://github.com/danfengcao/binlog2sql" target="_blank" rel="external">详细用法</a></p>
-</li>
-<li><p>增删改查:略</p>
-</li>
-</ol>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/weixin.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/06/16/mysql基础/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/06/16/mongo基础/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mongo基础
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/05/20/Anaconda安装/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Anaconda安装</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -389,9 +233,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
