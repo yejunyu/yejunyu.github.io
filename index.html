@@ -159,6 +159,183 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql-知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><ul>
+<li>容灾恢复性好</li>
+<li>支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的</li>
+<li>使用行级锁</li>
+<li>对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和数据是在一起的,数据按主键的顺序物理分布.数据表的另一种形式是非簇表,其索引是有序的,而数据是无序的</li>
+<li>实现了缓冲管理,不仅能缓冲索引也能缓冲数据,并且会自动创建散列索引以加快数据的获取.相比之下, MyISAM 只是缓冲了索引</li>
+<li>支持外键</li>
+<li>支持热备份</li>
+</ul>
+<h2 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h2><ul>
+<li>可以配合锁,实现操作系统下复制备份、迁移</li>
+<li>使用表级索,并发性差</li>
+<li>支持全文检索(mysql InnoDB 在5.6以后也支持全文检索)</li>
+<li>主机宕机后, MyISAM 表易损坏,灾难恢复性不佳</li>
+<li>只缓存索引,数据的缓存是利用操作系统缓冲区来实现的.可能引发过多的系统调用且效率不佳</li>
+<li>数据紧凑存储,因此可以获得更小的索引和更快的全表扫描性能</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-知识点/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
+<li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
+<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+<li></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-常用命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-动词总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -438,251 +615,6 @@
 
 
   
-    <article id="post-zsh-的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/zsh-的使用/">zsh 的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/zsh-的使用/" class="archive-article-date">
-  	<time datetime="2017-12-03T11:44:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>安装 zsh<ul>
-<li>Mac 自带</li>
-<li>Ubuntu<br>  <code>sudo apt-get install zsh</code></li>
-<li>sudo chsh -s $(which zsh)设置zsh为默认shell</li>
-<li>注销后再进入终端可以看到效果</li>
-</ul>
-</li>
-<li><p>安装 oh-my-zsh</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自动安装</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br><span class="line"></span><br><span class="line">手动安装：</span><br><span class="line">git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>主题和别名</p>
-<ul>
-<li>主题在 ~/.oh-my-zsh/themes下</li>
-<li>主题文件中的 PROMPT 改成如下<br><code>PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;&#39;</code><br><img src="http://upload-images.jianshu.io/upload_images/5317015-bbe5f8682f21403b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样式"></li>
-<li>别名<br><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-3/87769566.jpg" alt="别名"></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="zsh插件"><a href="#zsh插件" class="headerlink" title="zsh插件"></a>zsh插件</h3><ul>
-<li><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git</a> 自带</li>
-<li><p><a href="https://github.com/mfaerevaag/wd" target="_blank" rel="external">wd</a></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins=(... wd)</span><br><span class="line"></span><br><span class="line">比如我们有一个常用的目录 /usr/nginx/www/html，我们首先进入到这个目录中，然后输入</span><br><span class="line"></span><br><span class="line">wd add web</span><br><span class="line">这个命令相当于给当前目录做了一个标识，标识名叫做  web ，我们下次如果再想进入这个目录，只需输入： </span><br><span class="line"></span><br><span class="line">wd web</span><br><span class="line">这样就可以完成目录切换了，非常方便。</span><br><span class="line"></span><br><span class="line">它的原理并不复杂，它维护了一个标识和实际路径的映射表，我们使用 wd add 命令可以添加新的映射，可以使用 wd rm 命令删除已有的映射，还可以使用 wd show 命令查看现有的映射。</span><br><span class="line"></span><br><span class="line">这个简单的插件解决了一个很实际的问题，推荐使用。 wd 插件的更多内容可以查看它的 github 主页：  https://github.com/mfaerevaag/wd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a></p>
-<ul>
-<li>Mac 安装<br>  <code>brew install autojump</code><br>  plugins=(… autojump)</li>
-<li><p>其他平台</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/joelthelion/autojump.git</span><br><span class="line">cd autojump</span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
-<p>  plugins=(… autojump)</p>
-</li>
-<li>usage  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">跳转到文件夹</span><br><span class="line">j foo</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting.git" target="_blank" rel="external">zsh-syntax-highlighting</a></p>
-<ul>
-<li>Mac 安装  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install zsh-syntax-highlighting</span><br><span class="line">把 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 加入. zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>其他平台</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
-<p>  然后在 plugins=(… zsh-syntax-highlighting)激活,高亮显示命令,错误会显示红色</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/zsh-的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql-优化详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/01/mysql-优化详解/">mysql 优化详解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/01/mysql-优化详解/" class="archive-article-date">
-  	<time datetime="2017-11-01T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><h1 id="系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了"><a href="#系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了" class="headerlink" title="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)"></a>系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)</h1><h2 id="内核相关参数-etc-sysctl-conf"><a href="#内核相关参数-etc-sysctl-conf" class="headerlink" title="内核相关参数(/etc/sysctl.conf)"></a>内核相关参数(/etc/sysctl.conf)</h2></li>
-</ol>
-<h4 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h4><ul>
-<li>net.core.somaxconn = 65535</li>
-<li>net.core.netdev_max_backlog = 65535</li>
-<li>net.ipv4.tcp_max_syn_backlog = 65535</li>
-<li>net.ipv4.tcp_fin_timeout = 10</li>
-<li>net.ipv4.tcp_tw_resue = 1</li>
-<li>net.ipv4.tcp_tw_recycle = 1</li>
-</ul>
-<h4 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h4><ul>
-<li>net.core.wmem_default = 87380</li>
-<li>net.core.wmem_max = 16777216</li>
-<li>net.core.rmem_default = 87380</li>
-<li>net.core.rmem_max = 16777216</li>
-</ul>
-<h4 id="失效链接"><a href="#失效链接" class="headerlink" title="失效链接"></a>失效链接</h4><ul>
-<li>net.ipv4.tcp_keepalive_time = 120</li>
-<li>net.ipv4.tcp_keepalive_intvl = 30</li>
-<li>net.ipv4.tcp_keepalive_probes = 3</li>
-</ul>
-<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
-<li>kernel.shmmax = 4294967295<blockquote>
-<p>linux内核参数中最重要的参数之一,用于定义单个共享内存段的最大值.</p>
-</blockquote>
-</li>
-<li>vm.swappiness = 0<blockquote>
-<p>交换分区</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<h2 id="增加资源限制-etc-security-limit-conf"><a href="#增加资源限制-etc-security-limit-conf" class="headerlink" title="增加资源限制(/etc/security/limit.conf)"></a>增加资源限制(/etc/security/limit.conf)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>加到limi.conf文件末尾<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*     表示对所有用户有效</span><br><span class="line">soft  指的是当前系统生效的设置</span><br><span class="line">hard  表明系统中所能设定的最大值</span><br><span class="line">nofile表示所限制的资源是打开文件的最大数目</span><br><span class="line">65535 限制的数量</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<h2 id="磁盘调度策略-sys-block-devname-queue-scheduler"><a href="#磁盘调度策略-sys-block-devname-queue-scheduler" class="headerlink" title="磁盘调度策略(/sys/block/devname/queue/scheduler)"></a>磁盘调度策略(/sys/block/devname/queue/scheduler)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>noop anticipatory deadline [cfq]</p>
-</blockquote>
-<ol>
-<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1>
-        
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -784,11 +716,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,10 +733,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
