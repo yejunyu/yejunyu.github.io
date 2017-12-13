@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="转载 知乎  一.创建型模式 抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-14T13:44:25.000Z">
+<meta property="og:updated_time" content="2017-12-13T00:10:05.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的24种设计模式与7大原则">
 <meta name="twitter:description" content="转载 知乎  一.创建型模式 抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类. 生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示. 工厂模式(factory method pa">
@@ -218,8 +218,6 @@
 <li><p>单一职责原则【SINGLE RESPONSIBILITY PRINCIPLE】：一个类负责一项职责.</p>
 </li>
 <li><p>里氏替换原则【LISKOV SUBSTITUTION PRINCIPLE】：继承与派生的规则.</p>
-</li>
-</ol>
 <ul>
 <li><p>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</p>
 </li>
@@ -228,10 +226,10 @@
 <li><p>当子类的方法重载父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松。</p>
 </li>
 <li><p>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。</p>
+<p>一句话总结：尽量不要重写父类的已经实现了的方法，可以用接口等其他方法绕过</p>
 </li>
 </ul>
-<p>一句话总结：尽量不要重写父类的已经实现了的方法，可以用接口等其他方法绕过</p>
-<ol>
+</li>
 <li><p>依赖倒置原则【DEPENDENCE INVERSION PRINCIPLE】：高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象。即针对接口编程，不要针对实现编程.</p>
 </li>
 <li><p>接口隔离原则【INTERFACE SEGREGATION PRINCIPLE】：建立单一接口，不要建立庞大臃肿的接口，尽量细化接口，接口中的方法尽量少.</p>
@@ -506,10 +504,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -519,6 +513,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
