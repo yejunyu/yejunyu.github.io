@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>大葉子の林中小屋</title>
+  <title>iterm2快速登录 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="在任意地方编辑文本,比如 ~/.ssh/wx123456789101112#!/usr/bin/expect -fset port 2121set user rootset host 172.16.10.71set password mima123456set timeout -1spawn ssh -p$port $user@$hostexpect &amp;quot;*assword:*&amp;quot;">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iterm2快速登录">
+<meta property="og:url" content="http://yoursite.com/2017/12/15/iterm2快速登录/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="在任意地方编辑文本,比如 ~/.ssh/wx123456789101112#!/usr/bin/expect -fset port 2121set user rootset host 172.16.10.71set password mima123456set timeout -1spawn ssh -p$port $user@$hostexpect &amp;quot;*assword:*&amp;quot;">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-15/98196812.jpg">
+<meta property="og:updated_time" content="2017-12-15T14:30:00.223Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="iterm2快速登录">
+<meta name="twitter:description" content="在任意地方编辑文本,比如 ~/.ssh/wx123456789101112#!/usr/bin/expect -fset port 2121set user rootset host 172.16.10.71set password mima123456set timeout -1spawn ssh -p$port $user@$hostexpect &amp;quot;*assword:*&amp;quot;">
+<meta name="twitter:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-15/98196812.jpg">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,186 +161,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-git-撤销操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-iterm2快速登录" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/git-撤销操作/">git 撤销操作</a>
+    <h1 class="article-title" itemprop="name">
+      iterm2快速登录
     </h1>
   
 
         
-        <a href="/2017/12/03/git-撤销操作/" class="archive-article-date">
-  	<time datetime="2017-12-03T15:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="正常流程"><a href="#正常流程" class="headerlink" title="正常流程:"></a>正常流程:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;comment&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-<h2 id="查看修改"><a href="#查看修改" class="headerlink" title="查看修改"></a>查看修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">已修改未暂存,代码在工作区</span><br><span class="line">git diff</span><br><span class="line"></span><br><span class="line">已暂存未提交,代码在暂存区</span><br><span class="line">git diff --cached</span><br><span class="line"></span><br><span class="line">已提交未推送,代码在本地仓库</span><br><span class="line">git diff master origin/master</span><br></pre></td></tr></table></figure>
-<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">代码还没 add, 代码在工作区</span><br><span class="line">git checkout . 或者</span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">已暂存未提交,代码在暂存区</span><br><span class="line">git reset</span><br><span class="line">git checkout . 或者</span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">已提交,未推送,代码在本地仓库</span><br><span class="line">git reset --hard origin/master</span><br><span class="line"></span><br><span class="line">已经推送,代码已经在远程仓库了</span><br><span class="line">所以首先要把本地仓库代码撤销,然后再强制推送</span><br><span class="line">git reset --hard HEAD^  // 本地仓库撤销操作</span><br><span class="line">git push -f             // 强制推送到远程仓库</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/git-撤销操作/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-js优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/js优化/">js优化</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/js优化/" class="archive-article-date">
-  	<time datetime="2017-12-03T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="避免全局查找"><a href="#避免全局查找" class="headerlink" title="避免全局查找"></a>避免全局查找</h3><p>在一个函数中会用到全局对象存储为局部变量来减少全局查找，因为访问局部变量的速度要比访问全局变量的速度更快些<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function search() &#123;</span><br><span class="line">    // 当我要使用当前页面地址和主机域名</span><br><span class="line">    alert(window.location.href + window.location.host)</span><br><span class="line">&#125;</span><br><span class="line">// 最好的方式是如下这样 先用一个简单变量保存起来</span><br><span class="line">function search() &#123;</span><br><span class="line">    var location = window.location</span><br><span class="line">    alert(location.href + location.host)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><p>如果针对的是不断运行的代码，<strong>不应该使用 setTimeout，而应该是用 setInterval</strong>，因为 setTimeout 每一次都会初始化一个定时器，而 setInterval 只会在开始的时候初始化一个定时器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var timeoutTimes = 0</span><br><span class="line">function timeout() &#123;</span><br><span class="line">    timeoutTimes++</span><br><span class="line">    if (timeoutTimes &lt; 10)&#123;</span><br><span class="line">        setTimeout(timeout, 10)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">timeout()</span><br><span class="line">// 可以替换为</span><br><span class="line">var intervalTimes = 0</span><br><span class="line">function interval() &#123;</span><br><span class="line">    intervalTimes++</span><br><span class="line">    if (intervalTimes &gt;= 10)&#123;</span><br><span class="line">        clearInterval(interv)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var interv = setInterval(interval, 10)</span><br></pre></td></tr></table></figure></p>
-<h3 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h3><p>如果要连接多个字符串,应该少使用 +=,如<br>s+=a<br>s+=b<br>s+=c<br>应该写成 s+=a + b + c<br>二如果是收集字符串,比如多次对同一个字符串进行+=操作的话,最好使用一个缓存,使用JavaScript 数组来收集,最后<strong>使用 join 方法连接起来</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var buf = []</span><br><span class="line">for (let i = 0;i &lt; 100;i++)&#123;</span><br><span class="line">    buf.push(i.toString())</span><br><span class="line">&#125;</span><br><span class="line">var all = buf.join(&quot;&quot;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="数字转字符串"><a href="#数字转字符串" class="headerlink" title="数字转字符串"></a>数字转字符串</h3><p>一般最好用 “” + 1 来将数字转换成字符串，虽然看起来比较丑一点，但事实上这个效率是最高的，性能上来说：<br>(“”+)&gt;String()&gt;.toString()&gt;new String()</p>
-<h3 id="浮点数转换成整型"><a href="#浮点数转换成整型" class="headerlink" title="浮点数转换成整型"></a>浮点数转换成整型</h3><p>很多人喜欢使用 parseInt()，其实 parseInt() 是用于将字符串转换成数字，而不是浮点数和整型之间的转换，我们应该使用 Math.floor()<code>去掉小数部分,负数减一去掉小数</code> 或者 Math.round()<code>四舍五入</code></p>
-<h3 id="各种类型的转换"><a href="#各种类型的转换" class="headerlink" title="各种类型的转换"></a>各种类型的转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var myVar = &quot;3.14159&quot;,</span><br><span class="line">str = &quot;&quot; + myVar,       // to string</span><br><span class="line">i_int = ~~myVar,        // to integer</span><br><span class="line">f_float = 1 * myVar,    // to float</span><br><span class="line">b_bool = !!myVar,       /* to boolean - any string with length</span><br><span class="line">                            and any number except 0 are true */</span><br><span class="line">array = [myVar];        // to array</span><br></pre></td></tr></table></figure>
-<p>如果定义了 toString() 方法来进行类型转换的话，推荐显式调用 toString()，因为内部的操作在尝试所有可能性之后，会尝试对象的 toString() 方法尝试能否转化为 String，所以直接调用这个方法效率会更高</p>
-<h3 id="多个类型声明"><a href="#多个类型声明" class="headerlink" title="多个类型声明"></a>多个类型声明</h3><p>在 JavaScript 中所有变量都可以使用单个 var 语句来声明，这样就是组合在一起的语句，以减少整个脚本的执行时间，就如上面代码一样，上面代码格式也挺规范，让人一看就明了。</p>
-<h3 id="插入迭代器"><a href="#插入迭代器" class="headerlink" title="插入迭代器"></a>插入迭代器</h3><p>如<code>var name=values[i];i++;</code>前面两条语句可以写成<code>var name=values[i++];</code></p>
-<h3 id="使用直接量"><a href="#使用直接量" class="headerlink" title="使用直接量"></a>使用直接量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var aTest = new Array()   // 替换为</span><br><span class="line">var aTest = [];</span><br><span class="line">var aTest = new Object    // 替换为</span><br><span class="line">var aTest = &#123;&#125;;</span><br><span class="line">var reg = new RegExp();   // 替换为</span><br><span class="line">var reg = /../;</span><br><span class="line">//如果要创建具有一些特性的一般对象，也可以使用字面量，如下：</span><br><span class="line">var oFruit = new O;</span><br><span class="line">oFruit.color = &quot;red&quot;;</span><br><span class="line">oFruit.name = &quot;apple&quot;;</span><br><span class="line">//前面的代码可用对象字面量来改写成这样：</span><br><span class="line">var oFruit = &#123; color: &quot;red&quot;, name: &quot;apple&quot; &#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="使用-DocumentFragment-优化多次-append"><a href="#使用-DocumentFragment-优化多次-append" class="headerlink" title="使用 DocumentFragment 优化多次 append"></a>使用 DocumentFragment 优化多次 append</h3><p>一旦需要更新 DOM, 请考虑使用文档碎片来构建 DOM 结构，然后再将其添加到现存的文档中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    document.body.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">//可以替换为：</span><br><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用一次-innerHTML-赋值代替构建-dom-元素"><a href="#使用一次-innerHTML-赋值代替构建-dom-元素" class="headerlink" title="使用一次 innerHTML 赋值代替构建 dom 元素"></a>使用一次 innerHTML 赋值代替构建 dom 元素</h3><p>对于大的 DOM 更改，使用 innerHTML 要比使用标准的 DOM 方法创建同样的 DOM 结构快得多。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br><span class="line">//可以替换为：</span><br><span class="line">var html = [];</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    html.push(&apos;&lt;p&gt;&apos; + i + &apos;&lt;/p&gt;&apos;);</span><br><span class="line">&#125;</span><br><span class="line">document.body.innerHTML = html.join(&apos;&apos;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="通过模板元素-clone，替代-createElement"><a href="#通过模板元素-clone，替代-createElement" class="headerlink" title="通过模板元素 clone，替代 createElement"></a>通过模板元素 clone，替代 createElement</h3><p>很多人喜欢在 JavaScript 中使用 document.write 来给页面生成内容。事实上这样的效率较低，如果需要直接插入 HTML，可以找一个容器元素，比如指定一个 div 或者 span，并设置他们的 innerHTML 来将自己的 HTML 代码插入到页面中。通常我们可能会使用字符串直接写 HTML 来创建节点，其实这样做，1 无法保证代码的有效性 2 字符串操作效率低，所以应该是用 document.createElement() 方法，而如果文档中存在现成的样板节点，应该是用 cloneNode() 方法，因为使用 createElement() 方法之后，你需要设置多次元素的属性，使用 cloneNode() 则可以减少属性的设置次数——同样如果需要创建很多元素，应该先准备一个样板节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = document.createElement(&apos;p&apos;);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br><span class="line">//替换为：</span><br><span class="line">var frag = document.createDocumentFragment();</span><br><span class="line">var pEl = document.getElementsByTagName(&apos;p&apos;)[0];</span><br><span class="line">for (var i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">    var el = pEl.cloneNode(false);</span><br><span class="line">    el.innerHTML = i;</span><br><span class="line">    frag.appendChild(el);</span><br><span class="line">&#125;</span><br><span class="line">document.body.appendChild(frag);</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2017/12/03/js优化/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/js优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-zsh-的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/zsh-的使用/">zsh 的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/zsh-的使用/" class="archive-article-date">
-  	<time datetime="2017-12-03T11:44:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+        <a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
+  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
 </a>
         
       </header>
@@ -344,57 +182,44 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ol>
-<li>安装 zsh<ul>
-<li>Mac 自带</li>
-<li>Ubuntu<br>  <code>sudo apt-get install zsh</code></li>
-<li>sudo chsh -s $(which zsh)设置zsh为默认shell</li>
-<li>注销后再进入终端可以看到效果</li>
-</ul>
-</li>
-<li><p>安装 oh-my-zsh</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自动安装</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br><span class="line"></span><br><span class="line">手动安装：</span><br><span class="line">git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>主题和别名</p>
-<ul>
-<li>主题在 ~/.oh-my-zsh/themes下</li>
-<li>主题文件中的 PROMPT 改成如下<br><code>PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;&#39;</code><br><img src="http://upload-images.jianshu.io/upload_images/5317015-bbe5f8682f21403b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样式"></li>
-<li>别名\<br>alias zshconfig=”vim ~/.zshrc”\<br>alias cls=’clear’\<br>alias ll=’ls -l’\<br>alias la=’ls -a’\<br>alias vi=’vim’\<br>alias grep=”grep –color=auto “ # 关键字加颜色\<br>alias -s html=vi # 终端输入 yy.html 自动 vim 打开,以下一样\<br>alias -s py=vi\<br>alias -s js=vi\<br>alias -s txt=vi\<br>alias -s gz=’tar -xzvf’ # 终端输入 yy.gz 自动解压,以下一样\<br>alias -s tgz=’tar -xzvf’\<br>alias -s zip=’unzip’\<br>alias -s bz2=’tar -xjvf’\<br>alias hexoPush=’hexo clean &amp;&amp; hexo g &amp;&amp; hexo d’\<br><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-3/87769566.jpg" alt="别名"></li>
-</ul>
+<li>在任意地方编辑文本,比如 ~/.ssh/wx<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/expect -f</span><br><span class="line">set port 2121</span><br><span class="line">set user root</span><br><span class="line">set host 172.16.10.71</span><br><span class="line">set password mima123456</span><br><span class="line">set timeout -1</span><br><span class="line"></span><br><span class="line">spawn ssh -p$port $user@$host</span><br><span class="line">expect &quot;*assword:*&quot;</span><br><span class="line">send &quot;$password\r&quot;</span><br><span class="line">interact</span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<hr>
-<h3 id="zsh插件"><a href="#zsh插件" class="headerlink" title="zsh插件"></a>zsh插件</h3><ul>
-<li><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git</a> 自带</li>
-<li><p><a href="https://github.com/mfaerevaag/wd" target="_blank" rel="external">wd</a></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins=(... wd)</span><br><span class="line"></span><br><span class="line">比如我们有一个常用的目录 /usr/nginx/www/html，我们首先进入到这个目录中，然后输入</span><br><span class="line"></span><br><span class="line">wd add web</span><br><span class="line">这个命令相当于给当前目录做了一个标识，标识名叫做  web ，我们下次如果再想进入这个目录，只需输入： </span><br><span class="line"></span><br><span class="line">wd web</span><br><span class="line">这样就可以完成目录切换了，非常方便。</span><br><span class="line"></span><br><span class="line">它的原理并不复杂，它维护了一个标识和实际路径的映射表，我们使用 wd add 命令可以添加新的映射，可以使用 wd rm 命令删除已有的映射，还可以使用 wd show 命令查看现有的映射。</span><br><span class="line"></span><br><span class="line">这个简单的插件解决了一个很实际的问题，推荐使用。 wd 插件的更多内容可以查看它的 github 主页：  https://github.com/mfaerevaag/wd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a></p>
-<ul>
-<li>Mac 安装<br>  <code>brew install autojump</code><br>  plugins=(… autojump)</li>
-<li><p>其他平台</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/joelthelion/autojump.git</span><br><span class="line">cd autojump</span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
-<p>  plugins=(… autojump)</p>
-</li>
-<li>usage  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">跳转到文件夹</span><br><span class="line">j foo</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting.git" target="_blank" rel="external">zsh-syntax-highlighting</a></p>
-<ul>
-<li>Mac 安装  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install zsh-syntax-highlighting</span><br><span class="line">把 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 加入. zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>其他平台</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
-<p>  然后在 plugins=(… zsh-syntax-highlighting)激活,高亮显示命令,错误会显示红色</p>
-</li>
-</ul>
-</li>
-</ul>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-15/98196812.jpg" alt="111"></p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -414,16 +239,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/zsh-的使用/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/15/iterm2快速登录/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/15/关系代词/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关系代词</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -443,220 +327,14 @@
 
 
 
-
-  
-    <article id="post-mysql-优化详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/01/mysql-优化详解/">mysql 优化详解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/01/mysql-优化详解/" class="archive-article-date">
-  	<time datetime="2017-11-01T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><h1 id="系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了"><a href="#系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了" class="headerlink" title="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)"></a>系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)</h1><h2 id="内核相关参数-etc-sysctl-conf"><a href="#内核相关参数-etc-sysctl-conf" class="headerlink" title="内核相关参数(/etc/sysctl.conf)"></a>内核相关参数(/etc/sysctl.conf)</h2></li>
-</ol>
-<h4 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h4><ul>
-<li>net.core.somaxconn = 65535</li>
-<li>net.core.netdev_max_backlog = 65535</li>
-<li>net.ipv4.tcp_max_syn_backlog = 65535</li>
-<li>net.ipv4.tcp_fin_timeout = 10</li>
-<li>net.ipv4.tcp_tw_resue = 1</li>
-<li>net.ipv4.tcp_tw_recycle = 1</li>
-</ul>
-<h4 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h4><ul>
-<li>net.core.wmem_default = 87380</li>
-<li>net.core.wmem_max = 16777216</li>
-<li>net.core.rmem_default = 87380</li>
-<li>net.core.rmem_max = 16777216</li>
-</ul>
-<h4 id="失效链接"><a href="#失效链接" class="headerlink" title="失效链接"></a>失效链接</h4><ul>
-<li>net.ipv4.tcp_keepalive_time = 120</li>
-<li>net.ipv4.tcp_keepalive_intvl = 30</li>
-<li>net.ipv4.tcp_keepalive_probes = 3</li>
-</ul>
-<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
-<li>kernel.shmmax = 4294967295<blockquote>
-<p>linux内核参数中最重要的参数之一,用于定义单个共享内存段的最大值.</p>
-</blockquote>
-</li>
-<li>vm.swappiness = 0<blockquote>
-<p>交换分区</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<h2 id="增加资源限制-etc-security-limit-conf"><a href="#增加资源限制-etc-security-limit-conf" class="headerlink" title="增加资源限制(/etc/security/limit.conf)"></a>增加资源限制(/etc/security/limit.conf)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>加到limi.conf文件末尾<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*     表示对所有用户有效</span><br><span class="line">soft  指的是当前系统生效的设置</span><br><span class="line">hard  表明系统中所能设定的最大值</span><br><span class="line">nofile表示所限制的资源是打开文件的最大数目</span><br><span class="line">65535 限制的数量</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<h2 id="磁盘调度策略-sys-block-devname-queue-scheduler"><a href="#磁盘调度策略-sys-block-devname-queue-scheduler" class="headerlink" title="磁盘调度策略(/sys/block/devname/queue/scheduler)"></a>磁盘调度策略(/sys/block/devname/queue/scheduler)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>noop anticipatory deadline [cfq]</p>
-</blockquote>
-<ol>
-<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1>
-        
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java中的24种设计模式与7大原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/Java中的24种设计模式与7大原则/">Java中的24种设计模式与7大原则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/Java中的24种设计模式与7大原则/" class="archive-article-date">
-  	<time datetime="2017-09-12T03:18:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>转载 <a href="https://zhuanlan.zhihu.com/p/26935579" target="_blank" rel="external">知乎</a></p>
-</blockquote>
-<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2><ol>
-<li>抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类.</li>
-<li>生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</li>
-<li>工厂模式(factory method pattern): 定义了一个创建对象的接口, 但由子类决定要实例化的类是哪一个. 工厂方法让类把实例化推迟到子类.</li>
-<li>原型模式(prototype pattern): 当创建给定类的实例过程很昂贵或很复杂时, 就使用原形模式.</li>
-<li>单例了模式(Singleton pattern): 确保一个类只有一个实例, 并提供全局访问点.</li>
-<li><p>多例模式(Multition pattern): 在一个解决方案中结合两个或多个模式, 以解决一般或重复发生的问题.</p>
-        
-          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -679,8 +357,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
