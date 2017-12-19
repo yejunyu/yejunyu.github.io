@@ -16,12 +16,15 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="1. 安装 nginx  需要三个模块,源码安装  –with-http_stub_status_module：支持nginx状态查询 –with-http_ssl_module：支持https –with-http_v2_module: spd http/2协议 –with-pcre：为了支持rewrite重写功能，必须制定pcre1234567891011./configure --prefi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-12-19T23:06:11.806Z">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-18/61601158.jpg">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-18/8452921.jpg">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-19/51103880.jpg">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-19/12307035.jpg">
+<meta property="og:updated_time" content="2017-12-19T23:20:34.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zabbix安装小结(ubuntu)">
 <meta name="twitter:description" content="1. 安装 nginx  需要三个模块,源码安装  –with-http_stub_status_module：支持nginx状态查询 –with-http_ssl_module：支持https –with-http_v2_module: spd http/2协议 –with-pcre：为了支持rewrite重写功能，必须制定pcre1234567891011./configure --prefi">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://oqb4aabpb.bkt.clouddn.com/17-12-18/61601158.jpg">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -222,7 +225,7 @@
 <li>配置php + <del>nginx</del> apache2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libapache2-mod-php5</span><br><span class="line">重启apache2</span><br><span class="line">创建index.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line">查看输出</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><img src="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>如果没有安装phpmyadmin,5以上php需开启pdo</p>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-18/61601158.jpg" alt="image"><br>如果没有安装phpmyadmin,5以上php需开启pdo</p>
 <ol>
 <li><p>mysql安装(略)</p>
 </li>
@@ -253,10 +256,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数据库内</span><br><span class="line">set GLOBAL max_connections=1000;</span><br><span class="line">show variables like &apos;%max_connections%&apos;;</span><br><span class="line"></span><br><span class="line">#cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">#zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">#Enter password: </span><br><span class="line"></span><br><span class="line">#cp -r /usr/share/zabbix /var/www/html/watch</span><br><span class="line">#service zabbix-server restart</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>对照修改配置后安装<br>[图片上传失败…(image-d0c699-1513659367510)]<br>默认账号密码:</p>
+<p>对照修改配置后安装<br><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-18/8452921.jpg" alt=""><br>默认账号密码:</p>
 <p><strong>Admin,zabbix</strong></p>
 <p>安装完毕</p>
-<p>[图片上传失败…(image-49ffd-1513659367510)]</p>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-19/51103880.jpg" alt=""></p>
 <h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><ol>
 <li>点击configuration-&gt;host开启服务,如上图</li>
 <li>安装agent<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># apt-get install zabbix-agent</span><br><span class="line"># service zabbix-agent start</span><br><span class="line">默认监控127.0.0.1</span><br><span class="line">如需监控多台,在其他机器上安装agent,配置主机ip即可</span><br></pre></td></tr></table></figure>
@@ -275,7 +278,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apparmor.d/usr.sbin.mysqld</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>[图片上传失败…(image-76cc51-1513659367510)]</p>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-19/12307035.jpg" alt=""></p>
 
       
 
@@ -522,15 +525,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
