@@ -159,6 +159,174 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-zabbix安装小结-ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
+  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><ol>
+<li>nginx</li>
+</ol>
+<p>需要三个模块,源码安装</p>
+<ul>
+<li>–with-http_stub_status_module：支持nginx状态查询</li>
+<li>–with-http_ssl_module：支持https</li>
+<li>–with-http_v2_module: spd http/2协议</li>
+<li>–with-pcre：为了支持rewrite重写功能，必须制定pcre<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx \</span><br><span class="line">--with-http_ssl_module --with-http_v2_module --with-http_stub_status_module --with-pcre</span><br><span class="line"></span><br><span class="line">确认没有报错之后</span><br><span class="line"># make&amp;&amp;make install</span><br><span class="line">添加命令</span><br><span class="line">sudo ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">测试是否安装成功</span><br><span class="line">nginx</span><br><span class="line">nginx -s stop</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>0作废,因为ali 14.04服务器中自带apache2</li>
+</ol>
+<ul>
+<li><p>编辑apache主配置文件/etc/apache2/apache2.conf，修改KeepAlive设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KeepAlive Off</span><br><span class="line"></span><br><span class="line">添加</span><br><span class="line">ServerName localhost</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Apache默认的multi-processing模块(MPM ) 是一个event 模块，但是 php默认是使用 prefork模块，禁用event模块，启用prefork模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo a2dismod mpm_event</span><br><span class="line">sudo a2enmod mpm_prefork</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启Apache<br><code>sudo service apache2 restart</code></p>
+</li>
+</ul>
+<ol>
+<li>php5</li>
+</ol>
+<ul>
+<li>Bcmath</li>
+<li>mbstring</li>
+<li>sockets</li>
+<li>gd</li>
+<li>libxml</li>
+<li>xmlwriter</li>
+<li>xmlreader<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install php5</span><br><span class="line">sudo apt install php5-gd</span><br><span class="line">sudo apt install php5-fpm</span><br><span class="line">查看安装情况</span><br><span class="line">php --version</span><br><span class="line">php -m</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>配置php + <del>nginx</del> apache2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libapache2-mod-php5</span><br><span class="line">重启apache2</span><br><span class="line">创建index.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line">查看输出</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>如果没有安装phpmyadmin,5以上php需开启pdo</p>
+<ol>
+<li><p>mysql安装(略)</p>
+</li>
+<li><p>安装python环境(2.7)(连接mysql)</p>
+</li>
+</ol>
+<ul>
+<li>python自带2</li>
+<li>sudo apt install python-dev</li>
+<li>sudo apt-get install libmysqlclient-dev</li>
+<li>sudo pip install MySQL-python</li>
+</ul>
+<h2 id="2-修改配置"><a href="#2-修改配置" class="headerlink" title="2. 修改配置"></a>2. 修改配置</h2><ul>
+<li><strong>php.ini(apache2)</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">必须</span><br><span class="line">max_execution_time = 300</span><br><span class="line">memory_limit = 128M</span><br><span class="line">post_max_size = 16M</span><br><span class="line">upload_max_filesize = 2M</span><br><span class="line">max_input_time = 300</span><br><span class="line">date.timezone = &quot;Asia/Shanghai&quot;</span><br><span class="line">mbstring.func_overload=0</span><br><span class="line"></span><br><span class="line">重启apache</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-安装配置zabbix-server"><a href="#3-安装配置zabbix-server" class="headerlink" title="3. 安装配置zabbix server"></a>3. 安装配置zabbix server</h2><ol>
+<li><p>因为买的ubuntu是14.04,需要配置下载源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line"></span><br><span class="line"># dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line"></span><br><span class="line"># apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zabbix-server-mysql</span><br><span class="line">zabbix-frontend-php</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># vi /etc/zabbix/zabbix_server.conf</span><br><span class="line"></span><br><span class="line">DBHost=localhost</span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=root</span><br><span class="line">DBPassword=zabbix</span><br><span class="line">StartTrappers=200</span><br><span class="line">CacheSize=512M</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置mysql和导入种子数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数据库内</span><br><span class="line">set GLOBAL max_connections=1000;</span><br><span class="line">show variables like &apos;%max_connections%&apos;;</span><br><span class="line"></span><br><span class="line">#cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">#zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">#Enter password: </span><br><span class="line"></span><br><span class="line">#cp -r /usr/share/zabbix /var/www/html/watch</span><br><span class="line">#service zabbix-server restart</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对照修改配置后安装<br>[图片上传失败…(image-d0c699-1513659367510)]<br>默认账号密码:</p>
+<p><strong>Admin,zabbix</strong></p>
+<p>安装完毕</p>
+<p>[图片上传失败…(image-49ffd-1513659367510)]</p>
+<h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><ol>
+<li>点击configuration-&gt;host开启服务,如上图</li>
+<li>安装agent<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># apt-get install zabbix-agent</span><br><span class="line"># service zabbix-agent start</span><br><span class="line">默认监控127.0.0.1</span><br><span class="line">如需监控多台,在其他机器上安装agent,配置主机ip即可</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="Gotcha"><a href="#Gotcha" class="headerlink" title="Gotcha"></a>Gotcha</h2><ul>
+<li>数据库特殊使用,比如监控用数据库,应设立单独用户,设立ip为localhost(先本地ping localhost查看是否是本地),设立单独的简单密码(不带任何特殊符号)</li>
+<li>mysql最大连接数的调整</li>
+<li>php mysql环境 php从5之后都不支持原来老式的con_mysql了,必须开启pdo</li>
+<li>zabbix安装要求的php环境php.ini是apache里的php.ini不是php里的也不是fpm里的</li>
+<li><p>网页下方出现<strong>Zabbix server is running</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/zabbix/web/zabbix.conf.php</span><br><span class="line">把localhost改成127.0.0.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql安全策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apparmor.d/usr.sbin.mysqld</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>[图片上传失败…(image-76cc51-1513659367510)]</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/20/zabbix安装小结-ubuntu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-iterm2快速登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -547,127 +715,9 @@
 
 
   
-    <article id="post-动词总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/07/动词总结/">动词总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/07/动词总结/" class="archive-article-date">
-  	<time datetime="2017-12-07T13:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>主语 + 完全不及物动词<br> He fainted.(他昏倒了)</li>
-<li>主语 + 不完全不及物动词 + 表语<br> He is a gentleman.(他是个君子)</li>
-<li>主语 + 完全及物动词 + 宾语<br> I love her.(我爱她)</li>
-<li>主语 + 不完全及物动词 + 宾语 + 宾语补足语<br> He made me angry.( 它使我生气)</li>
-<li>主语 + 授予动词 + 间接宾语 + 直接宾语<br> He gave me a book.(他给我一本书)</li>
-</ol>
-<h2 id="完全不及物动词"><a href="#完全不及物动词" class="headerlink" title="完全不及物动词"></a>完全不及物动词</h2><blockquote>
-<p>完全不及物动词即无须加宾语句子意思就很完全的动词</p>
-</blockquote>
-<ol>
-<li>主语 + vi.<br> Something happened.<br> Something will happen.<br> Something has happened.</li>
-<li>主语 + be + vi. 的现在分词<br> Something was happening.<br> <strong>由上得知,凡不及物动词,不可造成下列句子:</strong><br> Something was happened. (X)</li>
-</ol>
-<h2 id="完全及物动词"><a href="#完全及物动词" class="headerlink" title="完全及物动词"></a>完全及物动词</h2><blockquote>
-<p>完全及物动词即加了宾语句子意思很完全的动词</p>
-</blockquote>
-<ol>
-<li>主语 + vt. + 宾语<br> He wrote a book.</li>
-<li>主语 + be + vt.的现在分词 + 宾语(正在…)<br> He was writing a book.</li>
-<li>主语 + be + vt.的过去分词(被…)<br> The book was written by him.</li>
-<li>主语 + be + being + vt.的过去分词(正在被…)<br> THe book was being written by him.</li>
-</ol>
-<h2 id="不完全不及物动词"><a href="#不完全不及物动词" class="headerlink" title="不完全不及物动词"></a>不完全不及物动词</h2><blockquote>
-<p>不完全不及物动词仍是不及物动词,但句子意思不完全,所以不能独立存在</p>
-</blockquote>
-<ol>
-<li>be 动词</li>
-<li>表”变成”(become, turn, get, go, fall)</li>
-<li>表”似乎”(seem)的动词</li>
-<li>感官动词(look, sound, taste, smell, feel)<blockquote>
-<p>后面加 like 后面可接名词\<br>It sounds like a good idea\<br>like 后面接动名词表示想要…\<br>I feel like dancing</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="不完全及物动词"><a href="#不完全及物动词" class="headerlink" title="不完全及物动词"></a>不完全及物动词</h2><blockquote>
-<p>不完全及物动词仍是及物动词,但此类动词加了宾语之后句子意思并不完全,需要加补语</p>
-</blockquote>
-<ol>
-<li>使役动词<ol>
-<li>叫…<br> make/have + 宾语 + 原形动词 = get + 宾语 + to V</li>
-<li>让…<br> let + 宾语 + 原形动词 = allow/permit + 宾语 + to V</li>
-<li>强迫/要求…<br> force/compel/require/ask/urge/encourage/want/tell/expect/wish…+ 宾语 + to V
-        
-          <a class="article-more-a" href="/2017/12/07/动词总结/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/07/动词总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -770,11 +820,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,11 +840,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

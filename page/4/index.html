@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 大葉子の林中小屋</title>
+  <title>大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我真不会玩王者荣耀">
 <meta property="og:type" content="website">
 <meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="我真不会玩王者荣耀">
 <meta property="og:locale" content="zh-CN">
@@ -159,220 +159,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python常见的错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/19/python常见的错误/">python中常见的错误</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/19/python常见的错误/" class="archive-article-date">
+  	<time datetime="2017-05-19T13:25:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。"><a href="#当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。" class="headerlink" title="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。"></a>当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。</h4><ol>
+<li><p>忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 <strong>“SyntaxError ：invalid syntax”</strong>）<br>该错误将发生在类似如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 = 而不是 ==（导致 <strong>“SyntaxError: invalid syntax”</strong>）<br>= 是赋值操作符而 == 是等于比较操作。该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> spam = <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>错误的使用缩进量。</p>
+<p>（导致 <strong>“IndentationError：unexpected indent”、”IndentationError：unindent does not match any outer indetation level”</strong> 以及 <strong>“IndentationError：expected an indented block”</strong>）</p>
+<p> 记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</span><br><span class="line"></span><br><span class="line"> 或者這樣：</span><br><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</span><br><span class="line"></span><br><span class="line">应该这样： </span><br><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+        
+          <a class="article-more-a" href="/2017/05/19/python常见的错误/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
-  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/19/python常见的错误/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
-  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
     </nav>
   
 
@@ -396,9 +273,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

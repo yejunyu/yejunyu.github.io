@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 大葉子の林中小屋</title>
+  <title>zabbix安装小结(ubuntu) | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="1. 安装 nginx  需要三个模块,源码安装  –with-http_stub_status_module：支持nginx状态查询 –with-http_ssl_module：支持https –with-http_v2_module: spd http/2协议 –with-pcre：为了支持rewrite重写功能，必须制定pcre1234567891011./configure --prefi">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zabbix安装小结(ubuntu)">
+<meta property="og:url" content="http://yoursite.com/2017/12/20/zabbix安装小结-ubuntu/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="1. 安装 nginx  需要三个模块,源码安装  –with-http_stub_status_module：支持nginx状态查询 –with-http_ssl_module：支持https –with-http_v2_module: spd http/2协议 –with-pcre：为了支持rewrite重写功能，必须制定pcre1234567891011./configure --prefi">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-12-19T23:06:11.806Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="zabbix安装小结(ubuntu)">
+<meta name="twitter:description" content="1. 安装 nginx  需要三个模块,源码安装  –with-http_stub_status_module：支持nginx状态查询 –with-http_ssl_module：支持https –with-http_v2_module: spd http/2协议 –with-pcre：为了支持rewrite重写功能，必须制定pcre1234567891011./configure --prefi">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,36 +161,160 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-zabbix安装小结-ubuntu" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
-  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
+    <h1 class="article-title" itemprop="name">
+      zabbix安装小结(ubuntu)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
+  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><ol>
+<li>nginx</li>
+</ol>
+<p>需要三个模块,源码安装</p>
+<ul>
+<li>–with-http_stub_status_module：支持nginx状态查询</li>
+<li>–with-http_ssl_module：支持https</li>
+<li>–with-http_v2_module: spd http/2协议</li>
+<li>–with-pcre：为了支持rewrite重写功能，必须制定pcre<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx \</span><br><span class="line">--with-http_ssl_module --with-http_v2_module --with-http_stub_status_module --with-pcre</span><br><span class="line"></span><br><span class="line">确认没有报错之后</span><br><span class="line"># make&amp;&amp;make install</span><br><span class="line">添加命令</span><br><span class="line">sudo ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">测试是否安装成功</span><br><span class="line">nginx</span><br><span class="line">nginx -s stop</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>0作废,因为ali 14.04服务器中自带apache2</li>
+</ol>
+<ul>
+<li><p>编辑apache主配置文件/etc/apache2/apache2.conf，修改KeepAlive设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KeepAlive Off</span><br><span class="line"></span><br><span class="line">添加</span><br><span class="line">ServerName localhost</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Apache默认的multi-processing模块(MPM ) 是一个event 模块，但是 php默认是使用 prefork模块，禁用event模块，启用prefork模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo a2dismod mpm_event</span><br><span class="line">sudo a2enmod mpm_prefork</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启Apache<br><code>sudo service apache2 restart</code></p>
+</li>
+</ul>
+<ol>
+<li>php5</li>
+</ol>
+<ul>
+<li>Bcmath</li>
+<li>mbstring</li>
+<li>sockets</li>
+<li>gd</li>
+<li>libxml</li>
+<li>xmlwriter</li>
+<li>xmlreader<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install php5</span><br><span class="line">sudo apt install php5-gd</span><br><span class="line">sudo apt install php5-fpm</span><br><span class="line">查看安装情况</span><br><span class="line">php --version</span><br><span class="line">php -m</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>配置php + <del>nginx</del> apache2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libapache2-mod-php5</span><br><span class="line">重启apache2</span><br><span class="line">创建index.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line">查看输出</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/5317015-2607d551c3886a5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>如果没有安装phpmyadmin,5以上php需开启pdo</p>
+<ol>
+<li><p>mysql安装(略)</p>
+</li>
+<li><p>安装python环境(2.7)(连接mysql)</p>
+</li>
+</ol>
+<ul>
+<li>python自带2</li>
+<li>sudo apt install python-dev</li>
+<li>sudo apt-get install libmysqlclient-dev</li>
+<li>sudo pip install MySQL-python</li>
+</ul>
+<h2 id="2-修改配置"><a href="#2-修改配置" class="headerlink" title="2. 修改配置"></a>2. 修改配置</h2><ul>
+<li><strong>php.ini(apache2)</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">必须</span><br><span class="line">max_execution_time = 300</span><br><span class="line">memory_limit = 128M</span><br><span class="line">post_max_size = 16M</span><br><span class="line">upload_max_filesize = 2M</span><br><span class="line">max_input_time = 300</span><br><span class="line">date.timezone = &quot;Asia/Shanghai&quot;</span><br><span class="line">mbstring.func_overload=0</span><br><span class="line"></span><br><span class="line">重启apache</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-安装配置zabbix-server"><a href="#3-安装配置zabbix-server" class="headerlink" title="3. 安装配置zabbix server"></a>3. 安装配置zabbix server</h2><ol>
+<li><p>因为买的ubuntu是14.04,需要配置下载源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line"></span><br><span class="line"># dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line"></span><br><span class="line"># apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zabbix-server-mysql</span><br><span class="line">zabbix-frontend-php</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># vi /etc/zabbix/zabbix_server.conf</span><br><span class="line"></span><br><span class="line">DBHost=localhost</span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=root</span><br><span class="line">DBPassword=zabbix</span><br><span class="line">StartTrappers=200</span><br><span class="line">CacheSize=512M</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置mysql和导入种子数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数据库内</span><br><span class="line">set GLOBAL max_connections=1000;</span><br><span class="line">show variables like &apos;%max_connections%&apos;;</span><br><span class="line"></span><br><span class="line">#cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">#zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">#Enter password: </span><br><span class="line"></span><br><span class="line">#cp -r /usr/share/zabbix /var/www/html/watch</span><br><span class="line">#service zabbix-server restart</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对照修改配置后安装<br>[图片上传失败…(image-d0c699-1513659367510)]<br>默认账号密码:</p>
+<p><strong>Admin,zabbix</strong></p>
+<p>安装完毕</p>
+<p>[图片上传失败…(image-49ffd-1513659367510)]</p>
+<h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><ol>
+<li>点击configuration-&gt;host开启服务,如上图</li>
+<li>安装agent<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># apt-get install zabbix-agent</span><br><span class="line"># service zabbix-agent start</span><br><span class="line">默认监控127.0.0.1</span><br><span class="line">如需监控多台,在其他机器上安装agent,配置主机ip即可</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="Gotcha"><a href="#Gotcha" class="headerlink" title="Gotcha"></a>Gotcha</h2><ul>
+<li>数据库特殊使用,比如监控用数据库,应设立单独用户,设立ip为localhost(先本地ping localhost查看是否是本地),设立单独的简单密码(不带任何特殊符号)</li>
+<li>mysql最大连接数的调整</li>
+<li>php mysql环境 php从5之后都不支持原来老式的con_mysql了,必须开启pdo</li>
+<li>zabbix安装要求的php环境php.ini是apache里的php.ini不是php里的也不是fpm里的</li>
+<li><p>网页下方出现<strong>Zabbix server is running</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/zabbix/web/zabbix.conf.php</span><br><span class="line">把localhost改成127.0.0.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql安全策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apparmor.d/usr.sbin.mysqld</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>[图片上传失败…(image-76cc51-1513659367510)]</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -198,182 +326,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/20/zabbix安装小结-ubuntu/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
-  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/15/iterm2快速登录/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iterm2快速登录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -397,8 +448,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
