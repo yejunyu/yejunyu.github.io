@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>mysql 知识点 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="存储引擎InnoDB &amp;gt; 在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎 容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引">
+  <meta name="description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
 <meta name="keywords" content="数据库,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql 知识点">
 <meta property="og:url" content="http://yoursite.com/2017/12/09/mysql-知识点/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="存储引擎InnoDB &amp;gt; 在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎 容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引">
+<meta property="og:description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-09T07:24:38.492Z">
+<meta property="og:updated_time" content="2017-12-24T23:38:14.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 知识点">
-<meta name="twitter:description" content="存储引擎InnoDB &amp;gt; 在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎 容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引">
+<meta name="twitter:description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -180,7 +180,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>InnoDB</p>
-<h2 id="gt-在-mysql5-5以后的版本中-InnoDB-是-mysql-默认引擎"><a href="#gt-在-mysql5-5以后的版本中-InnoDB-是-mysql-默认引擎" class="headerlink" title="&gt; 在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎"></a>&gt; 在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎</h2><ul>
+<hr>
+<blockquote>
+<p>在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎</p>
+</blockquote>
+<ul>
 <li>容灾恢复性好</li>
 <li>支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的</li>
 <li>使用行级锁</li>
@@ -190,7 +194,11 @@
 <li>支持热备份</li>
 </ul>
 <p>MyISAM</p>
-<h2 id="gt-不支持事务-灾难恢复性差-所以不建议在生产环节中使用"><a href="#gt-不支持事务-灾难恢复性差-所以不建议在生产环节中使用" class="headerlink" title="&gt; 不支持事务,灾难恢复性差,所以不建议在生产环节中使用"></a>&gt; 不支持事务,灾难恢复性差,所以不建议在生产环节中使用</h2><ul>
+<hr>
+<blockquote>
+<p>不支持事务,灾难恢复性差,所以不建议在生产环节中使用</p>
+</blockquote>
+<ul>
 <li>可以配合锁,实现操作系统下复制备份、迁移</li>
 <li>使用表级索,并发性差</li>
 <li>支持全文检索(mysql InnoDB 在5.6以后也支持全文检索)</li>
@@ -199,18 +207,24 @@
 <li>数据紧凑存储,因此可以获得更小的索引和更快的全表扫描性能</li>
 </ul>
 <p>MEMORY</p>
+<hr>
 <blockquote>
 <p>MEMORY存储引擎提供内存表,不支持事务,外键.\</p>
-<h2 id="使用内存表可以显著提高访问数据的速度-可用于缓存会频繁访问的-可以重构的数据-计算结果-统计值-中间结果"><a href="#使用内存表可以显著提高访问数据的速度-可用于缓存会频繁访问的-可以重构的数据-计算结果-统计值-中间结果" class="headerlink" title="使用内存表可以显著提高访问数据的速度,可用于缓存会频繁访问的,可以重构的数据,计算结果,统计值,中间结果"></a>使用内存表可以显著提高访问数据的速度,可用于缓存会频繁访问的,可以重构的数据,计算结果,统计值,中间结果</h2><ul>
+</blockquote>
+<p>使用内存表可以显著提高访问数据的速度,可用于缓存会频繁访问的,可以重构的数据,计算结果,统计值,中间结果</p>
+<ul>
 <li>使用的事表级锁,虽然内存访问快,但如果频繁的读写,表级锁可能会成为瓶颈所在</li>
 <li>只支持固定大小的行.varchar 类型字段会储存为固定长度的 char 类型,浪费空间</li>
 <li>不支持 TEXT,BLOB 字段.当有些查询需要使用到临时表(使用的也是 memory 存储引擎)时,如果表中又 TEXT,BLOB 字段,那么会转化为基于磁盘的 MyISAM 表,严重降低性能</li>
 <li>由于内存资源成本昂贵,一般不建议设置过大的内存表,如果内存表满了,就会在 MySQL 错误日志里发现类似”The table ‘table_name’ is full”这样的错误,可通过清除数据或调整内存表参数来避免错误</li>
 <li>服务器重启后数据会丢失,复制维护时需要小心</li>
 </ul>
-</blockquote>
 <p>ARCHIVE</p>
-<h2 id="gt-ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎-ARCHIVE使用-zlib-无损数据压缩-让数据都保存在压缩的存档表中-当数据被插入时-他们被压缩"><a href="#gt-ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎-ARCHIVE使用-zlib-无损数据压缩-让数据都保存在压缩的存档表中-当数据被插入时-他们被压缩" class="headerlink" title="&gt; ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎,ARCHIVE使用 zlib 无损数据压缩,让数据都保存在压缩的存档表中.当数据被插入时,他们被压缩"></a>&gt; ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎,ARCHIVE使用 zlib 无损数据压缩,让数据都保存在压缩的存档表中.当数据被插入时,他们被压缩</h2><ul>
+<hr>
+<blockquote>
+<p>ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎,ARCHIVE使用 zlib 无损数据压缩,让数据都保存在压缩的存档表中.当数据被插入时,他们被压缩</p>
+</blockquote>
+<ul>
 <li>他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据</li>
 </ul>
 
@@ -468,23 +482,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,6 +499,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
