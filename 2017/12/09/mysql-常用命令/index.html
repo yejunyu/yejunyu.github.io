@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="连接\mysql -h host_ip_address -u user_name -pyour_password -P server_port 赋予权限和收回权限\grant select,insert,update,delete on db_name.* to user_name@&amp;#39;%&amp;#39; identified by &amp;#39;password&amp;#39;;\revoke sele">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-13T15:34:02.422Z">
+<meta property="og:updated_time" content="2017-12-26T15:00:51.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 常用命令">
 <meta name="twitter:description" content="连接\mysql -h host_ip_address -u user_name -pyour_password -P server_port 赋予权限和收回权限\grant select,insert,update,delete on db_name.* to user_name@&amp;#39;%&amp;#39; identified by &amp;#39;password&amp;#39;;\revoke sele">
@@ -183,7 +183,16 @@
 <li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
 <li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
 <li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
-<li></li>
+<li>创建库<br><code>create database DB</code></li>
+<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
+<li>删除表<br><code>drop table t1</code></li>
+<li>删除库<br><code>drop database DB</code></li>
+<li>修改表名<br><code>alter table t1 rename t2</code></li>
+<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
+<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
+<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
+<li>删除列<br><code>alter table t1 drop c</code></li>
+<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
 </ul>
 
       
@@ -313,8 +322,8 @@
     </a>
   
   
-    <a href="/2017/12/07/动词总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">动词总结</div>
+    <a href="/2017/12/09/mysql-常用命令.1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql 常用命令</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -440,19 +449,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,11 +469,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
