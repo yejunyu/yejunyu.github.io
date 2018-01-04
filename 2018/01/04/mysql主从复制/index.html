@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017 | 大葉子の林中小屋</title>
+  <title>mysql主从复制 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+  <meta name="description" content="1. 准备工作1. 版本一致 2. 初始化表,并后台启动mysql服务 3. 修改root密码 2. 修改主服务器master#vi /etc/my.cnf[mysqld]log-bin=mysql-bin   //[必须]启用二进制日志server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段 3. 修改从服务器slave#vi /etc/my.cnf[mysqld]l">
+<meta name="keywords" content="数据库,mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql主从复制">
+<meta property="og:url" content="http://yoursite.com/2018/01/04/mysql主从复制/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="1. 准备工作1. 版本一致 2. 初始化表,并后台启动mysql服务 3. 修改root密码 2. 修改主服务器master#vi /etc/my.cnf[mysqld]log-bin=mysql-bin   //[必须]启用二进制日志server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段 3. 修改从服务器slave#vi /etc/my.cnf[mysqld]l">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-04T14:27:38.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="mysql主从复制">
+<meta name="twitter:description" content="1. 准备工作1. 版本一致 2. 初始化表,并后台启动mysql服务 3. 修改root密码 2. 修改主服务器master#vi /etc/my.cnf[mysqld]log-bin=mysql-bin   //[必须]启用二进制日志server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段 3. 修改从服务器slave#vi /etc/my.cnf[mysqld]l">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,150 +159,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql主从复制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql主从复制
+    </h1>
+  
+
+        
+        <a href="/2018/01/04/mysql主从复制/" class="archive-article-date">
+  	<time datetime="2018-01-04T14:26:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><pre><code>1. 版本一致
+2. 初始化表,并后台启动mysql服务
+3. 修改root密码
+</code></pre><h2 id="2-修改主服务器master"><a href="#2-修改主服务器master" class="headerlink" title="2. 修改主服务器master"></a>2. 修改主服务器master</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[必须]启用二进制日志<br>server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段</p>
+<h2 id="3-修改从服务器slave"><a href="#3-修改从服务器slave" class="headerlink" title="3. 修改从服务器slave"></a>3. 修改从服务器slave</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[不是必须]启用二进制日志<br>server-id=226      //[必须]服务器唯一ID，默认是1，一般取IP最后一段</p>
+<h2 id="4-重启两台mysql"><a href="#4-重启两台mysql" class="headerlink" title="4. 重启两台mysql"></a>4. 重启两台mysql</h2><h2 id="5-在主服务器上建立帐户并授权slave"><a href="#5-在主服务器上建立帐户并授权slave" class="headerlink" title="5. 在主服务器上建立帐户并授权slave"></a>5. 在主服务器上建立帐户并授权slave</h2><p><code>#/usr/local/mysql/bin/mysql -uroot -ppassword</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;GRANT REPLICATION SLAVE ON *.* to &apos;mysync&apos;@&apos;%&apos; identified by &apos;q123456&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>//一般不用root帐号，&ldquo;%&rdquo;表示所有客户端都可能连，只要帐号，密码正确，此处可用具体客户端IP代替，如192.168.145.226，加强安全。</p>
+<h2 id="6-登录主服务器的mysql，查询master的状态"><a href="#6-登录主服务器的mysql，查询master的状态" class="headerlink" title="6. 登录主服务器的mysql，查询master的状态"></a>6. 登录主服务器的mysql，查询master的状态</h2><p>mysql&gt;show master status;<br>   +——————+———-+————–+——————+<br>   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |<br>   +——————+———-+————–+——————+<br>   | mysql-bin.000004 |      308 |              |                  |<br>   +——————+———-+————–+——————+<br>   1 row in set (0.00 sec)</p>
+<blockquote>
+<p>注：执行完此步骤后不要再操作主服务器MYSQL，防止主服务器状态值变化</p>
+</blockquote>
+<h2 id="7-配置从服务器Slave"><a href="#7-配置从服务器Slave" class="headerlink" title="7. 配置从服务器Slave"></a>7. 配置从服务器Slave</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;change master to master_host=&apos;192.168.145.222&apos;,master_user=&apos;mysync&apos;,master_password=&apos;q123456&apos;,master_log_file=&apos;mysql-bin.000004&apos;,master_log_pos=308;</span><br></pre></td></tr></table></figure>
+<p>//注意不要断开，308数字前后无单引号。<br>Mysql&gt;start slave;    //启动从服务器复制功能</p>
+<h2 id="8-检查从服务器复制功能状态"><a href="#8-检查从服务器复制功能状态" class="headerlink" title="8. 检查从服务器复制功能状态"></a>8. 检查从服务器复制功能状态</h2><p>mysql&gt; show slave status\G</p>
+<p>   <strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong> 1. row <strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong><br>      Slave_IO_State: Waiting for master to send event<br>      Master_Host: 192.168.2.222  //主服务器地址<br>      Master_User: mysync   //授权帐户名，尽量避免使用root<br>      Master_Port: 3306    //数据库端口，部分版本没有此行<br>      Connect_Retry: 60<br>      Master_Log_File: mysql-bin.000004<br>      Read_Master_Log_Pos: 600     //#同步读取二进制日志的位置，大于等于Exec_Master_Log_Pos<br>      Relay_Log_File: ddte-relay-bin.000003<br>      Relay_Log_Pos: 251<br>      Relay_Master_Log_File: mysql-bin.000004<br>      Slave_IO_Running: Yes    //此状态必须YES<br>      Slave_SQL_Running: Yes     //此状态必须YES<br>            ……</p>
+<p>注：Slave_IO及Slave_SQL进程必须正常运行，即YES状态，否则都是错误的状态(如：其中一个NO均属错误)。</p>
+<p>以上操作过程，主从服务器配置完成。</p>
+<h2 id="9-测试"><a href="#9-测试" class="headerlink" title="9. 测试"></a>9. 测试</h2><p>主机写入数据从机也会有</p>
+<h2 id="10-重置"><a href="#10-重置" class="headerlink" title="10. 重置"></a>10. 重置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush tables with read lock;</span><br><span class="line"></span><br><span class="line">mysql&gt; STOP SLAVE;</span><br><span class="line"></span><br><span class="line">mysql&gt; RESET MASTER;</span><br><span class="line"></span><br><span class="line">mysql&gt; RESET SLAVE;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Gotcha"><a href="#Gotcha" class="headerlink" title="Gotcha"></a>Gotcha</h2><p><a href="https://www.2cto.com/database/201510/447321.html" target="_blank" rel="external">MySQL 5.6 主从复制如何处理——触发器,函数,存储过程,调度事件</a></p>
+<p>从机不能写数据,从机写数据会导致复制中断</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
-  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
-  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -316,64 +255,114 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/01/04/mysql主从复制/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          mysql,mariadb 修改最大连接数无效的问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/04/mysql双主模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql双主模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><a class="page-number" href="/archives/2017/page/4/">4</a><a class="extend next" rel="next" href="/archives/2017/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -397,8 +386,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
