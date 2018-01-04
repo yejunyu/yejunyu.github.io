@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="1. 准备工作1. 版本一致 2. 初始化表,并后台启动mysql服务 3. 修改root密码 2. 修改主服务器master#vi /etc/my.cnf[mysqld]log-bin=mysql-bin   //[必须]启用二进制日志server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段 3. 修改从服务器slave#vi /etc/my.cnf[mysqld]l">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-04T14:27:38.377Z">
+<meta property="og:updated_time" content="2018-01-04T14:30:30.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql主从复制">
 <meta name="twitter:description" content="1. 准备工作1. 版本一致 2. 初始化表,并后台启动mysql服务 3. 修改root密码 2. 修改主服务器master#vi /etc/my.cnf[mysqld]log-bin=mysql-bin   //[必须]启用二进制日志server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段 3. 修改从服务器slave#vi /etc/my.cnf[mysqld]l">
@@ -183,7 +183,7 @@
 2. 初始化表,并后台启动mysql服务
 3. 修改root密码
 </code></pre><h2 id="2-修改主服务器master"><a href="#2-修改主服务器master" class="headerlink" title="2. 修改主服务器master"></a>2. 修改主服务器master</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[必须]启用二进制日志<br>server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段</p>
-<h2 id="3-修改从服务器slave"><a href="#3-修改从服务器slave" class="headerlink" title="3. 修改从服务器slave"></a>3. 修改从服务器slave</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[不是必须]启用二进制日志<br>server-id=226      //[必须]服务器唯一ID，默认是1，一般取IP最后一段</p>
+<h2 id="3-修改从服务器slave"><a href="#3-修改从服务器slave" class="headerlink" title="3. 修改从服务器slave"></a>3. 修改从服务器slave</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[不是必须]启用二进制日志<br>server-id=226      //[必须]服务器唯一ID，默认是1，一般取IP最后一段<br><a id="more"></a></p>
 <h2 id="4-重启两台mysql"><a href="#4-重启两台mysql" class="headerlink" title="4. 重启两台mysql"></a>4. 重启两台mysql</h2><h2 id="5-在主服务器上建立帐户并授权slave"><a href="#5-在主服务器上建立帐户并授权slave" class="headerlink" title="5. 在主服务器上建立帐户并授权slave"></a>5. 在主服务器上建立帐户并授权slave</h2><p><code>#/usr/local/mysql/bin/mysql -uroot -ppassword</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;GRANT REPLICATION SLAVE ON *.* to &apos;mysync&apos;@&apos;%&apos; identified by &apos;q123456&apos;;</span><br></pre></td></tr></table></figure></p>
 <p>//一般不用root帐号，&ldquo;%&rdquo;表示所有客户端都可能连，只要帐号，密码正确，此处可用具体客户端IP代替，如192.168.145.226，加强安全。</p>
 <h2 id="6-登录主服务器的mysql，查询master的状态"><a href="#6-登录主服务器的mysql，查询master的状态" class="headerlink" title="6. 登录主服务器的mysql，查询master的状态"></a>6. 登录主服务器的mysql，查询master的状态</h2><p>mysql&gt;show master status;<br>   +——————+———-+————–+——————+<br>   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |<br>   +——————+———-+————–+——————+<br>   | mysql-bin.000004 |      308 |              |                  |<br>   +——————+———-+————–+——————+<br>   1 row in set (0.00 sec)</p>
@@ -456,11 +456,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,19 +480,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
