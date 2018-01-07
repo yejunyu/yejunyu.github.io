@@ -397,98 +397,6 @@
 
 
   
-    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
-<li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
-<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
-<li>创建库<br><code>create database DB</code></li>
-<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
-<li>删除表<br><code>drop table t1</code></li>
-<li>删除库<br><code>drop database DB</code></li>
-<li>修改表名<br><code>alter table t1 rename t2</code></li>
-<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
-<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
-<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
-<li>删除列<br><code>alter table t1 drop c</code></li>
-<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/mysql-常用命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-mysql-常用命令.1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -537,6 +445,102 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/12/09/mysql-常用命令.1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
+<li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
+<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+<li>创建库<br><code>create database DB</code></li>
+<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
+<li>删除表<br><code>drop table t1</code></li>
+<li>删除库<br><code>drop database DB</code></li>
+<li>修改表名<br><code>alter table t1 rename t2</code></li>
+<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
+<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
+<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
+<li>删除列<br><code>alter table t1 drop c</code></li>
+<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
+<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
+<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
+<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
+<li>删除索引<br><code>drop index index_name on tb1</code></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-常用命令/">展开全文 >></a>
         </p>
       
 
@@ -781,7 +785,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -789,11 +793,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,6 +802,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">

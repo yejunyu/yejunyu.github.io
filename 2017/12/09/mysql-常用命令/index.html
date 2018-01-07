@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="连接\mysql -h host_ip_address -u user_name -pyour_password -P server_port 赋予权限和收回权限\grant select,insert,update,delete on db_name.* to user_name@&amp;#39;%&amp;#39; identified by &amp;#39;password&amp;#39;;\revoke sele">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-26T15:00:51.632Z">
+<meta property="og:updated_time" content="2018-01-07T14:10:10.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 常用命令">
 <meta name="twitter:description" content="连接\mysql -h host_ip_address -u user_name -pyour_password -P server_port 赋予权限和收回权限\grant select,insert,update,delete on db_name.* to user_name@&amp;#39;%&amp;#39; identified by &amp;#39;password&amp;#39;;\revoke sele">
@@ -193,6 +193,10 @@
 <li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
 <li>删除列<br><code>alter table t1 drop c</code></li>
 <li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
+<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
+<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
+<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
+<li>删除索引<br><code>drop index index_name on tb1</code></li>
 </ul>
 
       
@@ -312,18 +316,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/09/mysql-知识点/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/12/09/mysql-常用命令.1/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          mysql 知识点
+          mysql 常用命令
         
       </div>
     </a>
   
   
-    <a href="/2017/12/09/mysql-常用命令.1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql 常用命令</div>
+    <a href="/2017/12/07/动词总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">动词总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -449,7 +453,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,11 +461,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,6 +470,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
