@@ -159,83 +159,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-mysql-常用命令.1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/mysql-常用命令.1/">mysql 常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/09/mysql-常用命令.1/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="增"><a href="#增" class="headerlink" title="增"></a>增</h1><h1 id="删"><a href="#删" class="headerlink" title="删"></a>删</h1><h1 id="改"><a href="#改" class="headerlink" title="改"></a>改</h1><h1 id="查"><a href="#查" class="headerlink" title="查"></a>查</h1><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/mysql-常用命令.1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-动词总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -640,6 +563,129 @@
 
 
   
+    <article id="post-mysql-优化详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/01/mysql-优化详解/">mysql 优化详解</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/01/mysql-优化详解/" class="archive-article-date">
+  	<time datetime="2017-11-01T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><h1 id="系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了"><a href="#系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了" class="headerlink" title="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)"></a>系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)</h1><h2 id="内核相关参数-etc-sysctl-conf"><a href="#内核相关参数-etc-sysctl-conf" class="headerlink" title="内核相关参数(/etc/sysctl.conf)"></a>内核相关参数(/etc/sysctl.conf)</h2></li>
+</ol>
+<h4 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h4><ul>
+<li>net.core.somaxconn = 65535</li>
+<li>net.core.netdev_max_backlog = 65535</li>
+<li>net.ipv4.tcp_max_syn_backlog = 65535</li>
+<li>net.ipv4.tcp_fin_timeout = 10</li>
+<li>net.ipv4.tcp_tw_resue = 1</li>
+<li>net.ipv4.tcp_tw_recycle = 1</li>
+</ul>
+<h4 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h4><ul>
+<li>net.core.wmem_default = 87380</li>
+<li>net.core.wmem_max = 16777216</li>
+<li>net.core.rmem_default = 87380</li>
+<li>net.core.rmem_max = 16777216</li>
+</ul>
+<h4 id="失效链接"><a href="#失效链接" class="headerlink" title="失效链接"></a>失效链接</h4><ul>
+<li>net.ipv4.tcp_keepalive_time = 120</li>
+<li>net.ipv4.tcp_keepalive_intvl = 30</li>
+<li>net.ipv4.tcp_keepalive_probes = 3</li>
+</ul>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
+<li>kernel.shmmax = 4294967295<blockquote>
+<p>linux内核参数中最重要的参数之一,用于定义单个共享内存段的最大值.</p>
+</blockquote>
+</li>
+<li>vm.swappiness = 0<blockquote>
+<p>交换分区</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="增加资源限制-etc-security-limit-conf"><a href="#增加资源限制-etc-security-limit-conf" class="headerlink" title="增加资源限制(/etc/security/limit.conf)"></a>增加资源限制(/etc/security/limit.conf)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>加到limi.conf文件末尾<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*     表示对所有用户有效</span><br><span class="line">soft  指的是当前系统生效的设置</span><br><span class="line">hard  表明系统中所能设定的最大值</span><br><span class="line">nofile表示所限制的资源是打开文件的最大数目</span><br><span class="line">65535 限制的数量</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h2 id="磁盘调度策略-sys-block-devname-queue-scheduler"><a href="#磁盘调度策略-sys-block-devname-queue-scheduler" class="headerlink" title="磁盘调度策略(/sys/block/devname/queue/scheduler)"></a>磁盘调度策略(/sys/block/devname/queue/scheduler)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>noop anticipatory deadline [cfq]</p>
+</blockquote>
+<ol>
+<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1>
+        
+          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -737,7 +783,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +791,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,15 +815,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
