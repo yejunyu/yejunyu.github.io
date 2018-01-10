@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>mycat安装 | 大葉子の林中小屋</title>
+  <title>mycat和mycat-web安装（ubuntu16.04） | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat123456789http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexport PATH=$PA">
-<meta name="keywords" content="mysql,数据库">
+  <meta name="description" content="mycat 安装 安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat12345678910http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexpor">
+<meta name="keywords" content="数据库,mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mycat安装">
+<meta property="og:title" content="mycat和mycat-web安装（ubuntu16.04）">
 <meta property="og:url" content="http://yoursite.com/2018/01/09/mycat安装/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat123456789http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexport PATH=$PA">
+<meta property="og:description" content="mycat 安装 安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat12345678910http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexpor">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-09T14:42:44.087Z">
+<meta property="og:updated_time" content="2018-01-10T14:55:51.506Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mycat安装">
-<meta name="twitter:description" content="安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat123456789http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexport PATH=$PA">
+<meta name="twitter:title" content="mycat和mycat-web安装（ubuntu16.04）">
+<meta name="twitter:description" content="mycat 安装 安装环境   java (mycat是用java写的) mysql设置lower_case_table_names = 1   安装mycat12345678910http://dl.mycat.io/下载最新发布版解压之后mv mycat /usr/local/src# mycatexport MYCAT_HOME=/usr/local/src/mycat# PATHexpor">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -166,7 +166,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      mycat安装
+      mycat和mycat-web安装（ubuntu16.04）
     </h1>
   
 
@@ -179,15 +179,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
+        <h2 id="mycat-安装"><a href="#mycat-安装" class="headerlink" title="mycat 安装"></a>mycat 安装</h2><ol>
 <li>安装环境</li>
 </ol>
 <ul>
 <li>java (mycat是用java写的)</li>
-<li>mysql<br>设置<br>lower_case_table_names = 1</li>
+<li>mysql<br>设置<br><strong>lower_case_table_names = 1</strong></li>
 </ul>
 <ol>
-<li>安装mycat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http://dl.mycat.io/</span><br><span class="line">下载最新发布版</span><br><span class="line">解压之后</span><br><span class="line">mv mycat /usr/local/src</span><br><span class="line"># mycat</span><br><span class="line">export MYCAT_HOME=/usr/local/src/mycat</span><br><span class="line"></span><br><span class="line"># PATH</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MYCAT_HOME/bin</span><br></pre></td></tr></table></figure></li>
+<li>安装mycat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http://dl.mycat.io/</span><br><span class="line">下载最新发布版</span><br><span class="line">解压之后</span><br><span class="line">mv mycat /usr/local/src</span><br><span class="line"># mycat</span><br><span class="line">export MYCAT_HOME=/usr/local/src/mycat</span><br><span class="line"></span><br><span class="line"># PATH</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MYCAT_HOME/bin</span><br><span class="line">查看日志，mycat start启动</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="mycat-web-安装"><a href="#mycat-web-安装" class="headerlink" title="mycat-web 安装"></a>mycat-web 安装</h2><ol>
+<li>下载mycat-web<br><code>http://dl.mycat.io/</code></li>
+<li><p>安装zookeeper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zookeeper</span><br><span class="line"># ubuntu安装在/usr/share/zookeeper</span><br><span class="line">bash zkServer.sh start就可以启动服务了</span><br><span class="line"># 可以写脚本或者起别名方便操作</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动和配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mycat-web下bash start.sh</span><br><span class="line">访问地址http://localhost:8082/mycat</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="gotCha"><a href="#gotCha" class="headerlink" title="gotCha"></a>gotCha</h2><ol>
+<li>远程连接一定要指定连接的数据库，不指定不显示任何数据</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.xml.sax.SAXParseException; lineNumber: 106; columnNumber: 16; The content of element type &quot;mycat:schema&quot; must match &quot;(schema*,dataNode*,dataHost*)&quot;.</span><br><span class="line">原因：要按照schema、datanode 、datahost的顺序放，不能打乱。也就是所有schema要放一起，然后接着才能放datanode。。。。</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -233,11 +249,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -439,19 +455,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,11 +479,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
