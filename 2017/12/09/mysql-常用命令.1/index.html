@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>mysql 常用命令 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="增删改查索引">
-<meta name="keywords" content="mysql,数据库">
+  <meta name="description" content="增 创建库create database DB 创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库drop da">
+<meta name="keywords" content="数据库,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql 常用命令">
 <meta property="og:url" content="http://yoursite.com/2017/12/09/mysql-常用命令.1/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="增删改查索引">
+<meta property="og:description" content="增 创建库create database DB 创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库drop da">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-26T14:58:29.080Z">
+<meta property="og:updated_time" content="2018-01-20T09:23:32.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 常用命令">
-<meta name="twitter:description" content="增删改查索引">
+<meta name="twitter:description" content="增 创建库create database DB 创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库drop da">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -179,7 +179,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="增"><a href="#增" class="headerlink" title="增"></a>增</h1><h1 id="删"><a href="#删" class="headerlink" title="删"></a>删</h1><h1 id="改"><a href="#改" class="headerlink" title="改"></a>改</h1><h1 id="查"><a href="#查" class="headerlink" title="查"></a>查</h1><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1>
+        <h1 id="增"><a href="#增" class="headerlink" title="增"></a>增</h1><ul>
+<li>创建库<br><code>create database DB</code></li>
+<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
+<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
+<li>插入数据<br><code>insert into table_name(col1,col2...) values(value1,value2...)</code></li>
+</ul>
+<hr>
+<h1 id="删"><a href="#删" class="headerlink" title="删"></a>删</h1><ul>
+<li>删除表<br><code>drop table t1</code></li>
+<li>删除库<br><code>drop database DB</code></li>
+<li>删除列<br><code>alter table t1 drop c</code></li>
+<li>删除数据<br><code>delete from table_name [where conditions]</code></li>
+</ul>
+<hr>
+<h1 id="改"><a href="#改" class="headerlink" title="改"></a>改</h1><ul>
+<li>修改表名<br><code>alter table t1 rename t2</code></li>
+<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
+<li>修改数据<br><code>update table_name set col1=value1,col2=value2... [where conditions]</code></li>
+</ul>
+<hr>
+<h1 id="查"><a href="#查" class="headerlink" title="查"></a>查</h1><ul>
+<li>查询数据<br><code>select col1,col2... from table_name [where conditions]</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># sql 两个通配符&apos;_&apos;匹配任意单个字符,&apos;%&apos;匹配多个字符(包括0个字符)</span><br><span class="line"># 查询以字母 D 开头的员工记录</span><br><span class="line">select * from table_name where first_name like &apos;D%&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
+<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
+<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
+<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
+<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
+<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
+<li>删除索引<br><code>drop index index_name on tb1</code></li>
+</ul>
+<hr>
+<h1 id="创建用户和授权"><a href="#创建用户和授权" class="headerlink" title="创建用户和授权"></a>创建用户和授权</h1><p>`CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’;<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </span><br><span class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
+<p><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\</p>
+<h2 id="revoke-select-insert-update-delete-on-db-name-to-user-name-39-39"><a href="#revoke-select-insert-update-delete-on-db-name-to-user-name-39-39" class="headerlink" title="revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;"></a><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></h2><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+</ul>
+<hr>
+
       
 
       
@@ -223,11 +263,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -434,10 +474,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -450,7 +486,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,7 +502,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
