@@ -159,6 +159,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-spring-boot-中遇到的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/22/spring-boot-中遇到的坑/">spring boot 中遇到的坑</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/22/spring-boot-中遇到的坑/" class="archive-article-date">
+  	<time datetime="2018-01-22T12:50:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>springboot 中使用 redis 报错<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/55422354.jpg" alt=""><br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/11455802.jpg" alt=""><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为我用的 jdk9的缘故,用 jdk8就没问题了,</span><br><span class="line">或者导入jaxb-api这个包</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/66221483.jpg" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mongo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/22/spring-boot-中遇到的坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mycat和mycat-web安装(ubuntu16.04)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -517,135 +611,6 @@
 
 
   
-    <article id="post-zabbix安装小结-ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
-  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><ol>
-<li>nginx</li>
-</ol>
-<p>需要三个模块,源码安装</p>
-<ul>
-<li>–with-http_stub_status_module：支持nginx状态查询</li>
-<li>–with-http_ssl_module：支持https</li>
-<li>–with-http_v2_module: spd http/2协议</li>
-<li>–with-pcre：为了支持rewrite重写功能，必须制定pcre<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx \</span><br><span class="line">--with-http_ssl_module --with-http_v2_module --with-http_stub_status_module --with-pcre</span><br><span class="line"></span><br><span class="line">确认没有报错之后</span><br><span class="line"># make&amp;&amp;make install</span><br><span class="line">添加命令</span><br><span class="line">sudo ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">测试是否安装成功</span><br><span class="line">nginx</span><br><span class="line">nginx -s stop</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol>
-<li>0作废,因为ali 14.04服务器中自带apache2</li>
-</ol>
-<ul>
-<li><p>编辑apache主配置文件/etc/apache2/apache2.conf，修改KeepAlive设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KeepAlive Off</span><br><span class="line"></span><br><span class="line">添加</span><br><span class="line">ServerName localhost</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Apache默认的multi-processing模块(MPM ) 是一个event 模块，但是 php默认是使用 prefork模块，禁用event模块，启用prefork模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo a2dismod mpm_event</span><br><span class="line">sudo a2enmod mpm_prefork</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启Apache<br><code>sudo service apache2 restart</code></p>
-</li>
-</ul>
-<ol>
-<li>php5</li>
-</ol>
-<ul>
-<li>Bcmath</li>
-<li>mbstring</li>
-<li>sockets</li>
-<li>gd</li>
-<li>libxml</li>
-<li>xmlwriter</li>
-<li>xmlreader<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install php5</span><br><span class="line">sudo apt install php5-gd</span><br><span class="line">sudo apt install php5-fpm</span><br><span class="line">查看安装情况</span><br><span class="line">php --version</span><br><span class="line">php -m</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol>
-<li>配置php + <del>nginx</del> apache2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libapache2-mod-php5</span><br><span class="line">重启apache2</span><br><span class="line">创建index.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line">查看输出</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-18/61601158.jpg" alt="image"><br>如果没有安装phpmyadmin,5以上php需开启pdo</p>
-<ol>
-<li><p>mysql安装(略)</p>
-</li>
-<li><p>安装python环境(2.7)(连接mysql)</p>
-</li>
-</ol>
-<ul>
-<li>python自带2</li>
-<li>sudo apt install python-dev</li>
-<li>sudo apt-get install libmysqlclient-dev</li>
-<li>sudo pip install MySQL-python</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/12/20/zabbix安装小结-ubuntu/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/20/zabbix安装小结-ubuntu/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -743,23 +708,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,7 +728,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
