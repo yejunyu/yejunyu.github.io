@@ -159,6 +159,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
+<li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
+<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+<li>创建库<br><code>create database DB</code></li>
+<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
+<li>删除表<br><code>drop table t1</code></li>
+<li>删除库<br><code>drop database DB</code></li>
+<li>修改表名<br><code>alter table t1 rename t2</code></li>
+<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
+<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
+<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
+<li>删除列<br><code>alter table t1 drop c</code></li>
+<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
+<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
+<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
+<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
+<li>删除索引<br><code>drop index index_name on tb1</code></li>
+<li>插入数据<br><code>insert into table_name(col1,col2...) values(value1,value2...)</code></li>
+<li>修改数据<br><code>update table_name set col1=value1,col2=value2... [where conditions]</code></li>
+<li>删除数据<br><code>delete from table_name [where conditions]</code></li>
+<li>查询数据<br>``</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-常用命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql-常用命令.1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -558,128 +658,6 @@
 
 
   
-    <article id="post-zsh-的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/zsh-的使用/">zsh 的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/zsh-的使用/" class="archive-article-date">
-  	<time datetime="2017-12-03T11:44:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>安装 zsh<ul>
-<li>Mac 自带</li>
-<li>Ubuntu<br>  <code>sudo apt-get install zsh</code></li>
-<li>sudo chsh -s $(which zsh)设置zsh为默认shell</li>
-<li>注销后再进入终端可以看到效果</li>
-</ul>
-</li>
-<li><p>安装 oh-my-zsh</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自动安装</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br><span class="line"></span><br><span class="line">手动安装：</span><br><span class="line">git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>主题和别名</p>
-<ul>
-<li>主题在 ~/.oh-my-zsh/themes下</li>
-<li>主题文件中的 PROMPT 改成如下<br><code>PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;&#39;</code><br><img src="http://upload-images.jianshu.io/upload_images/5317015-bbe5f8682f21403b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样式"></li>
-<li>别名\<br>alias zshconfig=”vim ~/.zshrc”\<br>alias cls=’clear’\<br>alias ll=’ls -l’\<br>alias la=’ls -a’\<br>alias vi=’vim’\<br>alias grep=”grep –color=auto “ # 关键字加颜色\<br>alias -s html=vi # 终端输入 yy.html 自动 vim 打开,以下一样\<br>alias -s py=vi\<br>alias -s js=vi\<br>alias -s txt=vi\<br>alias -s gz=’tar -xzvf’ # 终端输入 yy.gz 自动解压,以下一样\<br>alias -s tgz=’tar -xzvf’\<br>alias -s zip=’unzip’\<br>alias -s bz2=’tar -xjvf’\<br>alias hexoPush=’hexo clean &amp;&amp; hexo g &amp;&amp; hexo d’\<br><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-15/96541025.jpg" alt="别名"></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="zsh插件"><a href="#zsh插件" class="headerlink" title="zsh插件"></a>zsh插件</h3><ul>
-<li><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git</a> 自带</li>
-<li><p><a href="https://github.com/mfaerevaag/wd" target="_blank" rel="external">wd</a></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins=(... wd)</span><br><span class="line"></span><br><span class="line">比如我们有一个常用的目录 /usr/nginx/www/html，我们首先进入到这个目录中，然后输入</span><br><span class="line"></span><br><span class="line">wd add web</span><br><span class="line">这个命令相当于给当前目录做了一个标识，标识名叫做  web ，我们下次如果再想进入这个目录，只需输入： </span><br><span class="line"></span><br><span class="line">wd web</span><br><span class="line">这样就可以完成目录切换了，非常方便。</span><br><span class="line"></span><br><span class="line">它的原理并不复杂，它维护了一个标识和实际路径的映射表，我们使用 wd add 命令可以添加新的映射，可以使用 wd rm 命令删除已有的映射，还可以使用 wd show 命令查看现有的映射。</span><br><span class="line"></span><br><span class="line">这个简单的插件解决了一个很实际的问题，推荐使用。 wd 插件的更多内容可以查看它的 github 主页：  https://github.com/mfaerevaag/wd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a></p>
-<ul>
-<li>Mac 安装<br>  <code>brew install autojump</code><br>  plugins=(… autojump)</li>
-<li><p>其他平台</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/joelthelion/autojump.git</span><br><span class="line">cd autojump</span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
-<p>  plugins=(… autojump)</p>
-</li>
-<li>usage  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">跳转到文件夹</span><br><span class="line">j foo</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting.git" target="_blank" rel="external">zsh-syntax-highlighting</a></p>
-<ul>
-<li>Mac 安装  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install zsh-syntax-highlighting</span><br><span class="line">把 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 加入. zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>其他平台</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
-<p>  然后在 plugins=(… zsh-syntax-highlighting)激活,高亮显示命令,错误会显示红色</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/zsh-的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -777,11 +755,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,14 +776,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,6 +791,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -822,10 +804,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
             
             <div class="clearfix"></div>
