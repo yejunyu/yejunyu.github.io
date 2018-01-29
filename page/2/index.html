@@ -159,6 +159,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql-mariadb-修改最大连接数无效的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">mysql,mariadb 修改最大连接数无效的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/" class="archive-article-date">
+  	<time datetime="2018-01-04T14:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[root@emsc ~]# ulimit -n<br>1024</p>
+<p>可知，操作系统最大文件描述符限制为 1024， 在 配置文件中添加<br>修改配置文件位置：/etc/security/limits.conf末尾添加如下配置项目</p>
+<p>open_files_limit = 65535</p>
+<p>更改 MySQL 在 Linux 的最大文件描述符限制，编辑 /usr/lib/systemd/system/mysqld.service 文件，在文件最后添加:<br>ubuntu16.04 下面位于：/lib/systemd/system/mysql.servive,可以通过find 命令查找</p>
+<p>LimitNOFILE=65535<br>LimitNPROC=65535</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl daemon-reload</span><br><span class="line">$ systemctl restart  mysqld.service</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -199,11 +281,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -288,11 +370,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -542,119 +624,6 @@
 
 
   
-    <article id="post-关系代词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1. 代替事物,短语或从句应使用 which</p>
-<blockquote>
-<p>which 作 read 的宾语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">which</span> I like to read.</p>
-<blockquote>
-<p>which 作主语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">which</span> is sure to interest you a lot</p>
-<blockquote>
-<p>which 作介词 in 的宾语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">in which</span> I’ve found many errors\<br>= This is a book <span style="border-bottom:2px dashed yellow;">which</span> I’ve found many errors <span style="border-bottom:2px dashed yellow;">in</span></p>
-<blockquote>
-<p>which 代替之前的整个主句,作宾语</p>
-</blockquote>
-<p>There is hardly anything he doesn’t know,<span style="border-bottom:2px dashed yellow;">which</span> I really envy</p>
-<ol>
-<li>代替人则使用 who 或 whom<blockquote>
-<p>who 作主语</p>
-</blockquote>
-</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">who</span> nerver lies</p>
-<blockquote>
-<p>whom 作 respect 的宾语</p>
-</blockquote>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">whom</span> we all respect</p>
-<blockquote>
-<p>whom 作介词 with 的宾语</p>
-</blockquote>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">with whom</span> I enjoy working\<br>= He is a man <span style="border-bottom:2px dashed yellow;">whom</span> I enjoy working <span style="border-bottom:2px dashed yellow;">with</span></p>
-<ol>
-<li>关系代词 who,whom 或 which 之前若无逗号或介词时,均可用 that 替代</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">who</span> never lies\<br>= He is a man <span style="border-bottom:2px dashed yellow;">that</span> never lies</p>
-<ol>
-<li>关系代词作宾语时之前若无逗号或介词,此时该关系代词可省略</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">whom</span> we all respect\<br>= He is a man <span style="border-bottom:2px dashed yellow;">that</span> we all respect\<br>= He is a man we all respect</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/关系代词/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -752,11 +721,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,10 +745,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -784,7 +753,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,10 +766,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
