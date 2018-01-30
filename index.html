@@ -190,7 +190,7 @@
 <li>设置数据库信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 resources 下，新建 mybatis 文件夹，并新建 config.properties 和 generatorConfig.xml，文件结构如下：</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-29/28781470.jpg" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># JDBC 驱动类名</span><br><span class="line">jdbc.driverClassName=com.mysql.jdbc.Driver</span><br><span class="line"># JDBC URL: jdbc:mysql:// + 数据库主机地址 + 端口号 + 数据库名</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8</span><br><span class="line"># JDBC 用户名及密码</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br><span class="line"></span><br><span class="line"># 生成实体类所在的包</span><br><span class="line">package.model=com.yy.boot.domain</span><br><span class="line"># 生成 mapper 类所在的包</span><br><span class="line">package.mapper=com.yy.boot.dao</span><br><span class="line"># 生成 mapper xml 文件所在的包，默认存储在 resources 目录下</span><br><span class="line">package.xml=mybatis</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-29/28781470.jpg" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># JDBC 驱动类名</span><br><span class="line">jdbc.driverClassName=com.mysql.jdbc.Driver</span><br><span class="line"># JDBC URL: jdbc:mysql:// + 数据库主机地址 + 端口号 + 数据库名</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8</span><br><span class="line"># JDBC 用户名及密码</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br><span class="line"></span><br><span class="line"># 生成实体类所在的包</span><br><span class="line">package.model=com.yy.boot.domain</span><br><span class="line"># 生成 mapper 类所在的包</span><br><span class="line">package.mapper=com.yy.boot.dao</span><br><span class="line"># 生成 mapper xml 文件所在的包，默认存储在 resources 目录下</span><br><span class="line">package.xml=mybatis/mapper</span><br></pre></td></tr></table></figure></p>
 <p>generator.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">    &lt;!--MyBatis3Simple或者MyBatis3,生成的xml文件略有不同--&gt;</span><br><span class="line">    &lt;context id=&quot;Mysql&quot; targetRuntime=&quot;MyBatis3Simple&quot; defaultModelType=&quot;flat&quot;&gt;</span><br><span class="line">        &lt;commentGenerator&gt;</span><br><span class="line">            &lt;property name=&quot;suppressAllComments&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;javaFileEncoding&quot; value=&quot;utf-8&quot;/&gt;</span><br><span class="line">        &lt;/commentGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;jdbcConnection driverClass=&quot;$&#123;driverClass&#125;&quot;</span><br><span class="line">                        connectionURL=&quot;$&#123;connectionURL&#125;&quot;</span><br><span class="line">                        userId=&quot;$&#123;userId&#125;&quot;</span><br><span class="line">                        password=&quot;$&#123;password&#125;&quot;&gt;</span><br><span class="line">        &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">        &lt;javaTypeResolver&gt;</span><br><span class="line">            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;javaModelGenerator targetPackage=&quot;$&#123;modelPackage&#125;&quot; targetProject=&quot;$&#123;src_main_java&#125;&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;sqlMapGenerator targetPackage=&quot;$&#123;sqlMapperPackage&#125;&quot; targetProject=&quot;$&#123;src_main_resources&#125;&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--</span><br><span class="line">        type=ANNOTATEDMAPPER表示不生成xml文件</span><br><span class="line">        这里我用XMLMAPPER</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;javaClientGenerator targetPackage=&quot;$&#123;mapperPackage&#125;&quot; targetProject=&quot;$&#123;src_main_java&#125;&quot; type=&quot;XMLMAPPER&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--</span><br><span class="line">         sql占位符，表示所有的表</span><br><span class="line">         这里只用city表</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;!--&lt;table tableName=&quot;%&quot;&gt;--&gt;</span><br><span class="line">            &lt;!--&lt;generatedKey column=&quot;id&quot; sqlStatement=&quot;Mysql&quot; identity=&quot;true&quot; /&gt;--&gt;</span><br><span class="line">        &lt;!--&lt;/table&gt;--&gt;</span><br><span class="line">        &lt;table tableName=&quot;city&quot; domainObjectName=&quot;City&quot; enableCountByExample=&quot;false&quot; enableUpdateByExample=&quot;false&quot;</span><br><span class="line">               enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot; selectByExampleQueryId=&quot;false&quot;&gt;&lt;/table&gt;</span><br><span class="line">    &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
 <p>在build.gradle中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">def getDbProperties = &#123;</span><br><span class="line">    def properties = new Properties()</span><br><span class="line">    file(&quot;src/main/resources/mybatis/config.properties&quot;).withInputStream &#123; inputStream -&gt;</span><br><span class="line">        properties.load(inputStream)</span><br><span class="line">    &#125;</span><br><span class="line">    properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task mybatisGenerate &lt;&lt; &#123;</span><br><span class="line">    def properties = getDbProperties()</span><br><span class="line">    ant.properties[&apos;targetProject&apos;] = projectDir.path</span><br><span class="line">    ant.properties[&apos;driverClass&apos;] = properties.getProperty(&quot;jdbc.driverClassName&quot;)</span><br><span class="line">    ant.properties[&apos;connectionURL&apos;] = properties.getProperty(&quot;jdbc.url&quot;)</span><br><span class="line">    ant.properties[&apos;userId&apos;] = properties.getProperty(&quot;jdbc.username&quot;)</span><br><span class="line">    ant.properties[&apos;password&apos;] = properties.getProperty(&quot;jdbc.password&quot;)</span><br><span class="line">    ant.properties[&apos;src_main_java&apos;] = sourceSets.main.java.srcDirs[0].path</span><br><span class="line">    ant.properties[&apos;src_main_resources&apos;] = sourceSets.main.resources.srcDirs[0].path</span><br><span class="line">    ant.properties[&apos;modelPackage&apos;] = properties.getProperty(&quot;package.model&quot;)</span><br><span class="line">    ant.properties[&apos;mapperPackage&apos;] = properties.getProperty(&quot;package.mapper&quot;)</span><br><span class="line">    ant.properties[&apos;sqlMapperPackage&apos;] = properties.getProperty(&quot;package.xml&quot;)</span><br><span class="line">    ant.taskdef(</span><br><span class="line">            name: &apos;mbgenerator&apos;,</span><br><span class="line">            classname: &apos;org.mybatis.generator.ant.GeneratorAntTask&apos;,</span><br><span class="line">            classpath: configurations.mybatisGenerator.asPath</span><br><span class="line">    )</span><br><span class="line">    ant.mbgenerator(overwrite: true,</span><br><span class="line">            configfile: &apos;src/main/resources/mybatis/generatorConfig.xml&apos;, verbose: true) &#123;</span><br><span class="line">        propertyset &#123;</span><br><span class="line">            propertyref(name: &apos;targetProject&apos;)</span><br><span class="line">            propertyref(name: &apos;userId&apos;)</span><br><span class="line">            propertyref(name: &apos;driverClass&apos;)</span><br><span class="line">            propertyref(name: &apos;connectionURL&apos;)</span><br><span class="line">            propertyref(name: &apos;password&apos;)</span><br><span class="line">            propertyref(name: &apos;src_main_java&apos;)</span><br><span class="line">            propertyref(name: &apos;src_main_resources&apos;)</span><br><span class="line">            propertyref(name: &apos;modelPackage&apos;)</span><br><span class="line">            propertyref(name: &apos;mapperPackage&apos;)</span><br><span class="line">            propertyref(name: &apos;sqlMapperPackage&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-29/28534463.jpg" alt=""></p>
@@ -510,7 +510,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将tomcat providedRuntime改成runtime</span><br><span class="line">//	providedRuntime(&apos;org.springframework.boot:spring-boot-starter-tomcat&apos;)</span><br><span class="line">	runtime(&apos;org.springframework.boot:spring-boot-starter-tomcat&apos;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>注解@ModelAttribute和@RequestParam有所不同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RequestParam传递简单的参数,ModelAttribute传递对象</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RequestParam传递简单的参数,ModelAttribute传递对象</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用mybatis-generator生成的model,xml,dao,即使你配置里写着覆盖,xml还是会在后面添加,然后程序报错说xml解析错误</p>
+</li>
+<li><p>配置多数据源,一定要加上@primary注解,要不然会报singlematch错误<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg" alt=""></p>
+</li>
 </ol>
 
       
@@ -525,11 +530,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -781,7 +786,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -789,19 +794,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,11 +810,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -826,6 +827,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
