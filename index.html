@@ -159,6 +159,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python-闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/31/python-闭包/">python 闭包</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/31/python-闭包/" class="archive-article-date">
+  	<time datetime="2018-01-31T15:01:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484229&amp;idx=1&amp;sn=9514866e182d0a56ff460b2f88ad542a&amp;chksm=ec5edc38db29552e1a2746b8ce7182ec2bba2bdead93868fd3eb4e5943fadc42902e7608d4e4&amp;scene=21#wechat_redirect" target="_blank" rel="external">转载</a></p>
+</blockquote>
+<p>曾经介绍过两篇关于函数的文章，第一篇是 关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484227&amp;idx=1&amp;sn=710bec026d8a1c7294cd06fd7c59b43b&amp;chksm=ec5edc3edb295528236af46510832d240fe05cdded7040eeac6a9f8341c535b98c8ab558715f&amp;scene=21#wechat_redirect" target="_blank" rel="external">Python 函数是第一类对象</a>，第二篇是关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484228&amp;idx=1&amp;sn=a42152bf9c7ddb5f68e88f1c6c0122e9&amp;chksm=ec5edc39db29552f161465de77336346afcd3e9dc2af1a8e353ef5fb4824639513edf61d5572&amp;scene=21#wechat_redirect" target="_blank" rel="external">Lambda 函数</a>，今天来说说 Python 闭包。</p>
+<p>什么是闭包？闭包有什么用？为什么要用闭包？今天我们就带着这3个问题来一步一步认识闭包。</p>
+<p>闭包和函数紧密联系在一起，介绍闭包前有必要先介绍一些背景知识，诸如嵌套函数、变量的作用域等概念</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>作用域是程序运行时变量可被访问的范围，定义在函数内的变量是局部变量，局部变量的作用范围只能是函数内部范围内，它不能在函数外引用。</p>
+<p>定义在模块最外层的变量是全局变量，它是全局范围内可见的，当然在函数里面也可以读取到全局变量的。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = 10 # 全局作用域变量def foo():    print(num)  # 10</span><br></pre></td></tr></table></figure>
+<p>而在函数外部则不可以访问局部变量。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def foo():    num = 10print(num)  # NameError: name &apos;num&apos; is not defined</span><br></pre></td></tr></table></figure>
+<h3 id="嵌套函数"><a href="#嵌套函数" class="headerlink" title="嵌套函数"></a>嵌套函数</h3><p>函数不仅可以定义在模块的最外层，还可以定义在另外一个函数的内部，像这种定义在函数里面的函数称之为<strong>嵌套函数</strong>（nested function）例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def print_msg(): </span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    printer()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">print_msg()</span><br></pre></td></tr></table></figure>
+<p>对于嵌套函数，它可以访问到其外层作用域中声明的非局部（non-local）变量，比如代码示例中的变量 <code>msg</code> 可以被嵌套函数 <code>printer</code> 正常访问。</p>
+<p>那么有没有一种可能即使脱离了函数本身的作用范围，局部变量还可以被访问得到呢？答案是闭包</p>
+<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>函数身为第一类对象，它可以作为函数的返回值返回，现在我们来考虑如下的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def print_msg():</span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer 是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    return printer</span><br><span class="line">another = print_msg()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">another()</span><br></pre></td></tr></table></figure>
+<p>这段代码和前面例子的效果完全一样，同样输出 “zen of python”。不同的地方在于内部函数 <code>printer</code> 直接作为返回值返回了。</p>
+<p>一般情况下，函数中的局部变量仅在函数的执行期间可用，一旦 <code>print_msg()</code> 执行过后，我们会认为 <code>msg</code>变量将不再可用。然而，在这里我们发现 print_msg 执行完之后，在调用 another 的时候 msg 变量的值正常输出了，这就是闭包的作用，闭包使得局部变量在函数外被访问成为可能。</p>
+<p>看完这个例子，我们再来定义闭包，维基百科上的解释是:</p>
+<blockquote>
+<p>在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
+</blockquote>
+<p>这里的 <code>another</code> 就是一个闭包，闭包本质上是一个函数，它由两部分组成，<code>printer</code> 函数和变量 <code>msg</code>。闭包使得这些变量的值始终保存在内存中。</p>
+<p>闭包，顾名思义，就是一个封闭的包裹，里面包裹着自由变量，就像在类里面定义的属性值一样，自由变量的可见范围随同包裹一起，哪里可以访问到这个包裹，哪里就可以访问到这个自由变量。</p>
+<h3 id="为什么要使用闭包"><a href="#为什么要使用闭包" class="headerlink" title="为什么要使用闭包"></a>为什么要使用闭包</h3><p>闭包避免了使用全局变量，此外，闭包允许将函数与其所操作的某些数据（环境）关连起来。这一点与面向对象编程是非常类似的，在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。</p>
+<p>一般来说，当对象中只有一个方法时，这时使用闭包是更好的选择。来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def adder(x):</span><br><span class="line">    def wrapper(y):</span><br><span class="line">        return x + y</span><br><span class="line">    return wrapper</span><br><span class="line">adder5 = adder(5)</span><br><span class="line"># 输出 15</span><br><span class="line">adder5(10)</span><br><span class="line"># 输出 11</span><br><span class="line">adder5(6)</span><br></pre></td></tr></table></figure>
+<p>这比用类来实现更优雅，此外装饰器也是基于闭包的一中应用场景。</p>
+<p>所有函数都有一个 <code>__closure__</code>属性，如果这个函数是一个闭包的话，那么它返回的是一个由 cell 对象 组成的元组对象。cell 对象的cell_contents 属性就是闭包中的自由变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; adder.__closure__</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__(&lt;cell at 0x103075910: int object at 0x7fd251604518&gt;,)</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__[0].cell_contents5</span><br></pre></td></tr></table></figure>
+<p>这解释了为什么局部变量脱离函数之后，还可以在函数之外被访问的原因的，因为它存储在了闭包的 cell_contents中了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/31/python-闭包/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-gradle-中使用-mybatis-generator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -516,7 +621,11 @@
 </li>
 <li><p>配置多数据源,一定要加上@primary注解,要不然会报singlematch错误<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg" alt=""></p>
 </li>
+<li><p>jdk9的坑 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.base/jdk.internal.loader.ClassLoaders$AppClassLoader cannot be cast to java.base/java.net.URLClassLoader</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>jdk9 和 devtools 不兼容,换成 jdk8或者 spring-boot 2.0.0M 版本</p>
 
       
 
@@ -586,112 +695,9 @@
 
 
   
-    <article id="post-mycat和mycat-web安装(ubuntu16.04)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">mycat和mycat-web安装（ubuntu16.04）</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/" class="archive-article-date">
-  	<time datetime="2018-01-09T14:41:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="mycat-安装"><a href="#mycat-安装" class="headerlink" title="mycat 安装"></a>mycat 安装</h2><ol>
-<li>安装环境</li>
-</ol>
-<ul>
-<li>java (mycat是用java写的)</li>
-<li>mysql<br>设置<br><strong>lower_case_table_names = 1</strong></li>
-</ul>
-<ol>
-<li>安装mycat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http://dl.mycat.io/</span><br><span class="line">下载最新发布版</span><br><span class="line">解压之后</span><br><span class="line">mv mycat /usr/local/src</span><br><span class="line"># mycat</span><br><span class="line">export MYCAT_HOME=/usr/local/src/mycat</span><br><span class="line"></span><br><span class="line"># PATH</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MYCAT_HOME/bin</span><br><span class="line">查看日志，mycat start启动</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<hr>
-<h2 id="mycat-web-安装"><a href="#mycat-web-安装" class="headerlink" title="mycat-web 安装"></a>mycat-web 安装</h2><ol>
-<li>下载mycat-web<br><code>http://dl.mycat.io/</code></li>
-<li><p>安装zookeeper</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zookeeper</span><br><span class="line"># ubuntu安装在/usr/share/zookeeper</span><br><span class="line">bash zkServer.sh start就可以启动服务了</span><br><span class="line"># 可以写脚本或者起别名方便操作</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动和配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mycat-web下bash start.sh</span><br><span class="line">访问地址http://localhost:8082/mycat</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<hr>
-<h2 id="gotCha"><a href="#gotCha" class="headerlink" title="gotCha"></a>gotCha</h2><ol>
-<li>远程连接一定要指定连接的数据库，不指定不显示任何数据</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.xml.sax.SAXParseException; lineNumber: 106; columnNumber: 16; The content of element type &quot;mycat:schema&quot; must match &quot;(schema*,dataNode*,dataHost*)&quot;.</span><br><span class="line">原因：要按照schema、datanode 、datahost的顺序放，不能打乱。也就是所有schema要放一起，然后接着才能放datanode。。。。</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -786,11 +792,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -798,7 +808,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -810,15 +824,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,10 +837,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

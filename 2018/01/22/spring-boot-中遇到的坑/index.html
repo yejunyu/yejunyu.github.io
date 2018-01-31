@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-1-22/66221483.jpg">
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-1-23/83286533.jpg">
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg">
-<meta property="og:updated_time" content="2018-01-30T13:19:51.496Z">
+<meta property="og:updated_time" content="2018-01-30T13:36:43.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring boot 中遇到的坑">
 <meta name="twitter:description" content="springboot 中使用 redis 报错12因为我用的 jdk9的缘故,用 jdk8就没问题了,或者导入jaxb-api这个包     restdocs 不能使用需要加上 version  boot启动就停止,不报错 123将tomcat providedRuntime改成runtime//	providedRuntime(&amp;apos;org.springframework.boot:sp">
@@ -203,7 +203,11 @@
 </li>
 <li><p>配置多数据源,一定要加上@primary注解,要不然会报singlematch错误<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg" alt=""></p>
 </li>
+<li><p>jdk9的坑 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.base/jdk.internal.loader.ClassLoaders$AppClassLoader cannot be cast to java.base/java.net.URLClassLoader</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>jdk9 和 devtools 不兼容,换成 jdk8或者 spring-boot 2.0.0M 版本</p>
 
       
 
@@ -471,11 +475,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,7 +491,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,15 +507,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,10 +520,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
