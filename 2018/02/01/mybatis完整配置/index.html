@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 大葉子の林中小屋</title>
+  <title>mybatis完整配置 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="spring,mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis完整配置">
+<meta property="og:url" content="http://yoursite.com/2018/02/01/mybatis完整配置/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-01T15:53:05.727Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="mybatis完整配置">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,223 +159,180 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mybatis完整配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mybatis完整配置
+    </h1>
+  
+
+        
+        <a href="/2018/02/01/mybatis完整配置/" class="archive-article-date">
+  	<time datetime="2018-02-01T15:52:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line">&lt;!-- 配置生成器 --&gt;</span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">&lt;!-- 可以用于加载配置项或者配置文件，在整个配置文件中就可以使用$&#123;propertyKey&#125;的方式来引用配置项</span><br><span class="line">    resource：配置资源加载地址，使用resource，MBG从classpath开始找，比如com/myproject/generatorConfig.properties        </span><br><span class="line">    url：配置资源加载地质，使用URL的方式，比如file:///C:/myfolder/generatorConfig.properties.</span><br><span class="line">    注意，两个属性只能选址一个;</span><br><span class="line">    </span><br><span class="line">    另外，如果使用了mybatis-generator-maven-plugin，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用</span><br><span class="line">&lt;properties resource=&quot;&quot; url=&quot;&quot; /&gt;</span><br><span class="line"> --&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;!-- 在MBG工作的时候，需要额外加载的依赖包</span><br><span class="line">    location属性指明加载jar/zip包的全路径</span><br><span class="line">&lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  </span><br><span class="line">&lt;!-- </span><br><span class="line">    context:生成一组对象的环境 </span><br><span class="line">    id:必选，上下文id，用于在生成错误时提示</span><br><span class="line">    defaultModelType:指定生成对象的样式</span><br><span class="line">        1，conditional：类似hierarchical；</span><br><span class="line">        2，flat：所有内容（主键，blob）等全部生成在一个对象中；</span><br><span class="line">        3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)</span><br><span class="line">    targetRuntime:</span><br><span class="line">        1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；</span><br><span class="line">        2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；</span><br><span class="line">    introspectedColumnImpl：类全限定名，用于扩展MBG</span><br><span class="line">--&gt;</span><br><span class="line">&lt;context id=&quot;mysql&quot; defaultModelType=&quot;hierarchical&quot; targetRuntime=&quot;MyBatis3Simple&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；</span><br><span class="line">        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;property name=&quot;autoDelimitKeywords&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;!-- 生成的Java文件的编码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFileEncoding&quot; value=&quot;UTF-8&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化java代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultJavaFormatter&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化XML代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;xmlFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultXmlFormatter&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span><br><span class="line">    &lt;property name=&quot;beginningDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;endingDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 必须要有的，使用这个配置链接数据库</span><br><span class="line">        @TODO:是否可以扩展</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot; connectionURL=&quot;jdbc:mysql:///pss&quot; userId=&quot;root&quot; password=&quot;admin&quot;&gt;</span><br><span class="line">        &lt;!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 --&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- java类型处理器 </span><br><span class="line">        用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；</span><br><span class="line">        注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； </span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaTypeResolver type=&quot;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&quot;&gt;</span><br><span class="line">        &lt;!-- </span><br><span class="line">            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型</span><br><span class="line">            false：默认,</span><br><span class="line">                scale&gt;0;length&gt;18：使用BigDecimal;</span><br><span class="line">                scale=0;length[10,18]：使用Long；</span><br><span class="line">                scale=0;length[5,9]：使用Integer；</span><br><span class="line">                scale=0;length&lt;5：使用Short；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- java模型创建器，是必须要的元素</span><br><span class="line">        负责：1，key类（见context的defaultModelType）；2，java类；3，查询类</span><br><span class="line">        targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；</span><br><span class="line">        targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com._520it.mybatis.domain&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!--  for MyBatis3/MyBatis3Simple</span><br><span class="line">            自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- for MyBatis3 / MyBatis3Simple</span><br><span class="line">            是否创建一个不可变的类，如果为true，</span><br><span class="line">            那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置一个根对象，</span><br><span class="line">            如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项</span><br><span class="line">            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：</span><br><span class="line">                1，属性名相同，类型相同，有相同的getter/setter方法；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;com._520it.mybatis.domain.BaseDomain&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置是否在getter方法中，对String类型字段调用trim()方法 --&gt;</span><br><span class="line">        &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 生成SQL map的XML文件生成器，</span><br><span class="line">        注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），</span><br><span class="line">            或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置</span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; targetProject=&quot;src/main/resources&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 </span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">        type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：</span><br><span class="line">            1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；</span><br><span class="line">            2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；</span><br><span class="line">            3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；</span><br><span class="line">        注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaClientGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; type=&quot;ANNOTATEDMAPPER&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素</span><br><span class="line">        选择的table会生成一下文件：</span><br><span class="line">        1，SQL map文件</span><br><span class="line">        2，生成一个主键类；</span><br><span class="line">        3，除了BLOB和主键的其他字段的类；</span><br><span class="line">        4，包含BLOB的类；</span><br><span class="line">        5，一个用户生成动态查询的条件类（selectByExample, deleteByExample），可选；</span><br><span class="line">        6，Mapper接口（可选）</span><br><span class="line">    </span><br><span class="line">        tableName（必要）：要生成对象的表名；</span><br><span class="line">        注意：大小写敏感问题。正常情况下，MBG会自动的去识别数据库标识符的大小写敏感度，在一般情况下，MBG会</span><br><span class="line">            根据设置的schema，catalog或tablename去查询数据表，按照下面的流程：</span><br><span class="line">            1，如果schema，catalog或tablename中有空格，那么设置的是什么格式，就精确的使用指定的大小写格式去查询；</span><br><span class="line">            2，否则，如果数据库的标识符使用大写的，那么MBG自动把表名变成大写再查找；</span><br><span class="line">            3，否则，如果数据库的标识符使用小写的，那么MBG自动把表名变成小写再查找；</span><br><span class="line">            4，否则，使用指定的大小写格式查询；</span><br><span class="line">        另外的，如果在创建表的时候，使用的&quot;&quot;把数据库对象规定大小写，就算数据库标识符是使用的大写，在这种情况下也会使用给定的大小写来创建表名；</span><br><span class="line">        这个时候，请设置delimitIdentifiers=&quot;true&quot;即可保留大小写格式；</span><br><span class="line">        </span><br><span class="line">        可选：</span><br><span class="line">        1，schema：数据库的schema；</span><br><span class="line">        2，catalog：数据库的catalog；</span><br><span class="line">        3，alias：为数据表设置的别名，如果设置了alias，那么生成的所有的SELECT SQL语句中，列名会变成：alias_actualColumnName</span><br><span class="line">        4，domainObjectName：生成的domain类的名字，如果不设置，直接使用表名作为domain类的名字；可以设置为somepck.domainName，那么会自动把domainName类再放到somepck包里面；</span><br><span class="line">        5，enableInsert（默认true）：指定是否生成insert语句；</span><br><span class="line">        6，enableSelectByPrimaryKey（默认true）：指定是否生成按照主键查询对象的语句（就是getById或get）；</span><br><span class="line">        7，enableSelectByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询语句；</span><br><span class="line">        8，enableUpdateByPrimaryKey（默认true）：指定是否生成按照主键修改对象的语句（即update)；</span><br><span class="line">        9，enableDeleteByPrimaryKey（默认true）：指定是否生成按照主键删除对象的语句（即delete）；</span><br><span class="line">        10，enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；</span><br><span class="line">        11，enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；</span><br><span class="line">        12，enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；</span><br><span class="line">        13，modelType：参考context元素的defaultModelType，相当于覆盖；</span><br><span class="line">        14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）</span><br><span class="line">        15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性</span><br><span class="line">        </span><br><span class="line">        注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;table tableName=&quot;userinfo&quot; &gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 constructorBased属性--&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； --&gt;</span><br><span class="line">        &lt;property name=&quot;ignoreQualifiersAtRuntime&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 immutable 属性 --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 --&gt;</span><br><span class="line">        &lt;property name=&quot;modelOnly&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 rootClass 属性 </span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">        &lt;!-- 参考javaClientGenerator 的  rootInterface 属性</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog </span><br><span class="line">        &lt;property name=&quot;runtimeCatalog&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema </span><br><span class="line">        &lt;property name=&quot;runtimeSchema&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename </span><br><span class="line">        &lt;property name=&quot;runtimeTableName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 注意，该属性只针对MyBatis3Simple有用；</span><br><span class="line">            如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;selectAllOrderByClause&quot; value=&quot;age desc,username asc&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate --&gt;</span><br><span class="line">        &lt;property name=&quot;useActualColumnNames&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        &lt;!-- generatedKey用于生成生成主键的方法，</span><br><span class="line">            如果设置了该元素，MBG会在生成的&lt;insert&gt;元素中生成一条正确的&lt;selectKey&gt;元素，该元素可选</span><br><span class="line">            column:主键的列名；</span><br><span class="line">            sqlStatement：要生成的selectKey语句，有以下可选项：</span><br><span class="line">                Cloudscape:相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2       :相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2_MF    :相当于selectKey的SQL为：SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1</span><br><span class="line">                Derby     :相当于selectKey的SQL为：VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                HSQLDB    :相当于selectKey的SQL为：CALL IDENTITY()</span><br><span class="line">                Informix  :相当于selectKey的SQL为：select dbinfo(&apos;sqlca.sqlerrd1&apos;) from systables where tabid=1</span><br><span class="line">                MySql     :相当于selectKey的SQL为：SELECT LAST_INSERT_ID()</span><br><span class="line">                SqlServer :相当于selectKey的SQL为：SELECT SCOPE_IDENTITY()</span><br><span class="line">                SYBASE    :相当于selectKey的SQL为：SELECT @@IDENTITY</span><br><span class="line">                JDBC      :相当于在生成的insert元素上添加useGeneratedKeys=&quot;true&quot;和keyProperty属性</span><br><span class="line">        &lt;generatedKey column=&quot;&quot; sqlStatement=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- </span><br><span class="line">            该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，</span><br><span class="line">            比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；</span><br><span class="line">            那么就可以设置searchString为&quot;^CUST_&quot;，并使用空白替换，那么生成的Customer对象中的属性名称就不是</span><br><span class="line">            custId,custName等，而是先被替换为ID,NAME,EMAIL,然后变成属性：id，name，email；</span><br><span class="line">            </span><br><span class="line">            注意，MBG是使用java.util.regex.Matcher.replaceAll来替换searchString和replaceString的，</span><br><span class="line">            如果使用了columnOverride元素，该属性无效；</span><br><span class="line">            </span><br><span class="line">        &lt;columnRenamingRule searchString=&quot;&quot; replaceString=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">         </span><br><span class="line">         &lt;!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；</span><br><span class="line">            column:要重新设置的列名；</span><br><span class="line">            注意，一个table元素中可以有多个columnOverride元素哈~</span><br><span class="line">          --&gt;</span><br><span class="line">         &lt;columnOverride column=&quot;username&quot;&gt;</span><br><span class="line">            &lt;!-- 使用property属性来指定列要生成的属性名称 --&gt;</span><br><span class="line">            &lt;property name=&quot;property&quot; value=&quot;userName&quot;/&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名</span><br><span class="line">            &lt;property name=&quot;javaType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- jdbcType用于指定该列的JDBC类型 </span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名</span><br><span class="line">                注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler</span><br><span class="line">                只会生成类似：where id = #&#123;id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler&#125;的参数描述</span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">            --&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- 参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            &lt;property name=&quot;delimitedColumnName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">         &lt;/columnOverride&gt;</span><br><span class="line">         </span><br><span class="line">         &lt;!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现 </span><br><span class="line">            column:指定要忽略的列的名字；</span><br><span class="line">            delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            </span><br><span class="line">            注意，一个table元素中可以有多个ignoreColumn元素</span><br><span class="line">         &lt;ignoreColumn column=&quot;deptId&quot; delimitedColumnName=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/context&gt;</span><br><span class="line"></span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/zabbix安装小结-ubuntu/" class="archive-article-date">
-  	<time datetime="2017-12-19T23:03:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/zabbix安装小结-ubuntu/">zabbix安装小结(ubuntu)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
-  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/02/01/mybatis完整配置/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/mysql-常用命令.1/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/31/python-闭包/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python 闭包</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/mysql-常用命令.1/">mysql 常用命令</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -397,8 +356,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
