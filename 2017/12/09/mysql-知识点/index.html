@@ -9,14 +9,14 @@
   <title>mysql 知识点 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
-<meta name="keywords" content="数据库,mysql">
+<meta name="keywords" content="mysql,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql 知识点">
 <meta property="og:url" content="http://yoursite.com/2017/12/09/mysql-知识点/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-24T23:38:14.753Z">
+<meta property="og:updated_time" content="2018-03-01T12:16:43.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 知识点">
 <meta name="twitter:description" content="存储引擎InnoDB   在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎   容灾恢复性好 支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的 使用行级锁 对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和">
@@ -224,10 +224,7 @@
 <blockquote>
 <p>ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎,ARCHIVE使用 zlib 无损数据压缩,让数据都保存在压缩的存档表中.当数据被插入时,他们被压缩</p>
 </blockquote>
-<ul>
-<li>他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据</li>
-</ul>
-
+<h2 id="他只支持-insert-和-select-支持自增键及其上的索引-不支持其他索引-他适合做日志记录-用户行为分析-不需要-update-和-delete-和索引的数据"><a href="#他只支持-insert-和-select-支持自增键及其上的索引-不支持其他索引-他适合做日志记录-用户行为分析-不需要-update-和-delete-和索引的数据" class="headerlink" title="- 他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据"></a>- 他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据</h2><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2>
       
 
       
@@ -271,11 +268,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
@@ -482,11 +479,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,11 +491,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,7 +511,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,15 +527,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

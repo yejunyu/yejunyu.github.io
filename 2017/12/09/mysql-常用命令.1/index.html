@@ -9,14 +9,14 @@
   <title>mysql 常用命令 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
-<meta name="keywords" content="数据库,mysql">
+<meta name="keywords" content="mysql,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql 常用命令">
 <meta property="og:url" content="http://yoursite.com/2017/12/09/mysql-常用命令.1/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-27T13:26:14.629Z">
+<meta property="og:updated_time" content="2018-03-01T14:46:32.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 常用命令">
 <meta name="twitter:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
@@ -229,9 +229,15 @@
 </ul>
 <hr>
 <h1 id="创建用户和授权"><a href="#创建用户和授权" class="headerlink" title="创建用户和授权"></a>创建用户和授权</h1><p>`CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’;<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </span><br><span class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line">grant select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span> identified by <span class="string">'password'</span>;</span><br><span class="line">revoke select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>显示某个用户的权限<br><code>SHOW GRANTS FOR username@&#39;ip_range&#39;;</code></li>
+<li>赋予某个用户对库db1进行SELECT、 INSERT、 UPDATE和DELETE的权限的命令<br><code>GRANT SELECT,INSERT,UPDATE,DELETE ON db1.* TO username@&#39;10.%&#39; IDENTIFIED BY &#39;your_password&#39;;</code></li>
+</ul>
 <hr>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
 <li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+<li>更改密码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR user@&apos;ip_range&apos; = PASSWORD(&apos;some password&apos;);</span><br><span class="line">或</span><br><span class="line">GRANT USAGE ON *.* TO user@&apos;ip_range&apos; IDENTIFIED BY &apos;some password&apos;;</span><br><span class="line">或</span><br><span class="line">shell&gt; mysql -u root</span><br><span class="line">mysql&gt; UPDATE mysql.user SET PASSWORD=PASSWORD(&apos;newpwd&apos;)</span><br><span class="line">WHERE user=&apos;root&apos;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <hr>
 
@@ -278,11 +284,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
@@ -489,11 +495,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,11 +507,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,7 +527,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,15 +543,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
