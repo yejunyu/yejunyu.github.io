@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>mysql 常用命令 | 大葉子の林中小屋</title>
+  <title>mysql锁 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
-<meta name="keywords" content="mysql,数据库">
+  <meta name="description" content="mysql innodb的3种行锁记录锁(record lock)这是一个索引记录锁。它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止扫描整个表。 间隙锁（ gap lock）这是施加于索引记录间隙上的锁 next-key锁记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。  死锁产生死锁的4个必要条件">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql 常用命令">
-<meta property="og:url" content="http://yoursite.com/2017/12/09/mysql-常用命令.1/index.html">
+<meta property="og:title" content="mysql锁">
+<meta property="og:url" content="http://yoursite.com/2018/03/02/mysql锁/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
+<meta property="og:description" content="mysql innodb的3种行锁记录锁(record lock)这是一个索引记录锁。它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止扫描整个表。 间隙锁（ gap lock）这是施加于索引记录间隙上的锁 next-key锁记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。  死锁产生死锁的4个必要条件">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-01T14:46:32.296Z">
+<meta property="og:updated_time" content="2018-03-02T12:46:06.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql 常用命令">
-<meta name="twitter:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
+<meta name="twitter:title" content="mysql锁">
+<meta name="twitter:description" content="mysql innodb的3种行锁记录锁(record lock)这是一个索引记录锁。它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止扫描整个表。 间隙锁（ gap lock）这是施加于索引记录间隙上的锁 next-key锁记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。  死锁产生死锁的4个必要条件">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -159,87 +159,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql-常用命令.1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mysql锁" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql 常用命令
+      mysql锁
     </h1>
   
 
         
-        <a href="/2017/12/09/mysql-常用命令.1/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+        <a href="/2018/03/02/mysql锁/" class="archive-article-date">
+  	<time datetime="2018-03-02T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="增"><a href="#增" class="headerlink" title="增"></a>增</h1><ul>
-<li>创建库<br><code>create database DB</code>    </li>
-<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
-<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
-<li>插入数据<br><code>insert into table_name(col1,col2...) values(value1,value2...)</code></li>
-</ul>
+        <h1 id="mysql-innodb的3种行锁"><a href="#mysql-innodb的3种行锁" class="headerlink" title="mysql innodb的3种行锁"></a>mysql innodb的3种行锁</h1><h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>这是一个索引记录锁。<br>它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止<br>扫描整个表。</p>
+<h2 id="间隙锁（-gap-lock）"><a href="#间隙锁（-gap-lock）" class="headerlink" title="间隙锁（ gap lock）"></a>间隙锁（ gap lock）</h2><p>这是施加于索引记录间隙上的锁</p>
+<h2 id="next-key锁"><a href="#next-key锁" class="headerlink" title="next-key锁"></a>next-key锁</h2><p>记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。</p>
 <hr>
-<h1 id="删"><a href="#删" class="headerlink" title="删"></a>删</h1><ul>
-<li>删除表<br><code>drop table t1</code></li>
-<li>删除库<br><code>drop database DB</code></li>
-<li>删除列<br><code>alter table t1 drop c</code></li>
-<li>删除数据<br><code>delete from table_name [where conditions]</code></li>
-</ul>
-<hr>
-<h1 id="改"><a href="#改" class="headerlink" title="改"></a>改</h1><ul>
-<li>修改表名<br><code>alter table t1 rename t2</code></li>
-<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
-<li>修改数据<br><code>update table_name set col1=value1,col2=value2... [where conditions]</code></li>
-</ul>
-<hr>
-<h1 id="查"><a href="#查" class="headerlink" title="查"></a>查</h1><ul>
-<li><p>查询数据<br><code>select col1,col2... from table_name [where conditions]</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># sql 两个通配符&apos;_&apos;匹配任意单个字符,&apos;%&apos;匹配多个字符(包括0个字符)</span><br><span class="line"># 查询以字母 D 开头的员工记录</span><br><span class="line">select * from table_name where first_name like &apos;D%&apos;;</span><br><span class="line">select emp_no,birth_date,`first_name`,`last_name` FROM `employees` where `first_name` LIKE &apos;Ang__&apos; and `last_name` like &apos;Con__&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>逻辑操作符<br>AND OR NOT (与或非)    </p>
-</li>
-<li>范围操作 IN 和 BETWEEN<br>选择在 employee 表中分别在’1964-06-01’,’1964-06-02’,’1964-06-04’这三天出生的员工<br><code>select * from &#39;employees&#39; where &#39;birth_date&#39; in (&#39;1964-06-01&#39;,&#39;1964-06-02&#39;,&#39;1964-06-04&#39;)</code><br>选择在1964-06-01到1964-06-04之间出生的<br><code>select * from &#39;employees&#39; where &#39;birth_date&#39; BETWEEN &#39;1964-06-01&#39; and &#39;1964-06-04&#39;</code>    </li>
-<li>限制获取记录<br><code>select * from employees limit 5</code>   </li>
-<li>排序<br>查询按生日100到109的员工<br><code>select * from employees order by birth_date asc limit 100,10</code>  </li>
-<li><p>数据计算<br>计算员工年龄,并且按 first_name,last_name 排序,返回记录限制10条    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT *,CURRENT_DATE,TIMESTAMPDIFF(YEAR,`birth_date`,CURRENT_DATE) as age FROM `employees` ORDER BY `first_name`,`last_name` LIMIT 10</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取不重复的值   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT(`first_name`) from `employees`</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>聚集函数(count,min,max,avg,sum)   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 查询总记录数</span><br><span class="line">SELECT COUNT(*) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询最小工号</span><br><span class="line">SELECT MIN(`emp_no`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询出生最晚(最年轻)的员工</span><br><span class="line">SELECT MAX(`birth_date`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询雇员平均薪水</span><br><span class="line">SELECT AVG(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 查询薪水总额</span><br><span class="line">SELECT SUM(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 统计&apos;1986-06-26&apos;和&apos;1985-11-21&apos;分别多少人入职    </span><br><span class="line">SELECT sum(`hire_date`=&apos;1986-06-26&apos;) as sum_1986_06_26,sum(`hire_date`=&apos;1985-11-21&apos;) as sum_1985_11_21 from `employees`</span><br><span class="line">查询语句里 hire_date=&apos;1986-06-26&apos;是一个计算表达式,满足为1,不满足为0</span><br><span class="line"></span><br><span class="line"># 分组统计 group by 子句</span><br><span class="line">查询 employees 表,按照 first_name 分组,并根据 first_name 出现次数降序排列</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># group by 用 having 来筛选</span><br><span class="line">查询 first_name 出现次数大于270的</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># 并集操作</span><br><span class="line">union 和 union all</span><br><span class="line">union 实际上是 union distinct</span><br><span class="line"></span><br><span class="line"># NULL 不能用 &gt; = &lt; 只能用 is NULL is not NULL</span><br><span class="line"></span><br><span class="line"># 连接</span><br><span class="line">join 和 子查询</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
-<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
-<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
-<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
-<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
-<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
-<li>删除索引<br><code>drop index index_name on tb1</code></li>
-</ul>
-<hr>
-<h1 id="创建用户和授权"><a href="#创建用户和授权" class="headerlink" title="创建用户和授权"></a>创建用户和授权</h1><p>`CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’;<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </span><br><span class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line">grant select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span> identified by <span class="string">'password'</span>;</span><br><span class="line">revoke select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure></p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>产生死锁的4个必要条件</p>
 <ul>
-<li>显示某个用户的权限<br><code>SHOW GRANTS FOR username@&#39;ip_range&#39;;</code></li>
-<li>赋予某个用户对库db1进行SELECT、 INSERT、 UPDATE和DELETE的权限的命令<br><code>GRANT SELECT,INSERT,UPDATE,DELETE ON db1.* TO username@&#39;10.%&#39; IDENTIFIED BY &#39;your_password&#39;;</code></li>
+<li>禁止抢占（ no preemption）</li>
+<li>持有和等待（ hold and wait）</li>
+<li>互斥（ mutual exclusion）</li>
+<li>循环等待（ circular waiting）</li>
 </ul>
-<hr>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
-<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
-<li>更改密码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR user@&apos;ip_range&apos; = PASSWORD(&apos;some password&apos;);</span><br><span class="line">或</span><br><span class="line">GRANT USAGE ON *.* TO user@&apos;ip_range&apos; IDENTIFIED BY &apos;some password&apos;;</span><br><span class="line">或</span><br><span class="line">shell&gt; mysql -u root</span><br><span class="line">mysql&gt; UPDATE mysql.user SET PASSWORD=PASSWORD(&apos;newpwd&apos;)</span><br><span class="line">WHERE user=&apos;root&apos;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-</li>
+<p>预防死锁就是至少破坏这4个条件中的一项， 即破坏“禁止抢占”、 “持有等待”、 “资源互斥”或“循环等待”</p>
+<p>实践中， 处理死锁的方法大致分为两种。 既可以检测死锁并进行修复， 也可以对事务进行管理， 使死锁永远都不可能形<br>成。 当存在死锁时， 对该状态进行修复以使所有涉及的事务都能继续执行通常是不可能的。 因此， 至少其中的一个事务必须终<br>止并重新开始。 InnoDB会自动检测死锁。 据官方文档可知， 目前InnoDB处理死锁的机制是： 发现有循环等待的现象， 立即回退<br>（ rollback） 开销更小的事务， 也就是插入、 修改、 删除了更少记录的事务</p>
+<p>对于MySQL死锁的解决， 通常有如下方法。</p>
+<ul>
+<li>经常提交你的事务。 小事务更少地倾向于冲突.</li>
+<li>以固定的顺序访问你的表和行。 这样事务就会形成定义良好的查询并且没有死锁</li>
+<li>将精心选定的索引添加到你的表中。 这样你的查询就只需要扫描更少的索引记录， 并且因此也可以设置更少的锁定。</li>
+<li>不要把无关的操作放到事务里面。</li>
+<li>在并发比较高的系统中， 不要显式加锁， 特别是在事务里显式加锁。 如SELECT…FOR UPDATE语句， 如果是在事务里<br>（ 运行了START TRANSACTION或设置了autocommit等于0） ， 那么就会锁定所查找到的记录</li>
+<li>尽量按照主键/索引去查找记录， 范围查找增加了锁冲突的可能性， 也不要利用数据库做一些额外的计算工作。 比如有些<br>读者会用到“SELECT…WHERE…ORDER BY RAND();”这样的语句， 由于类似这样的语句用不到索引， 因此将导致整个表的数<br>据都被锁住</li>
+<li>优化SQL和表设计， 减少同时占用太多资源的情况。 比如说， 减少连接的表， 将复杂SQL分解为多个简单的SQL</li>
 </ul>
-<hr>
 
       
 
@@ -285,10 +247,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
@@ -344,7 +302,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/09/mysql-常用命令.1/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/02/mysql锁/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -358,18 +316,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/09/mysql-知识点/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mysql 知识点
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/09/mysql-常用命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql 常用命令</div>
+    <a href="/2018/03/01/慢查询分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">慢查询分析</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -495,6 +444,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
@@ -503,15 +460,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,19 +480,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,6 +493,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">

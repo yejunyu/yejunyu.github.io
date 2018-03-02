@@ -159,6 +159,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iterm2快速登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
+  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>在任意地方编辑文本,比如 ~/.ssh/wx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/expect -f</span><br><span class="line">set port 2121</span><br><span class="line">set user root</span><br><span class="line">set host 172.16.10.71</span><br><span class="line">set password mima123456</span><br><span class="line">set timeout -1</span><br><span class="line"></span><br><span class="line">spawn ssh -p$port $user@$host</span><br><span class="line">expect &quot;*assword:*&quot;</span><br><span class="line">send &quot;$password\r&quot;</span><br><span class="line">interact</span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>command+,打开设置</p>
+</li>
+</ol>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-15/98196812.jpg" alt="111"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/15/iterm2快速登录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关系代词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -394,19 +475,19 @@
 
 
   
-    <article id="post-mysql-常用命令.1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/mysql-常用命令.1/">mysql 常用命令</a>
+      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
     </h1>
   
 
         
-        <a href="/2017/12/09/mysql-常用命令.1/" class="archive-article-date">
+        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
   	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
 </a>
         
@@ -469,112 +550,19 @@
 <li>赋予某个用户对库db1进行SELECT、 INSERT、 UPDATE和DELETE的权限的命令<br><code>GRANT SELECT,INSERT,UPDATE,DELETE ON db1.* TO username@&#39;10.%&#39; IDENTIFIED BY &#39;your_password&#39;;</code></li>
 </ul>
 <hr>
+<h1 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h1><ul>
+<li>RANGE分区的表是通过如下这种方式进行分区的， 基于一个连续区间的列值， 把多行分配给分区， 例如某个时间段的值属于某个分区， 某个数值范围的值应该属于某个分区</li>
+<li>MySQL中的LIST分区在很多方面都类似于RANGE分区。 和按照RANGE进行分区的方式一样， 每个分区都必须明确定义。它们的主要区别在于， LIST分区中每个分区的定义和选择是基于值列表的， 而RANGE分区是从属于一个连续区间值的集合的</li>
+<li>HASH分区是基于用户定义的表达式的返回值选择分区。 它主要用来确保数据在预先确定了数目的分区中是平均分布的。在RANGE分区和LIST分区中， 必须明确指定一个给定的列值或列值集合应该保存在哪个分区中； 而在HASH分区中， MySQL将自动完成这些工作， 你所要做的只是为将要被散列的列值指定一个列值或表达式， 以及指定被分区的表将要被分割成的分区数量</li>
+<li>按照KEY进行分区类似于按照HASH进行分区， 除了HASH分区使用的是用户自定义的表达式， 而KEY分区的散列函数是由MySQL服务器提供的。</li>
+</ul>
+<hr>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
 <li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
 <li>更改密码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR user@&apos;ip_range&apos; = PASSWORD(&apos;some password&apos;);</span><br><span class="line">或</span><br><span class="line">GRANT USAGE ON *.* TO user@&apos;ip_range&apos; IDENTIFIED BY &apos;some password&apos;;</span><br><span class="line">或</span><br><span class="line">shell&gt; mysql -u root</span><br><span class="line">mysql&gt; UPDATE mysql.user SET PASSWORD=PASSWORD(&apos;newpwd&apos;)</span><br><span class="line">WHERE user=&apos;root&apos;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/mysql-常用命令.1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
-  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>连接\<br><code>mysql -h host_ip_address -u user_name -pyour_password -P server_port</code></li>
-<li>赋予权限和收回权限\<br><code>grant select,insert,update,delete on db_name.* to user_name@&#39;%&#39; identified by &#39;password&#39;;</code>\<br><code>revoke select,insert,update,delete on db_name.* to user_name@&#39;%&#39;;</code></li>
-<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
-<li>创建库<br><code>create database DB</code></li>
-<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
-<li>删除表<br><code>drop table t1</code></li>
-<li>删除库<br><code>drop database DB</code></li>
-<li>修改表名<br><code>alter table t1 rename t2</code></li>
-<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
-<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
-<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
-<li>删除列<br><code>alter table t1 drop c</code></li>
-<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
-<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
-<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
-<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
-<li>删除索引<br><code>drop index index_name on tb1</code></li>
-<li>插入数据<br><code>insert into table_name(col1,col2...) values(value1,value2...)</code></li>
-<li>修改数据<br><code>update table_name set col1=value1,col2=value2... [where conditions]</code></li>
-<li>删除数据<br><code>delete from table_name [where conditions]</code></li>
-<li>查询数据<br>``</li>
-</ul>
 
       
 
@@ -847,6 +835,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
@@ -855,15 +851,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -879,19 +871,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -904,6 +884,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
