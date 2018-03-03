@@ -554,7 +554,38 @@
 <li>RANGE分区的表是通过如下这种方式进行分区的， 基于一个连续区间的列值， 把多行分配给分区， 例如某个时间段的值属于某个分区， 某个数值范围的值应该属于某个分区</li>
 <li>MySQL中的LIST分区在很多方面都类似于RANGE分区。 和按照RANGE进行分区的方式一样， 每个分区都必须明确定义。它们的主要区别在于， LIST分区中每个分区的定义和选择是基于值列表的， 而RANGE分区是从属于一个连续区间值的集合的</li>
 <li>HASH分区是基于用户定义的表达式的返回值选择分区。 它主要用来确保数据在预先确定了数目的分区中是平均分布的。在RANGE分区和LIST分区中， 必须明确指定一个给定的列值或列值集合应该保存在哪个分区中； 而在HASH分区中， MySQL将自动完成这些工作， 你所要做的只是为将要被散列的列值指定一个列值或表达式， 以及指定被分区的表将要被分割成的分区数量</li>
-<li>按照KEY进行分区类似于按照HASH进行分区， 除了HASH分区使用的是用户自定义的表达式， 而KEY分区的散列函数是由MySQL服务器提供的。</li>
+<li><p>按照KEY进行分区类似于按照HASH进行分区， 除了HASH分区使用的是用户自定义的表达式， 而KEY分区的散列函数是由MySQL服务器提供的。</p>
+</li>
+<li><p>创建一个RANGE分区表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table trb3 (id INT,name vachar(30),purchased DATE)</span><br><span class="line">    partition by range(year(purchased))(</span><br><span class="line">        partition p0 values less than(1990),</span><br><span class="line">        partition p1 values less than(1995),</span><br><span class="line">        partition p2 values less than(2000),</span><br><span class="line">        partition p3 values less than(2005),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分区(需要 drop 权限)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table tr drop partition p2;</span><br><span class="line">如果需要调整分区,但不想丢失数据,那么可以重整分区.</span><br><span class="line">alter table ... reorganize partition</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">对于 range 分区,只能从分区列表的最高端开始增加,例如:</span><br><span class="line">create table members(</span><br><span class="line">    id int,</span><br><span class="line">    fname varchar(25),</span><br><span class="line">    lname varchar(25),</span><br><span class="line">    dob date</span><br><span class="line">)</span><br><span class="line">partition by range(year(dob))(</span><br><span class="line">    partition p0 values less than(1970),</span><br><span class="line">    partition p1 values less than(1980),</span><br><span class="line">    partition p2 values less than(1990)</span><br><span class="line">)</span><br><span class="line"># 增加一个分区</span><br><span class="line">alter table member add partition(</span><br><span class="line">    partition p3 values less than(2000)</span><br><span class="line">);</span><br><span class="line"># 也可以增加多个分区</span><br><span class="line">alter table member add partition(</span><br><span class="line">    partition p3 values less than(2000),</span><br><span class="line">    partition p4 values less than maxvalue</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调整分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果想要调整分区，比如在分区列表中加入一个分区，或者忘记增加分区了，所有的数据都落入了最后一个分区，这时想</span><br><span class="line">重新定义最后的分区，那么你可以使用重整分区的功能。</span><br><span class="line">ALTER TABLE members</span><br><span class="line">REORGANIZE PARTITION p0 INTO (</span><br><span class="line">PARTITION n0 VALUES LESS THAN (1960), PARTITION n1 VALUES LESS THAN (1970)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">还可以合并分区，注意，对于RANGE分区，合并的分区必须是相邻的分区。</span><br><span class="line">ALTER TABLE members REORGANIZE PARTITION s0,s1 INTO ( PARTITION p0 VALUES LESS THAN (1970)</span><br><span class="line">);</span><br><span class="line">ALTER TABLE members REORGANIZE PARTITION p0,p1,p2,p3 INTO (</span><br><span class="line">PARTITION m0 VALUES LESS THAN (1980), PARTITION m1 VALUES LESS THAN (2000)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">对于LIST分区，如果新加分区中的元素和旧的分区有冲突，那么可以先添加分区(只有没有冲突的元素)，然后重整分 区。</span><br><span class="line">ALTER TABLE tt ADD PARTITION (PARTITION np VALUES IN (4, 8)); ALTER TABLE tt REORGANIZE PARTITION p1,np INTO (</span><br><span class="line">PARTITION p1 VALUES IN (6, 18), PARTITION np VALUES in (4, 8, 12)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重建分区(rebuilding partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">相当于删除所有的数据，再INSERT所有的数据，整理碎片可用，语句如下。</span><br><span class="line">ALTER TABLE t1 REBUILD PARTITION p0, p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>优化分区(optimizing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果某个分区中删除了大量数据，或者频繁修改了表(有可变字段)，那么可以考虑优化该分区，语句如下。</span><br><span class="line">ALTER TABLE t1 OPTIMIZE PARTITION p0, p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分析分区(analyzing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如下这个命令将分析分区的key分布信息。</span><br><span class="line">ALTER TABLE t1 ANALYZE PARTITION p3;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查分区(checking partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">检查表，如果坏了，则用REPAIR命令修复，语句如下。</span><br><span class="line">ALTER TABLE trb3 CHECK PARTITION p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修复分区(repairing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">修复分区的语句如下。</span><br><span class="line">ALTER TABLE t1 REPAIR PARTITION p0,p1;</span><br><span class="line">如果需要对所有分区进行操作，那么可加入All关键字，语句如下。 mysql&gt; ALTER TABLE hotspace_0 ANALYZE PARTITION ALL;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <hr>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
@@ -839,10 +870,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
@@ -851,7 +878,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -867,6 +894,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
@@ -875,15 +906,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
