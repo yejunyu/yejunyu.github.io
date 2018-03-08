@@ -159,6 +159,150 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java-常见面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/26/java-常见面试题/">java 常见面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/26/java-常见面试题/" class="archive-article-date">
+  	<time datetime="2018-01-26T11:36:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="J2SE基础："><a href="#J2SE基础：" class="headerlink" title="J2SE基础："></a>J2SE基础：</h1><ol>
+<li>九种基本数据类型的大小，以及他们的封装类。</li>
+<li>Switch能否用string做参数？</li>
+<li>equals与==的区别。</li>
+<li>Object有哪些公用方法？</li>
+<li>Java的四种引用，强弱软虚，用到的场景。</li>
+<li>Hashcode的作用。</li>
+<li>ArrayList、LinkedList、Vector的区别。</li>
+<li>String、StringBuffer与StringBuilder的区别。</li>
+<li>Map、Set、List、Queue、Stack的特点与用法。</li>
+<li>HashMap和HashTable的区别。</li>
+<li>HashMap和ConcurrentHashMap的区别，HashMap的底层源码。</li>
+<li>TreeMap、HashMap、LindedHashMap的区别。</li>
+<li>Collection包结构，与Collections的区别。</li>
+<li>try catch finally，try里有return，finally还执行么？</li>
+<li>Excption与Error包结构。OOM你遇到过哪些情况，SOF你遇到过哪些情况。</li>
+<li>Java面向对象的三个特征与含义。</li>
+<li>Override和Overload的含义去区别。</li>
+<li>Interface与abstract类的区别。</li>
+<li>Static class 与non static class的区别。</li>
+<li>java多态的实现原理。</li>
+<li>实现多线程的两种方法：Thread与Runable。</li>
+<li>线程同步的方法：sychronized、lock、reentrantLock等。</li>
+<li>锁的等级：方法锁、对象锁、类锁。</li>
+<li>写出生产者消费者模式。</li>
+<li>ThreadLocal的设计理念与作用。</li>
+<li>ThreadPool用法与优势。</li>
+<li>Concurrent包里的其他东西：ArrayBlockingQueue、CountDownLatch等等。</li>
+<li>wait()和sleep()的区别。</li>
+<li>foreach与正常for循环效率对比。</li>
+<li>Java IO与NIO。</li>
+<li>反射的作用于原理。</li>
+<li>泛型常用特点，List<string>能否转为List<object>。</object></string></li>
+<li>解析XML的几种方式的原理与特点：DOM、SAX、PULL。</li>
+<li>Java与C++对比。</li>
+<li>Java1.7与1.8新特性。</li>
+<li>设计模式：单例、工厂、适配器、责任链、观察者等等。</li>
+<li>JNI的使用。</li>
+</ol>
+<h1 id="JVM："><a href="#JVM：" class="headerlink" title="JVM："></a>JVM：</h1><ol>
+<li>内存模型以及分区，需要详细到每个区放什么。</li>
+<li>堆里面的分区：Eden，survival from to，老年代，各自的特点。</li>
+<li>对象创建方法，对象的内存分配，对象的访问定位。</li>
+<li>GC的两种判定方法：引用计数与引用链。</li>
+<li>GC的三种收集方法：标记清除、标记整理、复制算法的原理与特点，分别用在什么地方，如果让你优化收集方法，有什么思路？</li>
+<li>GC收集器有哪些？CMS收集器与G1收集器的特点。</li>
+<li>Minor GC与Full GC分别在什么时候发生？</li>
+<li>几种常用的内存调试工具：jmap、jstack、jconsole。</li>
+<li>类加载的五个过程：加载、验证、准备、解析、初始化。</li>
+<li>双亲委派模型：Bootstrap ClassLoader、Extension ClassLoader、ApplicationClassLoader。</li>
+<li>分派：静态分派与动态分派。</li>
+</ol>
+<p>总体来说java考察内容包括以下这些：</p>
+<ol>
+<li>面向对象的一些基本概念：继承，多态之类的</li>
+<li>抽象类和接口</li>
+<li>静态类，内部类</li>
+<li>Java集合类，同步和非同步</li>
+<li>Java类加载机制</li>
+<li>Java内存模型和垃圾回收算法</li>
+<li>线程同步机制（voliate,synchronized,重入锁，threadlocal），线程间通信（wait,notify）</li>
+<li>异常处理</li>
+<li>多线程同步问题，生产者消费者，读者写者，哲学家就餐，用java实现</li>
+<li>了解java中设计模式的思想，用了哪些设计模式，有什么好处</li>
+</ol>
+<p>百度一面</p>
+<p>1、给一个函数，返回 0 和 1，概率为 p 和 1-p，请你实现一个函数，使得返回 01 概率一样。<br>2、10 亿个 url，每个 url 大小小于 56B，要求去重，内存 4G。<br>3、把一个 bst 转化成一个双向链表。<br>4、http 和 https 区别，https 在请求时额外的过程，https 是如何保证数据安全的。<br>5、IP 地址子网划分。<br>6、POST 和 GET 区别。<br>7、硬链接和软连接区别。<br>8、DNS 解析过程。<br>9、kill 用法，某个进程杀不掉的原因（进入内核态，忽略 kill 信号）。<br>10、linux 用过的命令。<br>11、系统管理命令（如查看内存使用、网络情况）。<br>12、管道的使用。<br>13、grep 的使用，一定要掌握，每次都会问在文件中查找。<br>14、shell 脚本。<br>15、find 命令。<br>16、awk 使用。</p>
+<p>百度二面</p>
+<p>1、Linux 下的一些指令，$（进程 id），$?（上一条命令退出时状态），怎么查看进程，按照内存大小，CPU 占用排序等等。（大写 M 和大写 P）。<br>2、http 的 get 和 post 方法。<br>3、介绍下你所了解的 epoll。<br>4、数据库 sql 的了解程度。<br>5、项目中遇到的问题，自己咋解决的等等。<br>6、手写一个全排列。<br>7、B树和B+树。<br>8、介绍一下 Hash，怎么解决冲突。<br>9、进程间的通信，共享内存方式的优缺点。</p>
+<p>百度三面</p>
+<p>1、说下你平时看的一些技术博客，书籍。<br>2、linux 下的一些指令。<br>3、工作中你觉得最不爽的事情是什么。<br>4、说下你的优缺点。<br>5、有没有想过去创业公司。<br>6、写个 strcpy 函数。<br>7、说说你自己的性格。<br>8、给你一个系统（面试官好像是无人车部门的），后台的逻辑已经实现了，但是前端加载很慢，怎么检测。<br>9、以后可能要学习很多新技术，你怎么看。<br>10、项目中遇到的困难（提前想好，并且把实现或者优化方法说清楚）。<br>11、系统的量级、pv、uv 等。<br>12、应对高并发的解决办法（分布式）。<br>13、在项目中主要负责了哪些工作。<br>14、nginx 的负载均衡。<br>15、分布式缓存的一致性，服务器如何扩容（哈希环）。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/26/java-常见面试题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-zabbix-监控-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -552,90 +696,6 @@
 
 
   
-    <article id="post-mysql主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/04/mysql主从复制/">mysql主从复制</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/04/mysql主从复制/" class="archive-article-date">
-  	<time datetime="2018-01-04T14:26:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><pre><code>1. 版本一致
-2. 初始化表,并后台启动mysql服务
-3. 修改root密码
-</code></pre><h2 id="2-修改主服务器master"><a href="#2-修改主服务器master" class="headerlink" title="2. 修改主服务器master"></a>2. 修改主服务器master</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[必须]启用二进制日志<br>server-id=222 //[必须]服务器唯一ID，默认是1，一般取IP最后一段</p>
-<h2 id="3-修改从服务器slave"><a href="#3-修改从服务器slave" class="headerlink" title="3. 修改从服务器slave"></a>3. 修改从服务器slave</h2><p><code>#vi /etc/my.cnf</code><br>[mysqld]<br>log-bin=mysql-bin   //[不是必须]启用二进制日志<br>server-id=226      //[必须]服务器唯一ID，默认是1，一般取IP最后一段<br>
-        
-          <a class="article-more-a" href="/2018/01/04/mysql主从复制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/04/mysql主从复制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -733,15 +793,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -749,11 +801,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -766,6 +822,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
