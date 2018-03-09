@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>大葉子の林中小屋</title>
+  <title>Tag: 前端 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我真不会玩王者荣耀">
 <meta property="og:type" content="website">
 <meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/前端/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="我真不会玩王者荣耀">
 <meta property="og:locale" content="zh-CN">
@@ -159,573 +159,58 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-mysql锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/03/09/前端环境搭建/" class="archive-article-date">
+  	<time datetime="2018-03-09T14:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-09</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/02/mysql锁/">mysql锁</a>
+      <a class="archive-article-title" href="/2018/03/09/前端环境搭建/">前端环境搭建</a>
     </h1>
   
 
-        
-        <a href="/2018/03/02/mysql锁/" class="archive-article-date">
-  	<time datetime="2018-03-02T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mysql-innodb的3种行锁"><a href="#mysql-innodb的3种行锁" class="headerlink" title="mysql innodb的3种行锁"></a>mysql innodb的3种行锁</h1><h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>这是一个索引记录锁。<br>它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止<br>扫描整个表。</p>
-<h2 id="间隙锁（-gap-lock）"><a href="#间隙锁（-gap-lock）" class="headerlink" title="间隙锁（ gap lock）"></a>间隙锁（ gap lock）</h2><p>这是施加于索引记录间隙上的锁</p>
-<h2 id="next-key锁"><a href="#next-key锁" class="headerlink" title="next-key锁"></a>next-key锁</h2><p>记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。</p>
-<hr>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>产生死锁的4个必要条件</p>
-<ul>
-<li>禁止抢占（ no preemption）</li>
-<li>持有和等待（ hold and wait）</li>
-<li>互斥（ mutual exclusion）</li>
-<li>循环等待（ circular waiting）</li>
-</ul>
-<p>预防死锁就是至少破坏这4个条件中的一项， 即破坏“禁止抢占”、 “持有等待”、 “资源互斥”或“循环等待”</p>
-<p>实践中， 处理死锁的方法大致分为两种。 既可以检测死锁并进行修复， 也可以对事务进行管理， 使死锁永远都不可能形<br>成。 当存在死锁时， 对该状态进行修复以使所有涉及的事务都能继续执行通常是不可能的。 因此， 至少其中的一个事务必须终<br>止并重新开始。 InnoDB会自动检测死锁。 据官方文档可知， 目前InnoDB处理死锁的机制是： 发现有循环等待的现象， 立即回退<br>（ rollback） 开销更小的事务， 也就是插入、 修改、 删除了更少记录的事务</p>
-<p>对于MySQL死锁的解决， 通常有如下方法。</p>
-<ul>
-<li>经常提交你的事务。 小事务更少地倾向于冲突.</li>
-<li>以固定的顺序访问你的表和行。 这样事务就会形成定义良好的查询并且没有死锁</li>
-<li>将精心选定的索引添加到你的表中。 这样你的查询就只需要扫描更少的索引记录， 并且因此也可以设置更少的锁定。</li>
-<li>不要把无关的操作放到事务里面。</li>
-<li>在并发比较高的系统中， 不要显式加锁， 特别是在事务里显式加锁。 如SELECT…FOR UPDATE语句， 如果是在事务里<br>（ 运行了START TRANSACTION或设置了autocommit等于0） ， 那么就会锁定所查找到的记录</li>
-<li>尽量按照主键/索引去查找记录， 范围查找增加了锁冲突的可能性， 也不要利用数据库做一些额外的计算工作。 比如有些<br>读者会用到“SELECT…WHERE…ORDER BY RAND();”这样的语句， 由于类似这样的语句用不到索引， 因此将导致整个表的数<br>据都被锁住</li>
-<li>优化SQL和表设计， 减少同时占用太多资源的情况。 比如说， 减少连接的表， 将复杂SQL分解为多个简单的SQL</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/02/mysql锁/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-慢查询分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/慢查询分析/">慢查询分析</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/01/慢查询分析/" class="archive-article-date">
-  	<time datetime="2018-03-01T14:51:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="开启慢查询"><a href="#开启慢查询" class="headerlink" title="开启慢查询"></a>开启慢查询</h2><p>mysql&gt; show variables like ‘slow_query%’;<br>+—————————+———————————-+<br>| Variable_name             | Value                            |<br>+—————————+———————————-+<br>| slow_query_log            | OFF                              |<br>| slow_query_log_file       | /mysql/data/localhost-slow.log   |<br>+—————————+———————————-+</p>
-<p>mysql&gt; show variables like ‘long_query_time’;<br>+—————–+———–+<br>| Variable_name   | Value     |<br>+—————–+———–+<br>| long_query_time | 10.000000 |<br>+—————–+———–+</p>
-<p>设置<br>方法一：全局变量设置<br>将 slow_query_log 全局变量设置为“ON”状态<br><code>mysql&gt; set global slow_query_log=&#39;ON&#39;;</code><br>设置慢查询日志存放的位置<br><code>mysql&gt; set global slow_query_log_file=&#39;/usr/local/mysql/data/slow.log&#39;;</code><br>查询超过1秒就记录<br><code>mysql&gt; set global long_query_time=1;</code></p>
-<p>方法二：配置文件设置<br>修改配置文件my.cnf，在[mysqld]下的下方加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">slow_query_log = ON</span><br><span class="line">slow_query_log_file = /usr/local/mysql/data/slow.log</span><br><span class="line">long_query_time = 1</span><br></pre></td></tr></table></figure></p>
-<p>重启mysql</p>
-<p>测试<br>1.执行一条慢查询SQL语句<br><code>mysql&gt; select sleep(2);</code><br>2.查看是否生成慢查询日志<br><code>ls /usr/local/mysql/data/slow.log</code></p>
-<h2 id="pt-query-digest"><a href="#pt-query-digest" class="headerlink" title="pt-query-digest"></a>pt-query-digest</h2><ol>
-<li><p>安装<br><a href="https://www.percona.com/doc/percona-toolkit/3.0/installation.html" target="_blank" rel="external">官网</a><br><code>sudo yum install percona-toolkit</code></p>
-</li>
-<li><p>用法简介 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(1)慢查询日志分析统计</span><br><span class="line">pt-query-digest /usr/local/mysql/data/slow.log</span><br><span class="line"></span><br><span class="line">(2)服务器摘要</span><br><span class="line">pt-summary </span><br><span class="line"></span><br><span class="line">(3)服务器磁盘监测</span><br><span class="line">pt-diskstats </span><br><span class="line"></span><br><span class="line">(4)mysql服务状态摘要</span><br><span class="line">pt-mysql-summary -- --user=root --password=root</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数说明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pt-query-digest [OPTIONS] [FILES] [DSN]</span><br><span class="line">--create-review-table  当使用--review参数把分析结果输出到表中时，如果没有表就自动创建。</span><br><span class="line">--create-history-table  当使用--history参数把分析结果输出到表中时，如果没有表就自动创建。</span><br><span class="line">--filter  对输入的慢查询按指定的字符串进行匹配过滤后再进行分析</span><br><span class="line">--limit    限制输出结果百分比或数量，默认值是20,即将最慢的20条语句输出，如果是50%则按总响应时间占比从大到小排序，输出到总和达到50%位置截止。</span><br><span class="line">--host  mysql服务器地址</span><br><span class="line">--user  mysql用户名</span><br><span class="line">--password  mysql用户密码</span><br><span class="line">--history 将分析结果保存到表中，分析结果比较详细，下次再使用--history时，如果存在相同的语句，且查询所在的时间区间和历史表中的不同，则会记录到数据表中，可以通过查询同一CHECKSUM来比较某类型查询的历史变化。</span><br><span class="line">--review 将分析结果保存到表中，这个分析只是对查询条件进行参数化，一个类型的查询一条记录，比较简单。当下次使用--review时，如果存在相同的语句分析，就不会记录到数据表中。</span><br><span class="line">--output 分析结果输出类型，值可以是report(标准分析报告)、slowlog(Mysql slow log)、json、json-anon，一般使用report，以便于阅读。</span><br><span class="line">--since 从什么时间开始分析，值为字符串，可以是指定的某个”yyyy-mm-dd [hh:mm:ss]”格式的时间点，也可以是简单的一个时间值：s(秒)、h(小时)、m(分钟)、d(天)，如12h就表示从12小时前开始统计。</span><br><span class="line">--until 截止时间，配合—since可以分析一段时间内的慢查询。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>分析结果<br>第一部分：总体统计结果<br>Overall：总共有多少条查询<br>Time range：查询执行的时间范围<br>unique：唯一查询数量，即对查询条件进行参数化以后，总共有多少个不同的查询<br>total：总计   min：最小   max：最大  avg：平均<br>95%：把所有值从小到大排列，位置位于95%的那个数，这个数一般最具有参考价值<br>median：中位数，把所有值从小到大排列，位置位于中间那个数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 该工具执行日志分析的用户时间，系统时间，物理内存占用大小，虚拟内存占用大小</span><br><span class="line"># 340ms user time, 140ms system time, 23.99M rss, 203.11M vsz</span><br><span class="line"># 工具执行时间</span><br><span class="line"># Current date: Fri Nov 25 02:37:18 2016</span><br><span class="line"># 运行分析工具的主机名</span><br><span class="line"># Hostname: localhost.localdomain</span><br><span class="line"># 被分析的文件名</span><br><span class="line"># Files: slow.log</span><br><span class="line"># 语句总数量，唯一的语句数量，QPS，并发数</span><br><span class="line"># Overall: 2 total, 2 unique, 0.01 QPS, 0.01x concurrency ________________</span><br><span class="line"># 日志记录的时间范围</span><br><span class="line"># Time range: 2016-11-22 06:06:18 to 06:11:40</span><br><span class="line"># 属性               总计      最小    最大    平均    95%  标准    中等</span><br><span class="line"># Attribute          total     min     max     avg     95%  stddev  median</span><br><span class="line"># ============     ======= ======= ======= ======= ======= ======= =======</span><br><span class="line"># 语句执行时间</span><br><span class="line"># Exec time             3s   640ms      2s      1s      2s   999ms      1s</span><br><span class="line"># 锁占用时间</span><br><span class="line"># Lock time            1ms       0     1ms   723us     1ms     1ms   723us</span><br><span class="line"># 发送到客户端的行数</span><br><span class="line"># Rows sent              5       1       4    2.50       4    2.12    2.50</span><br><span class="line"># select语句扫描行数</span><br><span class="line"># Rows examine     186.17k       0 186.17k  93.09k 186.17k 131.64k  93.09k</span><br><span class="line"># 查询的字符数</span><br><span class="line"># Query size           455      15     440  227.50     440  300.52  227.50</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>第二部分：查询分组统计结果<br>Rank：所有语句的排名，默认按查询时间降序排列，通过–order-by指定<br>Query ID：语句的ID，（去掉多余空格和文本字符，计算hash值）<br>Response：总的响应时间<br>time：该查询在本次分析中总的时间占比<br>calls：执行次数，即本次分析总共有多少条这种类型的查询语句<br>R/Call：平均每次执行的响应时间<br>V/M：响应时间Variance-to-mean的比率<br>Item：查询对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Profile</span><br><span class="line"># Rank Query ID           Response time Calls R/Call V/M   Item</span><br><span class="line"># ==== ================== ============= ===== ====== ===== ===============</span><br><span class="line">#    1 0xF9A57DD5A41825CA  2.0529 76.2%     1 2.0529  0.00 SELECT</span><br><span class="line">#    2 0x4194D8F83F4F9365  0.6401 23.8%     1 0.6401  0.00 SELECT wx_member_base</span><br></pre></td></tr></table></figure></p>
-<p>第三部分：每一种查询的详细统计结果<br>由下面查询的详细统计结果，最上面的表格列出了执行次数、最大、最小、平均、95%等各项目的统计。<br>ID：查询的ID号，和上图的Query ID对应<br>Databases：数据库名<br>Users：各个用户执行的次数（占比）<br>Query_time distribution ：查询时间分布, 长短体现区间占比，本例中1s-10s之间查询数量是10s以上的两倍。<br>Tables：查询中涉及到的表<br>Explain：SQL语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Query 1: 0 QPS, 0x concurrency, ID 0xF9A57DD5A41825CA at byte 802 ______</span><br><span class="line"># This item is included in the report because it matches --limit.</span><br><span class="line"># Scores: V/M = 0.00</span><br><span class="line"># Time range: all events occurred at 2016-11-22 06:11:40</span><br><span class="line"># Attribute    pct   total     min     max     avg     95%  stddev  median</span><br><span class="line"># ============ === ======= ======= ======= ======= ======= ======= =======</span><br><span class="line"># Count         50       1</span><br><span class="line"># Exec time     76      2s      2s      2s      2s      2s       0      2s</span><br><span class="line"># Lock time      0       0       0       0       0       0       0       0</span><br><span class="line"># Rows sent     20       1       1       1       1       1       0       1</span><br><span class="line"># Rows examine   0       0       0       0       0       0       0       0</span><br><span class="line"># Query size     3      15      15      15      15      15       0      15</span><br><span class="line"># String:</span><br><span class="line"># Databases    test</span><br><span class="line"># Hosts        192.168.8.1</span><br><span class="line"># Users        mysql</span><br><span class="line"># Query_time distribution</span><br><span class="line">#   1us</span><br><span class="line">#  10us</span><br><span class="line"># 100us</span><br><span class="line">#   1ms</span><br><span class="line">#  10ms</span><br><span class="line"># 100ms</span><br><span class="line">#    1s  ################################################################</span><br><span class="line">#  10s+</span><br><span class="line"># EXPLAIN /*!50100 PARTITIONS*/</span><br><span class="line">select sleep(2)\G</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>用法示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1.直接分析慢查询文件:</span><br><span class="line">pt-query-digest  slow.log &gt; slow_report.log</span><br><span class="line"></span><br><span class="line">2.分析最近12小时内的查询：</span><br><span class="line">pt-query-digest  --since=12h  slow.log &gt; slow_report2.log</span><br><span class="line"></span><br><span class="line">3.分析指定时间范围内的查询：</span><br><span class="line">pt-query-digest slow.log --since &apos;2017-01-07 09:30:00&apos; --until &apos;2017-01-07 10:00:00&apos;&gt; &gt; slow_report3.log</span><br><span class="line"></span><br><span class="line">4.分析指含有select语句的慢查询</span><br><span class="line">pt-query-digest --filter &apos;$event-&gt;&#123;fingerprint&#125; =~ m/^select/i&apos; slow.log&gt; slow_report4.log</span><br><span class="line"></span><br><span class="line">5.针对某个用户的慢查询</span><br><span class="line">pt-query-digest --filter &apos;($event-&gt;&#123;user&#125; || &quot;&quot;) =~ m/^root/i&apos; slow.log&gt; slow_report5.log</span><br><span class="line"></span><br><span class="line">6.查询所有所有的全表扫描或full join的慢查询</span><br><span class="line">pt-query-digest --filter &apos;(($event-&gt;&#123;Full_scan&#125; || &quot;&quot;) eq &quot;yes&quot;) ||(($event-&gt;&#123;Full_join&#125; || &quot;&quot;) eq &quot;yes&quot;)&apos; slow.log&gt; slow_report6.log</span><br><span class="line"></span><br><span class="line">7.把查询保存到query_review表</span><br><span class="line">pt-query-digest --user=root –password=abc123 --review  h=localhost,D=test,t=query_review--create-review-table  slow.log</span><br><span class="line"></span><br><span class="line">8.把查询保存到query_history表</span><br><span class="line">pt-query-digest  --user=root –password=abc123 --review  h=localhost,D=test,t=query_history--create-review-table  slow.log_0001</span><br><span class="line">pt-query-digest  --user=root –password=abc123 --review  h=localhost,D=test,t=query_history--create-review-table  slow.log_0002</span><br><span class="line"></span><br><span class="line">9.通过tcpdump抓取mysql的tcp协议数据，然后再分析</span><br><span class="line">tcpdump -s 65535 -x -nn -q -tttt -i any -c 1000 port 3306 &gt; mysql.tcp.txt</span><br><span class="line">pt-query-digest --type tcpdump mysql.tcp.txt&gt; slow_report9.log</span><br><span class="line"></span><br><span class="line">10.分析binlog</span><br><span class="line">mysqlbinlog mysql-bin.000093 &gt; mysql-bin000093.sql</span><br><span class="line">pt-query-digest  --type=binlog  mysql-bin000093.sql &gt; slow_report10.log</span><br><span class="line"></span><br><span class="line">11.分析general log</span><br><span class="line">pt-query-digest  --type=genlog  localhost.log &gt; slow_report11.log</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/慢查询分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-explain小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/explain小结/">explain小结</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/01/explain小结/" class="archive-article-date">
-  	<time datetime="2018-03-01T14:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="explain使用"><a href="#explain使用" class="headerlink" title="explain使用"></a>explain使用</h2><blockquote>
-<p>explain select …</p>
-</blockquote>
-<p>explain 还有两个变种</p>
-<ol>
-<li><p>EXPLAIN EXTENDED SELECT……</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上命令将执行计划“反编译”成SELECT语句， 运行SHOW WARNINGS可得到被MySQL优化器优化后的查询语句</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>EXPLAIN PARTITIONS SELECT……</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上命令用于分区表的EXPLAIN命令。</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="结果解释"><a href="#结果解释" class="headerlink" title="结果解释"></a>结果解释</h2><p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">type：这是重要的列，显示连接使用了何种类型。从最好到最差的连接类型为const、eq_reg、ref、range、index和ALL</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">         <span style="color: #ff0000">type显示的是访问类型，是较为重要的一个指标，结果值从好到坏依次是：system &gt; const &gt; eq_ref &gt; ref &gt; fulltext &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt; range &gt; index &gt; ALL</span><br><span style="color: #ff0000">         一般来说，得保证查询至少达到range级别，最好能达到ref。</span></span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">possible_keys：显示可能应用在这张表中的索引。如果为空，没有可能的索引。可以为相关的域从WHERE语句中选择一个合适的语句</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">key： 实际使用的索引。如果为NULL，则没有使用索引。很少的情况下，MYSQL会选择优化不足的索引。这种情况下，<span style="background-color: #ffff00">可以在SELECT语句中使用USE INDEX（indexname）来强制使用一个索引</span>或者用IGNORE INDEX（indexname）来强制MYSQL忽略索引</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">key_len：使用的索引的长度。在不损失精确性的情况下，长度越短越好</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">ref：显示索引的哪一列被使用了，如果可能的话，是一个常数</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">rows：MYSQL认为必须检查的用来返回请求数据的行数</span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Extra：关于MYSQL如何解析查询的额外信息。将在表4.3中讨论，但<span style="background-color: #ffff00">这里可以看到的坏的例子是Using temporary和Using filesort，意思MYSQL根本不能使用索引，结果是检索会很慢</span></span></p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>extra列返回的描述的意义</strong></span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Distinct:一旦MYSQL找到了与行相联合匹配的行，就不再搜索了</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Not exists: MYSQL优化了LEFT JOIN，一旦它找到了匹配LEFT JOIN标准的行，就不再搜索了</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Range checked for each Record（index map:#）:没有找到理想的索引，因此对于从前面表中来的每一个行组合，MYSQL检查使用哪个索引，并用它来从表中返回行。这是使用索引的最慢的连接之一</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><span style="background-color: #ffff00">Using filesort: 看到这个的时候，查询就需要优化了</span>。MYSQL需要进行额外的步骤来发现如何对返回的行排序。它根据连接类型以及存储排序键值和匹配条件的全部行的行指针来排序全部行</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Using index: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><span style="background-color: #ffff00">Using temporary 看到这个的时候，查询需要优化了</span>。这里，MYSQL需要创建一个临时表来存储结果，这通常发生在对不同的列集进行ORDER BY上，而不是GROUP BY上</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">Where used 使用了WHERE从句来限制哪些行将与下一张表匹配或者是返回给用户。如果不想返回表中的全部行，并且连接类型ALL或index，这就会发生，或者是查询有问题不同连接类型的解释（按照效率高低的顺序排序）</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">system 表只有一行：system表。这是const连接类型的特殊情况</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">const:表中的一个记录的最大值能够匹配这个查询（索引可以是主键或惟一索引）。因为只有一行，这个值实际就是常数，因为MYSQL先读这个值然后把它当做常数来对待</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">eq_ref:在连接中，MYSQL在查询时，从前面的表中，对每一个记录的联合都从表中读取一个记录，它在查询使用了索引为主键或惟一键的全部时使用</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">ref:这个连接类型只有在查询使用了不是惟一或主键的键或者是这些类型的部分（比如，利用最左边前缀）时发生。对于之前的表的每一个行联合，全部记录都将从表中读出。这个类型严重依赖于根据索引匹配的记录多少—越少越好</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">range:这个连接类型使用索引返回一个范围中的行，比如使用&gt;或&lt;查找东西时发生的情况</span></p>
-<p> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">index: 这个连接类型对前面的表中的每一个记录联合进行完全扫描（比ALL更好，因为索引一般小于表数据）</span></p>
-<p><span style="background-color: #ff9900"> <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">ALL:这个连接类型对于前面的每一个记录联合进行完全扫描，这一般比较糟糕，应该尽量避免</span></span></p>
-<p> <span style="line-height: 1.5"> </span></p>
-<div class="Blog_wz1">
-
-<div>
-
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">先看一个例子：</span></p>
-<ol>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">mysql<span style="color: #000000"><span class="tag">&gt; explain select * from t_order; </span></span></span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">| id | select_type | table   | type | possible_keys | key  | key_len | ref  | rows   | Extra | </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">|  1 | SIMPLE      | t_order | ALL  | NULL          | NULL | NULL    | NULL | 100453 |       | </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">1 row in set (0.03 sec) </span></li>
-</ol>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">加上extended后之后：</span></p>
-<ol>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">mysql<span style="color: #000000"><span class="tag">&gt; explain extended select * from t_order; </span></span></span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+———-+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">| id | select_type | table   | type | possible_keys | key  | key_len | ref  | rows   | filtered | Extra | </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+———-+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">|  1 | SIMPLE      | t_order | ALL  | NULL          | NULL | NULL    | NULL | 100453 |   100.00 |       | </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">+—-+————-+———+——+—————+——+———+——+——–+———-+——-+ </span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">1 row in set, 1 warning (0.00 sec) </span></li>
-</ol>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">有必要解释一下这个长长的表格里每一列的含义：</span></p>
-<p>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>id</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">SELECT识别符。这是SELECT的查询序列号</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>select_type</strong></span> | </p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">SELECT类型,可以为以下任何一种:</span></p>
-<ul>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>SIMPLE</strong>:简单SELECT(不使用UNION或子查询)</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>PRIMARY</strong>:最外面的SELECT</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>UNION</strong>:UNION中的第二个或后面的SELECT语句</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>DEPENDENT UNION</strong>:UNION中的第二个或后面的SELECT语句,取决于外面的查询</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>UNION RESULT</strong>:UNION 的结果</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>SUBQUERY</strong>:子查询中的第一个SELECT</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>DEPENDENT SUBQUERY</strong>:子查询中的第一个SELECT,取决于外面的查询</span></li>
-<li><p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>DERIVED</strong>:导出表的SELECT(FROM子句的子查询)</span></p>
-<p>|<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>table</strong></span> | </p>
-</li>
-</ul>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">输出的行所引用的表</span></p>
-<p> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>type</strong></span> | </p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">联接类型。下面给出各种联接类型,按照从最佳类型到最坏类型进行排序:</span></p>
-<ul>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>system</strong>:表仅有一行(=系统表)。这是const联接类型的一个特例。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>const</strong>:表最多有一个匹配行,它将在查询开始时被读取。因为仅有一行,在这行的列值可被优化器剩余部分认为是常数。const表很快,因为它们只读取一次!</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>eq_ref</strong>:对于每个来自于前面的表的行组合,从该表中读取一行。这可能是最好的联接类型,除了const类型。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>ref</strong>:对于每个来自于前面的表的行组合,所有有匹配索引值的行将从这张表中读取。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>ref_or_null</strong>:该联接类型如同ref,但是添加了MySQL可以专门搜索包含NULL值的行。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>index_merge</strong>:该联接类型表示使用了索引合并优化方法。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>unique_subquery</strong>:该类型替换了下面形式的IN子查询的ref: value IN (SELECT primary_key FROM single_table WHERE some_expr) unique_subquery是一个索引查找函数,可以完全替换子查询,效率更高。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>index_subquery</strong>:该联接类型类似于unique_subquery。可以替换IN子查询,但只适合下列形式的子查询中的非唯一索引: value IN (SELECT key_column FROM single_table WHERE some_expr)</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>range</strong>:只检索给定范围的行,使用一个索引来选择行。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>index</strong>:该联接类型与ALL相同,除了只有索引树被扫描。这通常比ALL快,因为索引文件通常比数据文件小。</span></li>
-<li><p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>ALL</strong>:对于每个来自于先前的表的行组合,进行完整的表扫描。</span></p>
-<p>|<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>possible_keys</strong></span> | </p>
-</li>
-</ul>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">指出MySQL能使用哪个索引在该表中找到行</span></p>
-<p> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>key</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">显示MySQL实际决定使用的键(索引)。如果没有选择索引,键是NULL。</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>key_len</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">显示MySQL决定使用的键长度。如果键是NULL,则长度为NULL。</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>ref</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">显示使用哪个列或常数与key一起从表中选择行。</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>rows</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">显示MySQL认为它执行查询时必须检查的行数。多行之间的数据相乘可以估算要处理的行数。</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>filtered</strong></span> | <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">显示了通过条件过滤出的行数的百分比估计值。</span> |<br>| <span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Extra</strong></span> | </p>
-<p><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px">该列包含MySQL解决查询的详细信息</span></p>
-<ul>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Distinct</strong>:MySQL发现第1个匹配行后,停止为当前的行组合搜索更多的行。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Not exists</strong>:MySQL能够对查询进行LEFT JOIN优化,发现1个匹配LEFT JOIN标准的行后,不再为前面的的行组合在该表内检查更多的行。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>range checked for each record (index map: #)</strong>:MySQL没有发现好的可以使用的索引,但发现如果来自前面的表的列值已知,可能部分索引可以使用。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using filesort</strong>:MySQL需要额外的一次传递,以找出如何按排序顺序检索行。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using index</strong>:从只使用索引树中的信息而不需要进一步搜索读取实际的行来检索表中的列信息。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using temporary</strong>:为了解决查询,MySQL需要创建一个临时表来容纳结果。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using where</strong>:WHERE 子句用于限制哪一个行匹配下一个表或发送到客户。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using sort_union(…), Using union(…), Using intersect(…)</strong>:这些函数说明如何为index_merge联接类型合并索引扫描。</span></li>
-<li><span style="font-family: &quot;Microsoft YaHei&quot;; font-size: 12px"><strong>Using index for group-by</strong>:类似于访问表的Using index方式,Using index for group-by表示MySQL发现了一个索引,可以用来查 询GROUP BY或DISTINCT查询的所有列,而不要额外搜索硬盘访问实际的表。</span></li>
-</ul>
-<h2 id="explain的局限"><a href="#explain的局限" class="headerlink" title="explain的局限"></a>explain的局限</h2><ul>
-<li>EXPLAIN不会告诉你关于触发器、 存储过程的信息或用户自定义函数对查询的影响情况。</li>
-<li>EXPLAIN不考虑各种Cache。</li>
-<li>EXPLAIN不能显示MySQL在执行查询时所做的优化工作。</li>
-<li>部分统计信息是估算的， 并非精确值</li>
-<li>MySQL 5.6之前EXPALIN只能解释SELECT操作， 其他操作需要重写为SELECT后才能查看执行计划</li>
-<li>如果FROM子句里有子查询， 那么MySQL可能会执行这个子查询， 如果有昂贵的子查询或使用了临时表的视图， 那么<br>EXPLAIN其实会有很大的开销。</li>
-</ul>
-</div></div>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/explain小结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-scrapy-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/24/scrapy-入门/">scrapy 入门</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/24/scrapy-入门/" class="archive-article-date">
-  	<time datetime="2018-02-24T14:12:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h1><p><code>scrapy startproject tutorial</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrapy.cfg: 项目的配置文件；（用于发布到服务器）</span><br><span class="line">tutorial/: 该项目文件夹。之后将在此编写Python代码。</span><br><span class="line">tutorial/items.py: 项目中的item文件;（定义结构化数据字段field）.</span><br><span class="line">tutorial/pipelines.py: 项目中的pipelines文件;（用于存放执行后期数据处理的功能，定义如何存储结构化数据)</span><br><span class="line">tutorial/settings.py: 项目的设置文件；(如何修改User-Agent，设置爬取时间间隔，设置代理，配置中间件等等)</span><br><span class="line">tutorial/spiders/: 放置spider代码的目录;（编写爬取网站规则）</span><br></pre></td></tr></table></figure></p>
-<h1 id="定义Item"><a href="#定义Item" class="headerlink" title="定义Item"></a>定义Item</h1><p>Item 定义结构化数据字段，用来保存爬取到的数据；其使用方法和python字典类似<br>可以通过创建一个 scrapy.Item 类， 并且定义类型为 scrapy.Field的类属性来定义一个Item。<br>首先根据需要从腾讯招聘获取到的数据对item进行建模。 我们需要从<a href="https://hr.tencent.com/position.php?&amp;start=0#a" target="_blank" rel="external">腾讯招聘</a>中获取 职位名称、职位详情页url、职位类别、人数、工作地点以及发布时间。 对此，在item中定义相应的字段。编辑 tutorial 目录中的 items.py 文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br></pre></td></tr></table></figure></p>
-<h1 id="编写第一个爬虫"><a href="#编写第一个爬虫" class="headerlink" title="编写第一个爬虫"></a>编写第一个爬虫</h1><p>Spider是开发者编写用于从单个网站(或者一些网站)爬取数据的类。<br>创建一个Spider，必须继承 ‘scrapy.Spider’ 类， 需要定义以下三个属性:</p>
-<ul>
-<li>name:<br>spider名字；必须是唯一的</li>
-<li>start_urls:<br>初始的URL列表</li>
-<li>parse(self, response)：<br>每个初始URL完成下载后被调用<br>这个函数要完成的功能：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.负责解析返回的网页数据(response.body)，提取结构化数据(生成item)</span><br><span class="line">2.生成需要下一页的请求URL。</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>以下为我们的第一个Spider代码，保存在 tutorial/spiders 目录下的 tencent_spider.py 文件中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        f = open(&apos;tengxun.txt&apos;, &apos;wb&apos;)</span><br><span class="line">        f.write(response.body)</span><br><span class="line">        f.close()</span><br></pre></td></tr></table></figure></p>
-<h1 id="爬取"><a href="#爬取" class="headerlink" title="爬取"></a>爬取</h1><p>进入项目的根目录，执行下列命令启动spider:<br><code>scrapy crawl tencent</code><br>crawl tencent 启动用于爬取 tencent 的spider，您将得到类似的输出:<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-24/43569726.jpg" alt=""></p>
-<h1 id="提取Item"><a href="#提取Item" class="headerlink" title="提取Item"></a>提取Item</h1><h3 id="Selectors选择器简介"><a href="#Selectors选择器简介" class="headerlink" title="Selectors选择器简介"></a>Selectors选择器简介</h3><p>Scrapy Selectors 内置XPath 和 CSS Selector 表达式机制<br>Selector有四个基本的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表 。</span><br><span class="line">css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表.</span><br><span class="line">extract(): 序列化该节点为unicode字符串并返回list。</span><br><span class="line">re(): 根据传入的正则表达式对数据进行提取，返回unicode字符串list列表。</span><br></pre></td></tr></table></figure></p>
-<h1 id="尝试Selector选择器"><a href="#尝试Selector选择器" class="headerlink" title="尝试Selector选择器"></a>尝试Selector选择器</h1><p><code>scrapy shell &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">response.xpath(&apos;//title&apos;)</span><br><span class="line">[&lt;Selector xpath=&apos;//title&apos; data=u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&apos;&gt;]</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title&apos;).extract()</span><br><span class="line">[u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&gt;&apos;]</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title&apos;).extract()[0]</span><br><span class="line">&lt;title&gt;职位搜索 | 社会招聘 | Tencent 腾讯招聘&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)</span><br><span class="line">&lt;Selector xpath=&apos;//title/text()&apos; data=u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">职位搜索 | 社会招聘 | Tencent 腾讯招聘</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;).re(&apos;(\w+):&apos;)</span><br><span class="line">[u&apos;\u804c\u4f4d\u641c\u7d22&apos;,</span><br><span class="line"> u&apos;\u793e\u4f1a\u62db\u8058&apos;,</span><br><span class="line"> u&apos;Tencent&apos;,</span><br><span class="line"> u&apos;\u817e\u8baf\u62db\u8058&apos;]</span><br></pre></td></tr></table></figure></p>
-<h1 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h1><p>现在，我们来尝试从这些页面中提取些有用的数据。<br>我们可以通过XPath选择该页面中网站列表里所有 lass=even 元素:<br><code>site = response.xpath(&quot;//*[@class=&#39;l square&#39;]/parent::tr&quot;)</code><br>职位名称:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/text()&apos;).extract()[0])</span><br><span class="line">TEG15-运营开发工程师（深圳）</span><br></pre></td></tr></table></figure></p>
-<p>职位名称详情页:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/@href&apos;).extract()[0])</span><br><span class="line">position_detail.php?id=20744&amp;keywords=&amp;tid=0&amp;lid=0</span><br></pre></td></tr></table></figure></p>
-<p>职位类别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[2]/text()&apos;).extract()[0])</span><br><span class="line">技术类</span><br></pre></td></tr></table></figure></p>
-<p>对于 .xpath() 调用返回selector组成的list， 因此可以拼接更多的 .xpath() 来进一步获取某个节点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">    name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">    detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">    catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">    recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">    workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">    publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">    print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
-<p>在我们的tencent_spider.py文件修改成如下代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
-<p>现在尝试再次爬取hr.tencent.com，您将看到爬取到的网站信息被成功输出:<br><code>scrapy crawl tencent</code></p>
-<h1 id="使用item"><a href="#使用item" class="headerlink" title="使用item"></a>使用item</h1><p>Item 对象是自定义的python字典。可以使用标准的字典语法来获取到其每个字段的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br><span class="line"></span><br><span class="line">item = RecruitItem()</span><br><span class="line">item[&apos;name&apos;] = &apos;sanlang&apos;</span><br><span class="line">item[&apos;name&apos;]</span><br><span class="line">&apos;sanlang&apos;</span><br></pre></td></tr></table></figure></p>
-<p>一般来说，Spider将会将爬取到的数据以Item对象返回。所以为了将爬取的数据返回，最终tencent_spider.py代码将是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print(name, detailLink, catalog, recruitNumber, workLocation, publishTime)</span><br><span class="line">            item = RecruitItem()</span><br><span class="line">            item[&apos;name&apos;] = name.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;detailLink&apos;] = detailLink.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;catalog&apos;] = catalog.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;recruitNumber&apos;] = recruitNumber.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;workLocation&apos;] = workLocation.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;publishTime&apos;] = publishTime.encode(&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure></p>
-<h1 id="保存爬取到的数据"><a href="#保存爬取到的数据" class="headerlink" title="保存爬取到的数据"></a>保存爬取到的数据</h1><p><code>保存爬取到的数据</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">scrapy</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/24/scrapy-入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mybatis完整配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/01/mybatis完整配置/">mybatis完整配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/01/mybatis完整配置/" class="archive-article-date">
-  	<time datetime="2018-02-01T15:52:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line">&lt;!-- 配置生成器 --&gt;</span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">&lt;!-- 可以用于加载配置项或者配置文件，在整个配置文件中就可以使用$&#123;propertyKey&#125;的方式来引用配置项</span><br><span class="line">    resource：配置资源加载地址，使用resource，MBG从classpath开始找，比如com/myproject/generatorConfig.properties        </span><br><span class="line">    url：配置资源加载地质，使用URL的方式，比如file:///C:/myfolder/generatorConfig.properties.</span><br><span class="line">    注意，两个属性只能选址一个;</span><br><span class="line">    </span><br><span class="line">    另外，如果使用了mybatis-generator-maven-plugin，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用</span><br><span class="line">&lt;properties resource=&quot;&quot; url=&quot;&quot; /&gt;</span><br><span class="line"> --&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;!-- 在MBG工作的时候，需要额外加载的依赖包</span><br><span class="line">    location属性指明加载jar/zip包的全路径</span><br><span class="line">&lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  </span><br><span class="line">&lt;!-- </span><br><span class="line">    context:生成一组对象的环境 </span><br><span class="line">    id:必选，上下文id，用于在生成错误时提示</span><br><span class="line">    defaultModelType:指定生成对象的样式</span><br><span class="line">        1，conditional：类似hierarchical；</span><br><span class="line">        2，flat：所有内容（主键，blob）等全部生成在一个对象中；</span><br><span class="line">        3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)</span><br><span class="line">    targetRuntime:</span><br><span class="line">        1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；</span><br><span class="line">        2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；</span><br><span class="line">    introspectedColumnImpl：类全限定名，用于扩展MBG</span><br><span class="line">--&gt;</span><br><span class="line">&lt;context id=&quot;mysql&quot; defaultModelType=&quot;hierarchical&quot; targetRuntime=&quot;MyBatis3Simple&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；</span><br><span class="line">        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;property name=&quot;autoDelimitKeywords&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;!-- 生成的Java文件的编码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFileEncoding&quot; value=&quot;UTF-8&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化java代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultJavaFormatter&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化XML代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;xmlFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultXmlFormatter&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span><br><span class="line">    &lt;property name=&quot;beginningDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;endingDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 必须要有的，使用这个配置链接数据库</span><br><span class="line">        @TODO:是否可以扩展</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot; connectionURL=&quot;jdbc:mysql:///pss&quot; userId=&quot;root&quot; password=&quot;admin&quot;&gt;</span><br><span class="line">        &lt;!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 --&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- java类型处理器 </span><br><span class="line">        用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；</span><br><span class="line">        注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； </span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaTypeResolver type=&quot;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&quot;&gt;</span><br><span class="line">        &lt;!-- </span><br><span class="line">            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型</span><br><span class="line">            false：默认,</span><br><span class="line">                scale&gt;0;length&gt;18：使用BigDecimal;</span><br><span class="line">                scale=0;length[10,18]：使用Long；</span><br><span class="line">                scale=0;length[5,9]：使用Integer；</span><br><span class="line">                scale=0;length&lt;5：使用Short；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- java模型创建器，是必须要的元素</span><br><span class="line">        负责：1，key类（见context的defaultModelType）；2，java类；3，查询类</span><br><span class="line">        targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；</span><br><span class="line">        targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com._520it.mybatis.domain&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!--  for MyBatis3/MyBatis3Simple</span><br><span class="line">            自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- for MyBatis3 / MyBatis3Simple</span><br><span class="line">            是否创建一个不可变的类，如果为true，</span><br><span class="line">            那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置一个根对象，</span><br><span class="line">            如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项</span><br><span class="line">            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：</span><br><span class="line">                1，属性名相同，类型相同，有相同的getter/setter方法；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;com._520it.mybatis.domain.BaseDomain&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置是否在getter方法中，对String类型字段调用trim()方法 --&gt;</span><br><span class="line">        &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 生成SQL map的XML文件生成器，</span><br><span class="line">        注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），</span><br><span class="line">            或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置</span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; targetProject=&quot;src/main/resources&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 </span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">        type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：</span><br><span class="line">            1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；</span><br><span class="line">            2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；</span><br><span class="line">            3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；</span><br><span class="line">        注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaClientGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; type=&quot;ANNOTATEDMAPPER&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素</span><br><span class="line">        选择的table会生成一下文件：</span><br><span class="line">        1，SQL map文件</span><br><span class="line">        2，生成一个主键类；</span><br><span class="line">        3，除了BLOB和主键的其他字段的类；</span><br><span class="line">        4，包含BLOB的类；</span><br><span class="line">        5，一个用户生成动态查询的条件类（selectByExample, deleteByExample），可选；</span><br><span class="line">        6，Mapper接口（可选）</span><br><span class="line">    </span><br><span class="line">        tableName（必要）：要生成对象的表名；</span><br><span class="line">        注意：大小写敏感问题。正常情况下，MBG会自动的去识别数据库标识符的大小写敏感度，在一般情况下，MBG会</span><br><span class="line">            根据设置的schema，catalog或tablename去查询数据表，按照下面的流程：</span><br><span class="line">            1，如果schema，catalog或tablename中有空格，那么设置的是什么格式，就精确的使用指定的大小写格式去查询；</span><br><span class="line">            2，否则，如果数据库的标识符使用大写的，那么MBG自动把表名变成大写再查找；</span><br><span class="line">            3，否则，如果数据库的标识符使用小写的，那么MBG自动把表名变成小写再查找；</span><br><span class="line">            4，否则，使用指定的大小写格式查询；</span><br><span class="line">        另外的，如果在创建表的时候，使用的&quot;&quot;把数据库对象规定大小写，就算数据库标识符是使用的大写，在这种情况下也会使用给定的大小写来创建表名；</span><br><span class="line">        这个时候，请设置delimitIdentifiers=&quot;true&quot;即可保留大小写格式；</span><br><span class="line">        </span><br><span class="line">        可选：</span><br><span class="line">        1，schema：数据库的schema；</span><br><span class="line">        2，catalog：数据库的catalog；</span><br><span class="line">        3，alias：为数据表设置的别名，如果设置了alias，那么生成的所有的SELECT SQL语句中，列名会变成：alias_actualColumnName</span><br><span class="line">        4，domainObjectName：生成的domain类的名字，如果不设置，直接使用表名作为domain类的名字；可以设置为somepck.domainName，那么会自动把domainName类再放到somepck包里面；</span><br><span class="line">        5，enableInsert（默认true）：指定是否生成insert语句；</span><br><span class="line">        6，enableSelectByPrimaryKey（默认true）：指定是否生成按照主键查询对象的语句（就是getById或get）；</span><br><span class="line">        7，enableSelectByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询语句；</span><br><span class="line">        8，enableUpdateByPrimaryKey（默认true）：指定是否生成按照主键修改对象的语句（即update)；</span><br><span class="line">        9，enableDeleteByPrimaryKey（默认true）：指定是否生成按照主键删除对象的语句（即delete）；</span><br><span class="line">        10，enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；</span><br><span class="line">        11，enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；</span><br><span class="line">        12，enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；</span><br><span class="line">        13，modelType：参考context元素的defaultModelType，相当于覆盖；</span><br><span class="line">        14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）</span><br><span class="line">        15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性</span><br><span class="line">        </span><br><span class="line">        注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;table tableName=&quot;userinfo&quot; &gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 constructorBased属性--&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； --&gt;</span><br><span class="line">        &lt;property name=&quot;ignoreQualifiersAtRuntime&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 immutable 属性 --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 --&gt;</span><br><span class="line">        &lt;property name=&quot;modelOnly&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 rootClass 属性 </span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">        &lt;!-- 参考javaClientGenerator 的  rootInterface 属性</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog </span><br><span class="line">        &lt;property name=&quot;runtimeCatalog&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema </span><br><span class="line">        &lt;property name=&quot;runtimeSchema&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename </span><br><span class="line">        &lt;property name=&quot;runtimeTableName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 注意，该属性只针对MyBatis3Simple有用；</span><br><span class="line">            如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;selectAllOrderByClause&quot; value=&quot;age desc,username asc&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate --&gt;</span><br><span class="line">        &lt;property name=&quot;useActualColumnNames&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        &lt;!-- generatedKey用于生成生成主键的方法，</span><br><span class="line">            如果设置了该元素，MBG会在生成的&lt;insert&gt;元素中生成一条正确的&lt;selectKey&gt;元素，该元素可选</span><br><span class="line">            column:主键的列名；</span><br><span class="line">            sqlStatement：要生成的selectKey语句，有以下可选项：</span><br><span class="line">                Cloudscape:相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2       :相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2_MF    :相当于selectKey的SQL为：SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1</span><br><span class="line">                Derby     :相当于selectKey的SQL为：VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                HSQLDB    :相当于selectKey的SQL为：CALL IDENTITY()</span><br><span class="line">                Informix  :相当于selectKey的SQL为：select dbinfo(&apos;sqlca.sqlerrd1&apos;) from systables where tabid=1</span><br><span class="line">                MySql     :相当于selectKey的SQL为：SELECT LAST_INSERT_ID()</span><br><span class="line">                SqlServer :相当于selectKey的SQL为：SELECT SCOPE_IDENTITY()</span><br><span class="line">                SYBASE    :相当于selectKey的SQL为：SELECT @@IDENTITY</span><br><span class="line">                JDBC      :相当于在生成的insert元素上添加useGeneratedKeys=&quot;true&quot;和keyProperty属性</span><br><span class="line">        &lt;generatedKey column=&quot;&quot; sqlStatement=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- </span><br><span class="line">            该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，</span><br><span class="line">            比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；</span><br><span class="line">            那么就可以设置searchString为&quot;^CUST_&quot;，并使用空白替换，那么生成的Customer对象中的属性名称就不是</span><br><span class="line">            custId,custName等，而是先被替换为ID,NAME,EMAIL,然后变成属性：id，name，email；</span><br><span class="line">            </span><br><span class="line">            注意，MBG是使用java.util.regex.Matcher.replaceAll来替换searchString和replaceString的，</span><br><span class="line">            如果使用了columnOverride元素，该属性无效；</span><br><span class="line">            </span><br><span class="line">        &lt;columnRenamingRule searchString=&quot;&quot; replaceString=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">         </span><br><span class="line">         &lt;!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；</span><br><span class="line">            column:要重新设置的列名；</span><br><span class="line">            注意，一个table元素中可以有多个columnOverride元素哈~</span><br><span class="line">          --&gt;</span><br><span class="line">         &lt;columnOverride column=&quot;username&quot;&gt;</span><br><span class="line">            &lt;!-- 使用property属性来指定列要生成的属性名称 --&gt;</span><br><span class="line">            &lt;property name=&quot;property&quot; value=&quot;userName&quot;/&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名</span><br><span class="line">            &lt;property name=&quot;javaType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- jdbcType用于指定该列的JDBC类型 </span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名</span><br><span class="line">                注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler</span><br><span class="line">                只会生成类似：where id = #&#123;id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler&#125;的参数描述</span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">            --&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- 参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            &lt;property name=&quot;delimitedColumnName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">         &lt;/columnOverride&gt;</span><br><span class="line">         </span><br><span class="line">         &lt;!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现 </span><br><span class="line">            column:指定要忽略的列的名字；</span><br><span class="line">            delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            </span><br><span class="line">            注意，一个table元素中可以有多个ignoreColumn元素</span><br><span class="line">         &lt;ignoreColumn column=&quot;deptId&quot; delimitedColumnName=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/context&gt;</span><br><span class="line"></span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/01/mybatis完整配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -747,10 +232,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
