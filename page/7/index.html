@@ -159,6 +159,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java中的24种设计模式与7大原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/Java中的24种设计模式与7大原则/">Java中的24种设计模式与7大原则</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/12/Java中的24种设计模式与7大原则/" class="archive-article-date">
+  	<time datetime="2017-09-12T03:18:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>转载 <a href="https://zhuanlan.zhihu.com/p/26935579" target="_blank" rel="external">知乎</a></p>
+</blockquote>
+<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2><ol>
+<li>抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类.</li>
+<li>生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</li>
+<li>工厂模式(factory method pattern): 定义了一个创建对象的接口, 但由子类决定要实例化的类是哪一个. 工厂方法让类把实例化推迟到子类.</li>
+<li>原型模式(prototype pattern): 当创建给定类的实例过程很昂贵或很复杂时, 就使用原形模式.</li>
+<li>单例了模式(Singleton pattern): 确保一个类只有一个实例, 并提供全局访问点.</li>
+<li><p>多例模式(Multition pattern): 在一个解决方案中结合两个或多个模式, 以解决一般或重复发生的问题.</p>
+        
+          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -517,97 +602,9 @@
 
 
   
-    <article id="post-python常见的错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/19/python常见的错误/">python中常见的错误</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/19/python常见的错误/" class="archive-article-date">
-  	<time datetime="2017-05-19T13:25:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。"><a href="#当初学-Python-时，想要弄懂-Python-的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序-crash-的运行时错误。" class="headerlink" title="当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。"></a>当初学 Python 时，想要弄懂 Python 的错误信息的含义可能有点复杂。这里列出了常见的的一些让你程序 crash 的运行时错误。</h4><ol>
-<li><p>忘记在 if , elif , else , for , while , class ,def 声明末尾添加 ：（导致 <strong>“SyntaxError ：invalid syntax”</strong>）<br>该错误将发生在类似如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用 = 而不是 ==（导致 <strong>“SyntaxError: invalid syntax”</strong>）<br>= 是赋值操作符而 == 是等于比较操作。该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> spam = <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>错误的使用缩进量。</p>
-<p>（导致 <strong>“IndentationError：unexpected indent”、”IndentationError：unindent does not match any outer indetation level”</strong> 以及 <strong>“IndentationError：expected an indented block”</strong>）</p>
-<p> 记住缩进增加只用在以：结束的语句之后，而之后必须恢复到之前的缩进格式。该错误发生在如下代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</span><br><span class="line"></span><br><span class="line"> 或者這樣：</span><br><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'Howdy!'</span>)</span><br><span class="line"></span><br><span class="line">应该这样： </span><br><span class="line"><span class="keyword">if</span> spam == <span class="number">42</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2017/05/19/python常见的错误/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/19/python常见的错误/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 
@@ -702,15 +699,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,15 +723,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,15 +759,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
             
             <div class="clearfix"></div>
