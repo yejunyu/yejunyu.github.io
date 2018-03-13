@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>java 常见面试题 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。 Switch能否用string做参数？ equals与==的区别。 Object有哪些公用方法？ Java的四种引用，强弱软虚，用到的场景。 Hashcode的作用。 ArrayList、LinkedList、Vector的区别。 String、StringBuffer与StringBuilder的区别。 Map、Set、List、Que">
+  <meta name="description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java 常见面试题">
 <meta property="og:url" content="http://yoursite.com/2018/01/26/java-常见面试题/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。 Switch能否用string做参数？ equals与==的区别。 Object有哪些公用方法？ Java的四种引用，强弱软虚，用到的场景。 Hashcode的作用。 ArrayList、LinkedList、Vector的区别。 String、StringBuffer与StringBuilder的区别。 Map、Set、List、Que">
+<meta property="og:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-02T11:36:12.749Z">
+<meta property="og:updated_time" content="2018-03-13T15:01:49.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 常见面试题">
-<meta name="twitter:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。 Switch能否用string做参数？ equals与==的区别。 Object有哪些公用方法？ Java的四种引用，强弱软虚，用到的场景。 Hashcode的作用。 ArrayList、LinkedList、Vector的区别。 String、StringBuffer与StringBuilder的区别。 Map、Set、List、Que">
+<meta name="twitter:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -180,22 +180,55 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="J2SE基础："><a href="#J2SE基础：" class="headerlink" title="J2SE基础："></a>J2SE基础：</h1><ol>
-<li>九种基本数据类型的大小，以及他们的封装类。</li>
-<li>Switch能否用string做参数？</li>
-<li>equals与==的区别。</li>
-<li>Object有哪些公用方法？</li>
-<li>Java的四种引用，强弱软虚，用到的场景。</li>
-<li>Hashcode的作用。</li>
-<li>ArrayList、LinkedList、Vector的区别。</li>
-<li>String、StringBuffer与StringBuilder的区别。</li>
-<li>Map、Set、List、Queue、Stack的特点与用法。</li>
-<li>HashMap和HashTable的区别。</li>
-<li>HashMap和ConcurrentHashMap的区别，HashMap的底层源码。</li>
-<li>TreeMap、HashMap、LindedHashMap的区别。</li>
-<li>Collection包结构，与Collections的区别。</li>
-<li>try catch finally，try里有return，finally还执行么？</li>
-<li>Excption与Error包结构。OOM你遇到过哪些情况，SOF你遇到过哪些情况。</li>
-<li>Java面向对象的三个特征与含义。</li>
+<li><p>九种基本数据类型的大小，以及他们的封装类。    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">byte,short,int,long,float,double,boolen,char,void</span><br><span class="line">基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。</span><br><span class="line"></span><br><span class="line">基本类型是放在栈中，直接存储值。</span><br><span class="line"></span><br><span class="line">所有数值类型都有正负号，没有无符号的数值类型。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Switch能否用string做参数？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 Java 7之前，switch 只能支持 byte、short、char、int或者其对应的封装类以及 Enum 类型。在 Java 7中，String支持被加上了。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>equals与==的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">equals比较两个对象的内容是否相同</span><br><span class="line">== 比较两个对象是否是同一对象。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Object有哪些公用方法？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">protected Object clone()创建并返回此对象的一个副本。   </span><br><span class="line">boolean   equals(Object obj)指示其他某个对象是否与此对象“相等”。   </span><br><span class="line">protected void  finalize()当垃圾回收器确定不存在对该对象的更多引用时，由对象的垃圾回收器调用此方法。   </span><br><span class="line">Class&lt;?&gt;  getClass()返回此 Object 的运行时类。   </span><br><span class="line">int   hashCode()返回该对象的哈希码值。   </span><br><span class="line">void   notify()唤醒在此对象监视器上等待的单个线程。   </span><br><span class="line">void   notifyAll()唤醒在此对象监视器上等待的所有线程。   </span><br><span class="line">String   toString()返回该对象的字符串表示。   </span><br><span class="line">void   wait()在其他线程调用此对象的 notify() 方法或 notifyAll() 方法前，导致当前线程等待。   </span><br><span class="line">void   wait(long timeout)在其他线程调用此对象的 notify() 方法或 notifyAll() 方法，或者超过指定的时间量前，导致当前线程等待。   </span><br><span class="line">void   wait(long timeout, int nanos)在其他线程调用此对象的 notify() 方法或 notifyAll() 方法，或者其他某个线程中断当前线程，或者已超过某个实际时间量前，导致当前线程等待。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li><p>Java的四种引用，强弱软虚，用到的场景.<br><a href="http://blog.csdn.net/u012403246/article/details/45741445" target="_blank" rel="external">null</a></p>
+</li>
+<li><p>Hashcode的作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、hashCode的存在主要是用于查找的快捷性，如Hashtable，HashMap等，hashCode是用来在散列存储结构中确定对象的存储地址的；</span><br><span class="line"></span><br><span class="line">2、如果两个对象相同，就是适用于equals(java.lang.Object) 方法，那么这两个对象的hashCode一定要相同；</span><br><span class="line"></span><br><span class="line">3、如果对象的equals方法被重写，那么对象的hashCode也尽量重写，并且产生hashCode使用的对象，一定要和equals方法中使用的一致，否则就会违反上面提到的第2点；</span><br><span class="line"></span><br><span class="line">4、两个对象的hashCode相同，并不一定表示两个对象就相同，也就是不一定适用于equals(java.lang.Object) 方法，只能够说明这两个对象在散列存储结构中，如Hashtable，他们“存放在同一个篮子里”。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ArrayList、LinkedList、Vector的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList Vector都使用数组式存储数据数组元素数于实际存储数据便增加插入元素都允许直接按序号索引元素插入元素要涉及数组元素移等内存操作所索引数据快插入数据慢Vector由于使用synchronized（线程安全）通性能较ArrayList差LinkedList使用双向链表实现存储按序号索引数据需要进行前向或向遍历插入数据需要记录本项前项即所插入速度较快</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String、StringBuffer与StringBuilder的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、String，StingBuffer，StringBuilder是字符串变量还是常量？</span><br><span class="line"></span><br><span class="line">String            ----&gt;     字符串常量</span><br><span class="line">StringBuffer      ----&gt;     字符串变量（线程安全的）</span><br><span class="line">StringBuilder     ----&gt;     字符串变量（非线程安全的）</span><br><span class="line"></span><br><span class="line">2、String，StingBuffer，StringBuilder效率如何呢？</span><br><span class="line">从高到底的顺序依次是：StringBuilder  &gt;  StingBuffer &gt; String</span><br><span class="line">有上知道了String是字符串常量，所以他的效率自然而然是最低的。对于StringBuffer和StringBuilder它们属于变量，是可以改变的对象，每次对字符串的操作，实际上实在一个对象上操作，所以效率更高一些。StringBuffer是线程安全的，考虑到安全问题，相对他的性能会更低一点。由此知道了从效率的角度看，StringBuilder最高，其次是StringBuffer，最后是String字符串常量。</span><br><span class="line"></span><br><span class="line">总结：</span><br><span class="line">当多个线程使用字符串缓冲区时，使用StringBuffer保证正确的操作，如果是单线程的，建议使用StringBuiler效率更高一些。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Map、Set、List、Queue、Stack的特点与用法。<br><a href="https://zhuanlan.zhihu.com/p/30086934" target="_blank" rel="external">Collection和Map常用类的比较
+</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">list 和set 有共同的父类 它们的用法也是一样的 唯一的不太就是set中不能有相同的元素 list中可以</span><br><span class="line">list和set的用途非常广泛 list可以完全代替数组来使用</span><br><span class="line">map 是独立的合集 它使用键值对的方式来储存数据 键不能有重复的 值可以用 </span><br><span class="line">map不像上边两种集合那个用的广泛 不过在servlet 和jsp中 map可是绝对的重中之重 页面之间传值全靠map</span><br><span class="line"></span><br><span class="line">List是集合类的接口，子类有ArraryList 和LinkList，通常在Android开发中我们常用的是arrayList，来将数据进行插入和移除。</span><br><span class="line"></span><br><span class="line">其次map也是一个集合映射，不过是键值对的映射，也就是key , value形式，比如当我们需要查询其中的某个对象时，只需要查询其key便能直接获取到他的value（值），就像一个小型的数据库，也有类似于hashmap , Linkedhashmap ，treemap等方法来进一步实现和拓展，并且提高他的性能。</span><br><span class="line"></span><br><span class="line">Set是最简单的一种集合。集合中的对象不按特定的方式排序，并且没有重复对象。 Set接口主要实现了两个实现类：</span><br><span class="line"></span><br><span class="line">HashSet： HashSet类按照哈希算法来存取集合中的对象，存取速度比较快 </span><br><span class="line">TreeSet ：TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 </span><br><span class="line">Set的功能方法 </span><br><span class="line"></span><br><span class="line">Set具有与Collection完全一样的接口，因此没有任何额外的功能，不像前面有两个不同的List。实际上Set就是Collection,只 是行为不同。(这是继承与多态思想的典型应用：表现不同的行为。)Set不保存重复的元素(至于如何判断元素相同则较为负责) </span><br><span class="line"></span><br><span class="line">Set : 存入Set的每个元素都必须是唯一的，因为Set不保存重复元素。加入Set的元素必须定义equals()方法以确保对象的唯一性。Set与Collection有完全一样的接口。Set接口不保证维护元素的次序。 </span><br><span class="line"></span><br><span class="line">HashSet：为快速查找设计的Set。存入HashSet的对象必须定义hashCode()。 </span><br><span class="line">TreeSet： 保存次序的Set, 底层为树结构。使用它可以从Set中提取有序的序列。 </span><br><span class="line">LinkedHashSet：具有HashSet的查询速度，且内部使用链表维护元素的顺序(插入的次序)。于是在使用迭代器遍历Set时，结果会按元素插入的次序显示。</span><br><span class="line"> </span><br><span class="line">Queue用于模拟&quot;队列&quot;这种数据结构(先进先出 FIFO)。队列的头部保存着队列中存放时间最长的元素，队列的尾部保存着队列中存放时间最短的元素。新元素插入(offer)到队列的尾部，</span><br><span class="line">访问元素(poll)操作会返回队列头部的元素，队列不允许随机访问队列中的元素。结合生活中常见的排队就会很好理解这个概念</span><br><span class="line">3.1) PriorityQueue</span><br><span class="line">PriorityQueue并不是一个比较标准的队列实现，PriorityQueue保存队列元素的顺序并不是按照加入队列的顺序，而是按照队列元素的大小进行重新排序，这点从它的类名也可以</span><br><span class="line">看出来</span><br><span class="line">3.2) Deque</span><br><span class="line">Deque接口代表一个&quot;双端队列&quot;，双端队列可以同时从两端来添加、删除元素，因此Deque的实现类既可以当成队列使用、也可以当成栈使用</span><br><span class="line">3.2.1) ArrayDeque</span><br><span class="line">是一个基于数组的双端队列，和ArrayList类似，它们的底层都采用一个动态的、可重分配的Object[]数组来存储集合元素，当集合元素超出该数组的容量时，系统会在底层重新分配一个Object[]数组来存储集合元素</span><br><span class="line">3.2.2) LinkedList</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HashMap和HashTable的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HashMap和Hashtable都实现了Map接口，都是键值对保存数据的方式</span><br><span class="line">区别1： </span><br><span class="line">HashMap可以存放 null</span><br><span class="line">Hashtable不能存放null</span><br><span class="line">区别2：</span><br><span class="line">HashMap不是线程安全的类</span><br><span class="line">Hashtable是线程安全的类</span><br><span class="line"></span><br><span class="line">HashTable已经被淘汰了</span><br><span class="line">如果需要线程安全使用ConcurrentHashMap</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HashMap和ConcurrentHashMap的区别，HashMap的底层源码。<br><a href="http://blog.csdn.net/stephenxe/article/details/52386786" target="_blank" rel="external">null</a><br><a href="http://blog.csdn.net/zhuqiuhui/article/details/51849692" target="_blank" rel="external">null</a></p>
+</li>
+<li><p>TreeMap、HashMap、LindedHashMap的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LinkedHashMap 是HashMap的一个子类，如果需要输出的顺序和输入的相同,那么用LinkedHashMap可以实现,它还可以按读取顺序来排列，像连接池中可以应用。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Collection包结构，与Collections的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Collection是集合类的上级接口，子接口主要有Set 和List、Map。 </span><br><span class="line"></span><br><span class="line">Collections是针对集合类的一个帮助类，提供了操作集合的工具方法：一系列静态方法实现对各种集合的搜索、排序、线程安全化等操作。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>try catch finally，try里有return，finally还执行么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">肯定会执行。finally&#123;&#125;块的代码只有在try&#123;&#125;块中包含遇到System.exit(0);之类的导致Java虚拟机直接退出的语句才会不执行。</span><br><span class="line"></span><br><span class="line">1.影响返回结果的前提是在 非 finally 语句块中有 return 且非基本类型</span><br><span class="line">2.不影响返回结果 的前提是 非 finally 块中有return 且为基本类型</span><br><span class="line">究其本质 基本类型在栈中存储,返回的是真实的值,而引用类型返回的是其浅拷贝堆地址.所以才会改变。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Excption与Error包结构。OOM你遇到过哪些情况，SOF你遇到过哪些情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">oom:</span><br><span class="line">1、全称为OutOfMemoryError异常，如果虚拟机在扩展栈时无法申请足够的内存空间，抛出它；</span><br><span class="line"></span><br><span class="line">2、Java heap异常:java.lang.OutOfMemoryError:Java heap Space；</span><br><span class="line"></span><br><span class="line">3、虚拟机栈和本地方法溢出；</span><br><span class="line"></span><br><span class="line">4、运行时常量池溢出异常信息：java.lang.OutOfMemoryError:PermGen Space；</span><br><span class="line"></span><br><span class="line">    如果要向运行时常量池添加内容，简单的做法就是使用String.intern()这个Native方法；</span><br><span class="line"></span><br><span class="line">5、方法区溢出，方法区用于存放class的相关信息，如类名，常量池，字段描述，方法描述等。</span><br><span class="line"></span><br><span class="line">    异常信息为：java.lang.OutofMemoryError:PermGen Space;</span><br><span class="line"></span><br><span class="line">6、引起OOM主要有2个原因：内存泄露和内存溢出（即堆、栈溢出）；</span><br><span class="line"></span><br><span class="line">SOF:</span><br><span class="line">1、全称为StackOverFlowError异常；</span><br><span class="line"></span><br><span class="line">2、如果线程请求的栈深度大于虚拟机所允许的深度，抛出该异常；</span><br><span class="line"></span><br><span class="line">3、主要发生在递归调用中；</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java面向对象的三个特征与含义。</p>
+</li>
 <li>Override和Overload的含义去区别。</li>
 <li>Interface与abstract类的区别。</li>
 <li>Static class 与non static class的区别。</li>
@@ -250,6 +283,7 @@
 <p>1、Linux 下的一些指令，$（进程 id），$?（上一条命令退出时状态），怎么查看进程，按照内存大小，CPU 占用排序等等。（大写 M 和大写 P）。<br>2、http 的 get 和 post 方法。<br>3、介绍下你所了解的 epoll。<br>4、数据库 sql 的了解程度。<br>5、项目中遇到的问题，自己咋解决的等等。<br>6、手写一个全排列。<br>7、B树和B+树。<br>8、介绍一下 Hash，怎么解决冲突。<br>9、进程间的通信，共享内存方式的优缺点。</p>
 <p>百度三面</p>
 <p>1、说下你平时看的一些技术博客，书籍。<br>2、linux 下的一些指令。<br>3、工作中你觉得最不爽的事情是什么。<br>4、说下你的优缺点。<br>5、有没有想过去创业公司。<br>6、写个 strcpy 函数。<br>7、说说你自己的性格。<br>8、给你一个系统（面试官好像是无人车部门的），后台的逻辑已经实现了，但是前端加载很慢，怎么检测。<br>9、以后可能要学习很多新技术，你怎么看。<br>10、项目中遇到的困难（提前想好，并且把实现或者优化方法说清楚）。<br>11、系统的量级、pv、uv 等。<br>12、应对高并发的解决办法（分布式）。<br>13、在项目中主要负责了哪些工作。<br>14、nginx 的负载均衡。<br>15、分布式缓存的一致性，服务器如何扩容（哈希环）。</p>
+<p>redis sharding 增加节点时，为什么会有key丢失？</p>
 
       
 
@@ -501,11 +535,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,14 +556,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,10 +579,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
@@ -562,6 +592,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
