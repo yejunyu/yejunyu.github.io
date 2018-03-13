@@ -159,6 +159,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/02/mysql锁/">mysql锁</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/02/mysql锁/" class="archive-article-date">
+  	<time datetime="2018-03-02T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="mysql-innodb的3种行锁"><a href="#mysql-innodb的3种行锁" class="headerlink" title="mysql innodb的3种行锁"></a>mysql innodb的3种行锁</h1><h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>这是一个索引记录锁。<br>它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止<br>扫描整个表。</p>
+<h2 id="间隙锁（-gap-lock）"><a href="#间隙锁（-gap-lock）" class="headerlink" title="间隙锁（ gap lock）"></a>间隙锁（ gap lock）</h2><p>这是施加于索引记录间隙上的锁</p>
+<h2 id="next-key锁"><a href="#next-key锁" class="headerlink" title="next-key锁"></a>next-key锁</h2><p>记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。</p>
+<hr>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>产生死锁的4个必要条件</p>
+<ul>
+<li>禁止抢占（ no preemption）</li>
+<li>持有和等待（ hold and wait）</li>
+<li>互斥（ mutual exclusion）</li>
+<li>循环等待（ circular waiting）</li>
+</ul>
+<p>预防死锁就是至少破坏这4个条件中的一项， 即破坏“禁止抢占”、 “持有等待”、 “资源互斥”或“循环等待”</p>
+<p>实践中， 处理死锁的方法大致分为两种。 既可以检测死锁并进行修复， 也可以对事务进行管理， 使死锁永远都不可能形<br>成。 当存在死锁时， 对该状态进行修复以使所有涉及的事务都能继续执行通常是不可能的。 因此， 至少其中的一个事务必须终<br>止并重新开始。 InnoDB会自动检测死锁。 据官方文档可知， 目前InnoDB处理死锁的机制是： 发现有循环等待的现象， 立即回退<br>（ rollback） 开销更小的事务， 也就是插入、 修改、 删除了更少记录的事务</p>
+<p>对于MySQL死锁的解决， 通常有如下方法。</p>
+<ul>
+<li>经常提交你的事务。 小事务更少地倾向于冲突.</li>
+<li>以固定的顺序访问你的表和行。 这样事务就会形成定义良好的查询并且没有死锁</li>
+<li>将精心选定的索引添加到你的表中。 这样你的查询就只需要扫描更少的索引记录， 并且因此也可以设置更少的锁定。</li>
+<li>不要把无关的操作放到事务里面。</li>
+<li>在并发比较高的系统中， 不要显式加锁， 特别是在事务里显式加锁。 如SELECT…FOR UPDATE语句， 如果是在事务里<br>（ 运行了START TRANSACTION或设置了autocommit等于0） ， 那么就会锁定所查找到的记录</li>
+<li>尽量按照主键/索引去查找记录， 范围查找增加了锁冲突的可能性， 也不要利用数据库做一些额外的计算工作。 比如有些<br>读者会用到“SELECT…WHERE…ORDER BY RAND();”这样的语句， 由于类似这样的语句用不到索引， 因此将导致整个表的数<br>据都被锁住</li>
+<li>优化SQL和表设计， 减少同时占用太多资源的情况。 比如说， 减少连接的表， 将复杂SQL分解为多个简单的SQL</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/02/mysql锁/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-慢查询分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -625,111 +721,6 @@
 
 
   
-    <article id="post-python-闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/31/python-闭包/">python 闭包</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/31/python-闭包/" class="archive-article-date">
-  	<time datetime="2018-01-31T15:01:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484229&amp;idx=1&amp;sn=9514866e182d0a56ff460b2f88ad542a&amp;chksm=ec5edc38db29552e1a2746b8ce7182ec2bba2bdead93868fd3eb4e5943fadc42902e7608d4e4&amp;scene=21#wechat_redirect" target="_blank" rel="external">转载</a></p>
-</blockquote>
-<p>曾经介绍过两篇关于函数的文章，第一篇是 关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484227&amp;idx=1&amp;sn=710bec026d8a1c7294cd06fd7c59b43b&amp;chksm=ec5edc3edb295528236af46510832d240fe05cdded7040eeac6a9f8341c535b98c8ab558715f&amp;scene=21#wechat_redirect" target="_blank" rel="external">Python 函数是第一类对象</a>，第二篇是关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484228&amp;idx=1&amp;sn=a42152bf9c7ddb5f68e88f1c6c0122e9&amp;chksm=ec5edc39db29552f161465de77336346afcd3e9dc2af1a8e353ef5fb4824639513edf61d5572&amp;scene=21#wechat_redirect" target="_blank" rel="external">Lambda 函数</a>，今天来说说 Python 闭包。</p>
-<p>什么是闭包？闭包有什么用？为什么要用闭包？今天我们就带着这3个问题来一步一步认识闭包。</p>
-<p>闭包和函数紧密联系在一起，介绍闭包前有必要先介绍一些背景知识，诸如嵌套函数、变量的作用域等概念</p>
-<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>作用域是程序运行时变量可被访问的范围，定义在函数内的变量是局部变量，局部变量的作用范围只能是函数内部范围内，它不能在函数外引用。</p>
-<p>定义在模块最外层的变量是全局变量，它是全局范围内可见的，当然在函数里面也可以读取到全局变量的。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = 10 # 全局作用域变量def foo():    print(num)  # 10</span><br></pre></td></tr></table></figure>
-<p>而在函数外部则不可以访问局部变量。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def foo():    num = 10print(num)  # NameError: name &apos;num&apos; is not defined</span><br></pre></td></tr></table></figure>
-<h3 id="嵌套函数"><a href="#嵌套函数" class="headerlink" title="嵌套函数"></a>嵌套函数</h3><p>函数不仅可以定义在模块的最外层，还可以定义在另外一个函数的内部，像这种定义在函数里面的函数称之为<strong>嵌套函数</strong>（nested function）例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def print_msg(): </span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    printer()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">print_msg()</span><br></pre></td></tr></table></figure>
-<p>对于嵌套函数，它可以访问到其外层作用域中声明的非局部（non-local）变量，比如代码示例中的变量 <code>msg</code> 可以被嵌套函数 <code>printer</code> 正常访问。</p>
-<p>那么有没有一种可能即使脱离了函数本身的作用范围，局部变量还可以被访问得到呢？答案是闭包</p>
-<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>函数身为第一类对象，它可以作为函数的返回值返回，现在我们来考虑如下的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def print_msg():</span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer 是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    return printer</span><br><span class="line">another = print_msg()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">another()</span><br></pre></td></tr></table></figure>
-<p>这段代码和前面例子的效果完全一样，同样输出 “zen of python”。不同的地方在于内部函数 <code>printer</code> 直接作为返回值返回了。</p>
-<p>一般情况下，函数中的局部变量仅在函数的执行期间可用，一旦 <code>print_msg()</code> 执行过后，我们会认为 <code>msg</code>变量将不再可用。然而，在这里我们发现 print_msg 执行完之后，在调用 another 的时候 msg 变量的值正常输出了，这就是闭包的作用，闭包使得局部变量在函数外被访问成为可能。</p>
-<p>看完这个例子，我们再来定义闭包，维基百科上的解释是:</p>
-<blockquote>
-<p>在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
-</blockquote>
-<p>这里的 <code>another</code> 就是一个闭包，闭包本质上是一个函数，它由两部分组成，<code>printer</code> 函数和变量 <code>msg</code>。闭包使得这些变量的值始终保存在内存中。</p>
-<p>闭包，顾名思义，就是一个封闭的包裹，里面包裹着自由变量，就像在类里面定义的属性值一样，自由变量的可见范围随同包裹一起，哪里可以访问到这个包裹，哪里就可以访问到这个自由变量。</p>
-<h3 id="为什么要使用闭包"><a href="#为什么要使用闭包" class="headerlink" title="为什么要使用闭包"></a>为什么要使用闭包</h3><p>闭包避免了使用全局变量，此外，闭包允许将函数与其所操作的某些数据（环境）关连起来。这一点与面向对象编程是非常类似的，在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。</p>
-<p>一般来说，当对象中只有一个方法时，这时使用闭包是更好的选择。来看一个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def adder(x):</span><br><span class="line">    def wrapper(y):</span><br><span class="line">        return x + y</span><br><span class="line">    return wrapper</span><br><span class="line">adder5 = adder(5)</span><br><span class="line"># 输出 15</span><br><span class="line">adder5(10)</span><br><span class="line"># 输出 11</span><br><span class="line">adder5(6)</span><br></pre></td></tr></table></figure>
-<p>这比用类来实现更优雅，此外装饰器也是基于闭包的一中应用场景。</p>
-<p>所有函数都有一个 <code>__closure__</code>属性，如果这个函数是一个闭包的话，那么它返回的是一个由 cell 对象 组成的元组对象。cell 对象的cell_contents 属性就是闭包中的自由变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; adder.__closure__</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__(&lt;cell at 0x103075910: int object at 0x7fd251604518&gt;,)</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__[0].cell_contents5</span><br></pre></td></tr></table></figure>
-<p>这解释了为什么局部变量脱离函数之后，还可以在函数之外被访问的原因的，因为它存储在了闭包的 cell_contents中了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/31/python-闭包/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -835,7 +826,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,11 +838,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -859,11 +854,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -875,7 +874,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -883,19 +882,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">个人</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+                <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
