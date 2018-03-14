@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-13T23:27:40.320Z">
+<meta property="og:updated_time" content="2018-03-14T13:00:59.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 常见面试题">
 <meta name="twitter:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
@@ -250,6 +250,25 @@
 <li>Java1.7与1.8新特性。</li>
 <li>设计模式：单例、工厂、适配器、责任链、观察者等等。</li>
 <li>JNI的使用。</li>
+</ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&amp;mid=2653191907&amp;idx=1&amp;sn=876860c5a9a6710ead5dd8de37403ffc&amp;chksm=8c990c39bbee852f71c9dfc587fd70d10b0eab1cca17123c0a68bf1e16d46d71717712b91509&amp;scene=21#wechat_redirect" target="_blank" rel="external">什么是HashMap</a></p>
+<p>重点: </p>
+<ol>
+<li>hashcode算法,默认初始16,因为0X1111,可以让数据均匀分配</li>
+<li>可以为null,数组+链表(头插法)</li>
+<li>1.8链表优化成红黑树</li>
+</ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&amp;mid=2653192000&amp;idx=1&amp;sn=118cee6d1c67e7b8e4f762af3e61643e&amp;chksm=8c990d9abbee848c739aeaf25893ae4382eca90642f65fc9b8eb76d58d6e7adebe65da03f80d&amp;scene=21#wechat_redirect" target="_blank" rel="external">HashMap高并发下的危险</a></p>
+<p>重点:<br>1.Hashmap在插入元素过多的时候需要进行Resize，Resize的条件是<br>HashMap.Size   &gt;=  Capacity * LoadFactor(0.75f)<br>2.Hashmap的Resize包含扩容和ReHash两个步骤，ReHash在并发的情况下可能会形成链表环。</p>
+<ol>
+<li>resize的时候多个线程同时操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">e = entry</span><br><span class="line">next = e2</span><br><span class="line">e2.next = e3</span><br><span class="line">e3.next = e2</span><br><span class="line">环状链表</span><br><span class="line">此时再去get,程序呢陷入死循环</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&amp;mid=2653189798&amp;idx=1&amp;sn=c35c259d0a4a26a2ee6205ad90d0b2e1&amp;chksm=8c99047cbbee8d6a452fbb171133551553a825c83fb8b0cc66210dcda842c61157a07baaeb6b&amp;scene=21#wechat_redirect" target="_blank" rel="external">如何判断链表是环状结构</a></p>
+<p>重点:</p>
+<ol>
+<li>hashset的查找时间复杂度是O(1)</li>
+<li>最好的方法是用两个指针,一开始都在起点,但是第二个指针每次循环是两个数据节点,如果是环状的,必定两个指针会指向同一个点<br>时间复杂度O(n),空间复制度O(1)</li>
 </ol>
 <h1 id="JVM："><a href="#JVM：" class="headerlink" title="JVM："></a>JVM：</h1><ol>
 <li>内存模型以及分区，需要详细到每个区放什么。</li>
@@ -535,19 +554,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,14 +594,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
@@ -591,7 +602,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
