@@ -16,10 +16,13 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-14T13:00:59.593Z">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-4face8109e0d52ef5894c41c69e4ec6b_r.jpg">
+<meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-3-15/86857548.jpg">
+<meta property="og:updated_time" content="2018-03-15T14:22:02.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 常见面试题">
 <meta name="twitter:description" content="J2SE基础： 九种基本数据类型的大小，以及他们的封装类。     123456byte,short,int,long,float,double,boolen,char,void基本类型所占的存储空间是不变的：这种不变性也是java具有可移植性的原因之一。基本类型是放在栈中，直接存储值。所有数值类型都有正负号，没有无符号的数值类型。  Switch能否用string做参数？ 1在 Java 7之前">
+<meta name="twitter:image" content="https://pic4.zhimg.com/v2-4face8109e0d52ef5894c41c69e4ec6b_r.jpg">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -229,26 +232,47 @@
 </li>
 <li><p>Java面向对象的三个特征与含义。<br>(封装,继承,多态)[<a href="http://www.cnblogs.com/chenssy/p/3351835.html" target="_blank" rel="external">http://www.cnblogs.com/chenssy/p/3351835.html</a>]</p>
 </li>
-<li>Override和Overload的含义去区别。</li>
-<li>Interface与abstract类的区别。</li>
-<li>Static class 与non static class的区别。</li>
-<li>java多态的实现原理。<br><a href="https://www.cnblogs.com/chenssy/p/3372798.html" target="_blank" rel="external">继承,重写,向上转型</a></li>
+<li><p>Override和Overload的含义去区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">重载 (Overload)  表示同一个类中可以有多个名称相同的方法，但这些方法的参数列表各不相同（即参数个数、类型或顺序不同）。</span><br><span class="line">重写 (Override)  表示子类中的方法可以与父类中的某个方法的名称 和参数完全相同，通过子类创建的实例对象调用这个方法时，将调用子类中的定义方法，这相当于把父类中定义的那 个完全相同的方法给覆盖了，这也是面向对象编程的多态性的一种表现。（备注：子类覆盖父类的方法时，只能比父类抛出更少的异常，或者是抛出父类抛出的异常 的子异常，因为子类可以解决父类的一些问题，不能比父类有更多的问题。子类方法的访问权限只能比父类的更大，不能更小。如果父类的方法 是 private 类型，那么，子类则不存在覆盖的限制，相当于子类中增加了一个全新的方法。）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Interface与abstract类的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">抽象类</span><br><span class="line">抽象类是用来捕捉子类的通用特性的 。它不能被实例化，只能被用作子类的超类。抽象类是被用来创建继承层级里子类的模板。以JDK中的GenericServlet为例：</span><br><span class="line"></span><br><span class="line">接口</span><br><span class="line">接口是抽象方法的集合。如果一个类实现了某个接口，那么它就继承了这个接口的抽象方法。这就像契约模式，如果实现了这个接口，那么就必须确保使用这些方法。接口只是一种形式，接口自身不能做任何事情。以Externalizable接口为例：</span><br><span class="line"></span><br><span class="line">什么时候使用抽象类和接口</span><br><span class="line">如果你拥有一些方法并且想让它们中的一些有默认实现，那么使用抽象类吧。</span><br><span class="line">如果你想实现多重继承，那么你必须使用接口。由于Java不支持多继承，子类不能够继承多个类，但可以实现多个接口。因此你就可以使用接口来解决它。</span><br><span class="line">如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Static class 与non static class的区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">内部静态类不需要有指向外部类的引用。但非静态内部类需要持有对外部类的引用。非静态内部类能够访问外部类的静态和非静态成员。静态类不能访问外部类的非静态成员。他只能访问外部类的静态成员。一个非静态内部类不能脱离外部类实体被创建，一个非静态内部类可以访问外部类的数据和方法，因为他就在外部类里面。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>java多态的实现原理。<br><a href="https://www.cnblogs.com/chenssy/p/3372798.html" target="_blank" rel="external">继承,重写,向上转型</a></p>
+</li>
 <li>实现多线程的两种方法：Thread与Runable。</li>
-<li>线程同步的方法：sychronized、lock、reentrantLock等。</li>
-<li>锁的等级：方法锁、对象锁、类锁。</li>
-<li>写出生产者消费者模式。</li>
-<li>ThreadLocal的设计理念与作用。</li>
-<li>ThreadPool用法与优势。</li>
-<li>Concurrent包里的其他东西：ArrayBlockingQueue、CountDownLatch等等。</li>
-<li>wait()和sleep()的区别。</li>
-<li>foreach与正常for循环效率对比。</li>
-<li>Java IO与NIO。</li>
-<li>反射的作用于原理。</li>
-<li>泛型常用特点，List<string>能否转为List<object>。</object></string></li>
-<li>解析XML的几种方式的原理与特点：DOM、SAX、PULL。</li>
-<li>Java与C++对比。</li>
-<li>Java1.7与1.8新特性。</li>
-<li>设计模式：单例、工厂、适配器、责任链、观察者等等。</li>
+<li>线程同步的方法：sychronized、lock、reentrantLock等。<br><a href="https://github.com/Mr-YangCheng/ForAndroidInterview/blob/master/java/%5BJava%5D%20%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9Asychronized%E3%80%81lock%E3%80%81reentrantLock%E5%88%86%E6%9E%90.md" target="_blank" rel="external">git</a></li>
+<li>锁的等级：方法锁、对象锁、类锁。<br><a href="http://blog.csdn.net/hp910315/article/details/50154161" target="_blank" rel="external">锁</a></li>
+<li><p>写出生产者消费者模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（1）wait() / notify()方法</span><br><span class="line"></span><br><span class="line">（2）await() / signal()方法</span><br><span class="line"></span><br><span class="line">（3）BlockingQueue阻塞队列方法</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ThreadLocal的设计理念与作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">线程的局部变量</span><br><span class="line">static put</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ThreadPool用法与优势。<br><a href="http://yejunyu.com/2018/03/08/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">线程池</a></p>
+</li>
+<li><p>Concurrent包里的其他东西：ArrayBlockingQueue、CountDownLatch等等。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1：本例介绍一个特殊的队列：BlockingQueue，如果BlockingQueue是空的，从BlockingQueue取东西的操作将会被阻断进入等待状态，直到BlockingQueue进了东西才会被唤醒，同样，如果BlockingQueue是满的，任何试图往里存东西的操作也会被阻断进入等待状态，直到BlockingQueue里有空间时才会被唤醒继续操作。</span><br><span class="line"></span><br><span class="line">2：BlockingQueue有四个具体的实现类，</span><br><span class="line"></span><br><span class="line">ArrayBlockingQueue：规定大小的BlockingQueue，其构造函数必须带一个int参数来指明其大小。其所含的对象是以FIFO（先入先出）顺序排序的。</span><br><span class="line"></span><br><span class="line">LinkedBlockingQueue：大小不定的BlockingQueue，若其构造函数带一个规定大小的参数，生成的BlockingQueue有大小限制，若不带大小参数，所生成的BlockingQueue的大小由Integer.MAX_VALUE来决定。其所含的对象是以FIFO顺序排序的。</span><br><span class="line"></span><br><span class="line">PriorityBlockingQueue：类似于LinkedBlockingQueue,但其所含对象的排序不是FIFO，而是依据对象的自然排序顺序或者是构造函数所带的Comparator决定的顺序。</span><br><span class="line"></span><br><span class="line">SynchronousQueue：特殊的BlockingQueue，对其的操作必须是放和取交替完成的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CountDownLatch是减计数方式，计数==0时释放所有等待的线程；CyclicBarrier是加计数方式，计数达到构造方法中参数指定的值时释放所有等待的线程。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>wait()和sleep()的区别。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1：wait是Object类中，与notify和notifyAll搭配使用，sleep属于Thread类中的；1.CountDownLatch的作用是允许1或N个线程等待其他线程完成执行；而CyclicBarrier则是允许N个线程相互等待。</span><br><span class="line"></span><br><span class="line">2.CountDownLatch的计数器无法被重置；CyclicBarrier的计数器可以被重置后使用，因此它被称为是循环的barrier。</span><br><span class="line"></span><br><span class="line">2：wait的时候放弃锁，而sleep的时候不放弃锁，但是在sleep的时候，可以调用interrupt函数来中断该线程；</span><br><span class="line"></span><br><span class="line">3：suspend将当前线程挂起，要等到线程调用resume方法，该线程才能重新执行。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>foreach与正常for循环效率对比。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1：foreach在使用的过程中，会创建额外的iterator方法，而每次调用哪个hasNext，和next方法，增加了更多的操作，对于访问数组的话for的效率要高于foreach；而且在foreach中，还要检查mod_count,避免导致快速失败，所以效率上会降低，但是由此可以看出foreach是线程安全的，而for不是线程安全的</span><br><span class="line"></span><br><span class="line">2:什么时候使用：在多线程中，则使用foreach，如果是在方法中读局部变量的操作，则使用for。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java IO与NIO。<br><a href="http://ifeve.com/java-nio-vs-io/" target="_blank" rel="external">nio 重点</a></p>
+</li>
+<li>反射的作用于原理。<br><img src="https://pic4.zhimg.com/v2-4face8109e0d52ef5894c41c69e4ec6b_r.jpg" alt=""></li>
+<li><p>泛型常用特点，List<string>能否转为List<object>。</object></string></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">泛型只是在编译时起作用，最后都是会被擦除的。如果你是做的一个工具类的话，都用Object和不用泛型其实是一回事，建议工具类或者方法使用泛型来定义，再调用时再决定使用什么类型。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java与C++对比。<br><a href="https://www.zhihu.com/question/22928284" target="_blank" rel="external">java 去除了 c++ 一些复杂难以理解的特性,去除了指针</a></p>
+</li>
+<li>Java1.7与1.8新特性。<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-3-15/86857548.jpg" alt=""></li>
+<li>设计模式：单例、工厂、适配器、责任链、观察者等等。<br><a href="">设计模式</a></li>
 <li>JNI的使用。</li>
 </ol>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&amp;mid=2653191907&amp;idx=1&amp;sn=876860c5a9a6710ead5dd8de37403ffc&amp;chksm=8c990c39bbee852f71c9dfc587fd70d10b0eab1cca17123c0a68bf1e16d46d71717712b91509&amp;scene=21#wechat_redirect" target="_blank" rel="external">什么是HashMap</a></p>
@@ -558,11 +582,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,15 +598,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,6 +618,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
@@ -602,15 +630,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
