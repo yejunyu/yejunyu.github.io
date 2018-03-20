@@ -159,6 +159,296 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql优化调试技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/mysql优化调试技巧/">mysql优化调试技巧</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/12/mysql优化调试技巧/" class="archive-article-date">
+  	<time datetime="2018-03-12T13:43:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL是一个功能强大的开源数据库。随着越来越多的数据库驱动的应用程序，人们一直在推动MySQL发展到它的极限。这里是101条调节和优化MySQL安装的技巧。一些技巧是针对特定的安装环境的，但这些思路是通用的。我已经把他们分成几类，来帮助你掌握更多MySQL的调节和优化技巧。</p>
+<h2 id="MySQL-服务器硬件和操作系统调节"><a href="#MySQL-服务器硬件和操作系统调节" class="headerlink" title="MySQL 服务器硬件和操作系统调节:"></a>MySQL 服务器硬件和操作系统调节:</h2><p>1. 拥有足够的物理内存来把整个InnoDB文件加载到内存中——在内存中访问文件时的速度要比在硬盘中访问时快的多。</p>
+<p>2. 不惜一切代价避免使用Swap交换分区 – 交换时是从硬盘读取的，它的速度很慢。</p>
+<p>3. 使用电池供电的RAM（注：RAM即随机存储器）。</p>
+<p>4. 使用高级的RAID（注：Redundant Arrays of Inexpensive Disks，即磁盘阵列） – 最好是RAID10或更高。</p>
+<p>5. 避免RAID5（注：一种存储性能、数据安全和存储成本兼顾的存储解决方案） – 确保数据库完整性的校验是要付出代价的。</p>
+<p>6. 将操作系统和数据分区分开，不仅仅是逻辑上，还包括物理上 – 操作系统的读写操作会影响数据库的性能。</p>
+<p>7. 把MySQL临时空间和复制日志与数据放到不同的分区 – 当数据库后台从磁盘进行读写操作时会影响数据库的性能。</p>
+<p>8. 更多的磁盘空间等于更快的速度。</p>
+<p>9. 更好更快的磁盘。</p>
+<p>10. 使用SAS（注： Serial Attached SCSI，即串行连接SCSI）代替SATA（注：SATA，即串口硬盘）。</p>
+<p>11. 较小的硬盘 比 较大的硬盘快，尤其是在RAID配置的情况下。</p>
+<p>12. 使用电池支持的高速缓存RAID控制器。</p>
+<p>13. 避免使用软件磁盘阵列。</p>
+<p>14. 考虑为数据分区使用固态IO卡 (不是磁盘驱动器)  – 这些卡能够为几乎任何数量的数据支持2GB/s的写入速度。</p>
+<p>15. 在Linux中设置swappiness的值为0 – 在数据库服务器中没有理由缓存文件，这是一个服务器或台式机的优势。</p>
+<p>16. 如果可以的话，使用  noatime 和 nodirtime 挂载文件系统 – 没有理由更新访问数据库文件的修改时间。</p>
+<p>17. 使用 XFS 文件系统 – 一种比ext3更快、更小的文件系统，并且有许多日志选项， 而且ext3 已被证实与MySQL有双缓冲问题。</p>
+<p>18. 调整 XFS 文件系统日志和缓冲变量 – 为了最高性能标准。</p>
+<p>19. 在 Linux 系统中, 使用 NOOP 或者 DEADLINE IO 定时调度程序 – 同 NOOP 和 DEADLINE定时调度程序相比，这个 CFQ 和 ANTICIPATORY 定时调度程序 显得非常慢。</p>
+<p>20. 使用64位的操作系统 – 对于MySQL，会有更大的内存支持和使用。</p>
+<p>21. 删除服务器上未使用的安装包和守护进程 – 更少的资源占用。</p>
+<p>22. 把使用MySQL的host和你的MySQL host放到一个hosts文件中 – 没有DNS查找。</p>
+<p>23. 切勿强制杀死一个MySQL进程 – 你会损坏数据库和正在运行备份的程序。</p>
+<p>24. 把服务器贡献给MySQL – 后台进程和其他服务能够缩短数据库占用CPU的时间。</p>
+<h2 id="MySQL-配置"><a href="#MySQL-配置" class="headerlink" title="MySQL 配置:"></a>MySQL 配置:</h2><p>25. 当写入时，使用 innodb_flush_method=O_DIRECT 来避免双缓冲。</p>
+<p>26. 避免使用 O_DIRECT 和 EXT3 文件系统 – 你将序列化所有要写入的。</p>
+<p>27. 分配足够的 innodb_buffer_pool_size 来加载整个 InnoDB 文件到内存中– 少从磁盘中读取。</p>
+<p>28. 不要将 innodb_log_file_size 参数设置太大， 这样可以更快同时有更多的磁盘空间 – 丢掉多的日志通常是好的，在数据库崩溃后可以降低恢复数据库的时间。</p>
+<p>29. 不要混用 innodb_thread_concurrency 和 thread_concurrency 参数– 这2个值是不兼容的。</p>
+<p>30. 分配一个极小的数量给 max_connections 参数 – 太多的连接会用尽RAM并锁定MySQL服务。</p>
+<p>31. 保持 thread_cache 在一个相对较高的数字，大约 16 – 防止打开连接时缓慢。</p>
+<p>32. 使用skip-name-resolve参数 – 去掉 DNS 查找。</p>
+<p>33.如果你的查询都是重复的，并且数据不常常发生变化，那么可以使用查询缓存。但是如果你的数据经常发生变化，那么使用查询缓存会让你感到失望。</p>
+<p>34.增大temp_table_size值，以防止写入磁盘</p>
+<p>35.增大max_heap_table_size值，以防止写入磁盘</p>
+<p>36.不要把sort_buffer_size值设置的太高，否则的话你的内存将会很快耗尽</p>
+<p>37.根据key_read_requests和key_reads值来决定key_buffer的大小，一般情况下key_read_requests应该比key_reads值高，否则你不能高效的使用key_buffer</p>
+<p>38.将innodb_flush_log_at_trx_commit设置为0将会提高性能，但是如果你要保持默认值（1）的话，那么你就要确保数据的完整性，同时你也要确保复制不会滞后。</p>
+<p>39.你要有一个测试环境，来测试你的配置，并且在不影响正常生产的情况下，可以常常进行重启。</p>
+<h2 id="MySQL模式优化"><a href="#MySQL模式优化" class="headerlink" title="MySQL模式优化:"></a>MySQL模式优化:</h2><p>40. 保持你的数据库整理性。</p>
+<p>41. 旧数据归档 – 删除多余的行返回或搜索查询。</p>
+<p>42. 将您的数据加上索引.</p>
+<p>43. 不要过度使用索引，比较与查询.</p>
+<p>44. 压缩文字和BLOB数据类型 – 以节省空间和减少磁盘读取次数.</p>
+<p>45. UTF 8和UTF16都低于latin1执行效率.</p>
+<p>46. 有节制地使用触发器.</p>
+<p>47. 冗余数据保持到最低限度 – 不重复不必要的数据.</p>
+<p>48. 使用链接表，而不是扩展行.</p>
+<p>49. 注意数据类型，在您的真实数据中，尽可能使用最小的一个.</p>
+<p>50. 如果其他数据经常被用于查询时，而BLOB / TEXT数据不是，就把BLOB / TEXT数据从其他数据分离出来.</p>
+<p>51.检查和经常优化表.</p>
+<p>52. 经常重写InnoDB表优化.</p>
+<p>53. 有时，当添加列时删除索引，然后在添加回来索引，这样就会更快.</p>
+<p>54. 针对不同的需求，使用不同的存储引擎.</p>
+<p>55. 使用归档存储引擎日志表或审计表-这是更有效地写道.</p>
+<ol>
+<li>会话数据存储在缓存（memcache）的而不是MySQL中 – 缓存允许自动自动填值的，并阻止您创建难以读取和写入到MySQL的时空数据.</li>
+</ol>
+<p>57.存储可变长度的字符串时使用VARCHAR而不是CHAR – 节省空间，因为固定长度的CHAR，而VARCHAR长度不固定（UTF8不受此影响）.</p>
+<p>58. 逐步进行模式的变化 – 一个小的变化，可以有巨大的影响.</p>
+<p>59.在开发环境中测试所有模式，反映生产变化.</p>
+<ol>
+<li><p>不要随意更改你的配置文件中的值，它可以产生灾难性的影响.</p>
+</li>
+<li><p>有时候，在MySQL的configs少即是多.</p>
+</li>
+</ol>
+<p>62.有疑问时使用一个通用的MySQL配置文件.</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化:"></a>查询优化:</h2><p>63. 使用慢查询日志去发现慢查询。</p>
+<p>64. 使用执行计划去判断查询是否正常运行。</p>
+<p>65. 总是去测试你的查询看看是否他们运行在最佳状态下 –久而久之性能总会变化。</p>
+<p>66. 避免在整个表上使用count(*),它可能锁住整张表。</p>
+<p>67. 使查询保持一致以便后续相似的查询可以使用查询缓存。</p>
+<p>68. 在适当的情形下使用GROUP BY而不是DISTINCT。</p>
+<p>69. 在WHERE, GROUP BY和ORDER BY子句中使用有索引的列。</p>
+<p>70. 保持索引简单,不在多个索引中包含同一个列。</p>
+<p>71. 有时候MySQL会使用错误的索引,对于这种情况使用USE INDEX。</p>
+<p>72. 检查使用SQL_MODE=STRICT的问题。</p>
+<p>73. 对于记录数小于5的索引字段，在UNION的时候使用LIMIT不是是用OR.</p>
+<p>74. 为了 避免在更新前SELECT，使用INSERT ON DUPLICATE KEY或者INSERT IGNORE ,不要用UPDATE去实现。</p>
+<p>75. 不要使用 MAX,使用索引字段和ORDER BY子句。</p>
+<p>76. 避免使用ORDER BY RAND().</p>
+<ol>
+<li><p>LIMIT M，N实际上可以减缓查询在某些情况下，有节制地使用。</p>
+</li>
+<li><p>在WHERE子句中使用UNION代替子查询。</p>
+</li>
+<li><p>对于UPDATES（更新），使用 SHARE MODE（共享模式），以防止独占锁。</p>
+</li>
+<li><p>在重新启动的MySQL，记得来温暖你的数据库，以确保您的数据在内存和查询速度快。</p>
+</li>
+<li><p>使用DROP TABLE，CREATE TABLE DELETE FROM从表中删除所有数据。</p>
+</li>
+<li><p>最小化的数据在查询你需要的数据，使用*消耗大量的时间。</p>
+</li>
+<li><p>考虑持久连接，而不是多个连接，以减少开销。</p>
+</li>
+<li><p>基准查询，包括使用服务器上的负载，有时一个简单的查询可以影响其他查询。</p>
+</li>
+<li><p>当负载增加您的服务器上，使用SHOW PROCESSLIST查看慢的和有问题的查询。</p>
+</li>
+<li><p>在开发环境中产生的镜像数据中 测试的所有可疑的查询。</p>
+</li>
+</ol>
+<h2 id="MySQL-备份过程"><a href="#MySQL-备份过程" class="headerlink" title="MySQL 备份过程:"></a>MySQL 备份过程:</h2><p>87. 从二级复制服务器上进行备份。</p>
+<p>88. 在进行备份期间停止复制，以避免在数据依赖和外键约束上出现不一致。</p>
+<p>89. 彻底停止MySQL，从数据库文件进行备份。</p>
+<p>90. 如果使用 MySQL dump进行备份，请同时备份二进制日志文件 – 确保复制没有中断。</p>
+<p>91. 不要信任LVM 快照 – 这很可能产生数据不一致，将来会给你带来麻烦。</p>
+<p>92. 为了更容易进行单表恢复，以表为单位导出数据 – 如果数据是与其他表隔离的。</p>
+<p>93. 当使用mysqldump时请使用 –opt。</p>
+<p>94. 在备份之前检查和优化表。</p>
+<p>95. 为了更快的进行导入，在导入时临时禁用外键约束。</p>
+<p>96. 为了更快的进行导入，在导入时临时禁用唯一性检测。</p>
+<p>97. 在每一次备份后计算数据库，表以及索引的尺寸，以便更够监控数据尺寸的增长。</p>
+<p>98. 通过自动调度脚本监控复制实例的错误和延迟。</p>
+<p>99. 定期执行备份。</p>
+<p>100. 定期测试你的备份。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/12/mysql优化调试技巧/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-用markdown写论文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/10/用markdown写论文/">用markdown写论文</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/10/用markdown写论文/" class="archive-article-date">
+  	<time datetime="2018-03-10T15:31:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>转载<br><a href="https://sspai.com/post/43471" target="_blank" rel="external">如何用 markdown 写论文</a><br>本文用简明的样例，介绍如何使用 Markdown 和自动化工具帮你处理数学公式、参考文献引用、图片交叉索引等学术论文写作中常见的棘手问题。快来试试吧。</p>
+</blockquote>
+<h2 id="苦恼"><a href="#苦恼" class="headerlink" title="苦恼"></a>苦恼</h2><p>自从我学会了如何在数字文档上用红笔写写画画，跟学生合写文章和指导毕业论文的工作就变得轻松多了。</p>
+<figure tabindex="0" class="ss-img-wrapper"><img src="http://oejqwrqkh.bkt.clouddn.com/2018-03-01-21-45-40-387762.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="null"></figure>
+
+<p>有的部分，学生会很快改完反馈给我。但是我发现每次对引言和文献综述部分做出调整要求，学生们的反馈都非常慢。</p>
+<p>有的时候，学生甚至会求饶，「老师，参考文献顺序能不能不动？或者全文都确定下来再统一做？每次调整一个，就需要很长时间！」</p>
+<p>我一时惊愕，为什么需要那么久？</p>
+<p>后来才明白，他们居然是在 Word 中一条条<em>手动插入</em>尾注，来引用参考文献的。尾注的内容有的直接搬过来，有的手动输入，结果参考文献列表的格式「丰富多彩」——有的信息不全，有的格式根本就不符合 GB/T 7714-2015 的规范。</p>
+<p>在我的帮助下，许多学生学会了使用 NoteExpress、Endnote、Zotero 和 Mendeley 等工具，用自动化方式管理和引用参考文献。</p>
+<p>但即便是这样，效率依然不够高。尤其是跟别人协作的时候，参考文献引用的修改就成了噩梦。</p>
+<p>你可能需要每次都把 Mendeley 或者 Zotero 的文献库同步给对方，否则自动生成的引用标记就容易乱掉。</p>
+<p>写作学术论文时，你还不得不时常面对图表交叉引用、数学公式和脚注等问题。如果方法不当，会把宝贵的时间和注意力耗散掉，劳而无功。</p>
+<p>Word 编辑器用来写学术论文，可能真的<em>并不是最优</em>方案。</p>
+<p>但是没办法，国内学术界，尤其是人文社科领域，目前投稿模板还主要是 Word 的。</p>
+<p>好消息是，即便是形成 Word 文稿，效率也是可挖掘的。</p>
+<p>我平时写作学术论文的时候，用的依然是让人喜欢的标记语言——Markdown。对，你没听错，它不光可以帮你写公众号、做幻灯，也可以写论文哦。</p>
+<p>通过本文，我把自己用 Markdown 写作学术论文的流程分享给你。希望看过之后，能帮助你提升效率，带来更多愉悦的写作体验。<br>
+        
+          <a class="article-more-a" href="/2018/03/10/用markdown写论文/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">个人</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/10/用markdown写论文/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-前端环境搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -479,170 +769,9 @@
 
 
   
-    <article id="post-git操作整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/05/git操作整理/">git操作整理</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/05/git操作整理/" class="archive-article-date">
-  	<time datetime="2018-03-05T14:41:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="推送远程仓库"><a href="#推送远程仓库" class="headerlink" title="推送远程仓库"></a>推送远程仓库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add orign git@github.com:yejunyu/javashop.git     </span><br><span class="line">git push -u orign master</span><br></pre></td></tr></table></figure>
-<h1 id="分支开发"><a href="#分支开发" class="headerlink" title="分支开发"></a>分支开发</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b v1.0 orign/master</span><br><span class="line">git push orign HEAD -u</span><br></pre></td></tr></table></figure>
-<h1 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git merge orign v1.0</span><br></pre></td></tr></table></figure>
-<h1 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 推送一个tag,记录当前的代码状态,一般是一个节点时间</span><br><span class="line">git tag tag-dev-initial</span><br><span class="line">git push origin tag-dev-initial</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/05/git操作整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/02/mysql锁/">mysql锁</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/02/mysql锁/" class="archive-article-date">
-  	<time datetime="2018-03-02T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mysql-innodb的3种行锁"><a href="#mysql-innodb的3种行锁" class="headerlink" title="mysql innodb的3种行锁"></a>mysql innodb的3种行锁</h1><h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>这是一个索引记录锁。<br>它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止<br>扫描整个表。</p>
-<h2 id="间隙锁（-gap-lock）"><a href="#间隙锁（-gap-lock）" class="headerlink" title="间隙锁（ gap lock）"></a>间隙锁（ gap lock）</h2><p>这是施加于索引记录间隙上的锁</p>
-<h2 id="next-key锁"><a href="#next-key锁" class="headerlink" title="next-key锁"></a>next-key锁</h2><p>记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。</p>
-<hr>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>产生死锁的4个必要条件</p>
-<ul>
-<li>禁止抢占（ no preemption）</li>
-<li>持有和等待（ hold and wait）</li>
-<li>互斥（ mutual exclusion）</li>
-<li>循环等待（ circular waiting）</li>
-</ul>
-<p>预防死锁就是至少破坏这4个条件中的一项， 即破坏“禁止抢占”、 “持有等待”、 “资源互斥”或“循环等待”</p>
-<p>实践中， 处理死锁的方法大致分为两种。 既可以检测死锁并进行修复， 也可以对事务进行管理， 使死锁永远都不可能形<br>成。 当存在死锁时， 对该状态进行修复以使所有涉及的事务都能继续执行通常是不可能的。 因此， 至少其中的一个事务必须终<br>止并重新开始。 InnoDB会自动检测死锁。 据官方文档可知， 目前InnoDB处理死锁的机制是： 发现有循环等待的现象， 立即回退<br>（ rollback） 开销更小的事务， 也就是插入、 修改、 删除了更少记录的事务</p>
-<p>对于MySQL死锁的解决， 通常有如下方法。</p>
-<ul>
-<li>经常提交你的事务。 小事务更少地倾向于冲突.</li>
-<li>以固定的顺序访问你的表和行。 这样事务就会形成定义良好的查询并且没有死锁</li>
-<li>将精心选定的索引添加到你的表中。 这样你的查询就只需要扫描更少的索引记录， 并且因此也可以设置更少的锁定。</li>
-<li>不要把无关的操作放到事务里面。</li>
-<li>在并发比较高的系统中， 不要显式加锁， 特别是在事务里显式加锁。 如SELECT…FOR UPDATE语句， 如果是在事务里<br>（ 运行了START TRANSACTION或设置了autocommit等于0） ， 那么就会锁定所查找到的记录</li>
-<li>尽量按照主键/索引去查找记录， 范围查找增加了锁冲突的可能性， 也不要利用数据库做一些额外的计算工作。 比如有些<br>读者会用到“SELECT…WHERE…ORDER BY RAND();”这样的语句， 由于类似这样的语句用不到索引， 因此将导致整个表的数<br>据都被锁住</li>
-<li>优化SQL和表设计， 减少同时占用太多资源的情况。 比如说， 减少连接的表， 将复杂SQL分解为多个简单的SQL</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/02/mysql锁/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -741,11 +870,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,19 +882,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,19 +902,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,7 +918,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -810,6 +935,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
