@@ -159,6 +159,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-电商实际问题总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/21/电商实际问题总结/">电商实际问题总结</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/21/电商实际问题总结/" class="archive-article-date">
+  	<time datetime="2018-03-21T15:58:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>订单表优化<br>两张一模一样的订单表,但是以不同维度来分库分表,一个是以用户(用户要查询),一个是以时间</p>
+</li>
+<li><p>手机/邮箱/用户名登录<br>union all只查一次库,不能用 or,or 不走索引,或者查询前先匹配一下,判断是手机号还是邮箱,剩下走用户名登录</p>
+</li>
+<li><p>订单生成规则<br>时间戳,订单数不能暴露,加密或者用随机数,最后可以添加 type 之类的</p>
+</li>
+<li><p>库存处理<br>库存放缓存里,但是情况很复杂</p>
+<ol>
+<li>redis 成功了, mysql 失败了,加一张记录表,记录这种情况,然后重新执行</li>
+<li>redis 失败了,重试的时候库存不足了,但是用户已经显示购物成功(没办法,人工补偿吧)</li>
+<li>redis 成功了, mysql 因为确实库存不足失败了</li>
+</ol>
+</li>
+<li><p>事务<br>下单,减库存</p>
+</li>
+<li><p>分布式锁<br>购物车下单前加锁,付款后,清空购物车,释放锁<br>可以用 redis setnx,没有 key 时会写入返回1,有 key 了,不写入返回0<br>redis 集群,所以这是个分布式锁</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/21/电商实际问题总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-记mybatis的一个坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -497,107 +597,6 @@
 
 
   
-    <article id="post-电商开发小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/12/电商开发小结/">电商开发小结</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/12/电商开发小结/" class="archive-article-date">
-  	<time datetime="2018-03-12T13:44:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前后端分离的思想"><a href="#前后端分离的思想" class="headerlink" title="前后端分离的思想"></a>前后端分离的思想</h3><p>common包里定义四个类：</p>
-<ol>
-<li>Const-常量</li>
-<li>ResponseCode（enum）-错误码</li>
-<li><p>ServerResponse-封装返回的类，所有函数都返回这个泛型</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private int status;</span><br><span class="line">private String msg;</span><br><span class="line">private T data;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>TokenCache<br>guava缓存使用，lru算法</p>
-</li>
-</ol>
-<h3 id="好用的工具类"><a href="#好用的工具类" class="headerlink" title="好用的工具类"></a>好用的工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.google.guava&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;guava&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;20.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="guava"><a href="#guava" class="headerlink" title="guava"></a>guava</h4><ol>
-<li>loadingCache</li>
-<li>各种Lists,Maps</li>
-</ol>
-<h4 id="commons-lang3"><a href="#commons-lang3" class="headerlink" title="commons-lang3"></a>commons-lang3</h4><ol>
-<li>StringUtils.isBlank/isNotBlank(“ ”认为为空)</li>
-<li>StringUtils.isEmpty/isNotEmpty(“ ”不认为为空)</li>
-<li>Collections.isEmpty(判断集合是否为空是否为null)</li>
-</ol>
-<h3 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface ProductListOrderBy &#123;</span><br><span class="line">        Set&lt;String&gt; PRICE_ASC_DESC = Sets.newHashSet(&quot;price_desc&quot;, &quot;price_asc&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">用set查找，时间复杂度为O(1)</span><br></pre></td></tr></table></figure>
-<h3 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h3><p>分页插件mybatis-helper<br>增强插件mybatis-plus</p>
-<p>insert后返回新增行的id<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shippingMapper.insert(shipping);</span><br><span class="line">新数据的id就会填充进shipping这个类</span><br><span class="line">添加useGeneratedKeys=&quot;true&quot;和keyProperty=&quot;id&quot;</span><br><span class="line"> &lt;insert id=&quot;insert&quot; parameterType=&quot;com.mmall.pojo.Shipping&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="订单生成方案"><a href="#订单生成方案" class="headerlink" title="订单生成方案"></a>订单生成方案</h3><p>大并发的时候,可以前一天晚上批量生产第二天要用的订单号放入订单池,然后第二天监控持续添加</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/12/电商开发小结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -699,11 +698,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -711,7 +706,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,7 +718,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,19 +734,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,6 +746,22 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
@@ -763,15 +770,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
