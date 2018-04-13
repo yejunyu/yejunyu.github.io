@@ -9,7 +9,7 @@
   <title>spring boot 中遇到的坑 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="springboot 中使用 redis 报错12因为我用的 jdk9的缘故,用 jdk8就没问题了,或者导入jaxb-api这个包     restdocs 不能使用需要加上 version  boot启动就停止,不报错 123将tomcat providedRuntime改成runtime//	providedRuntime(&amp;apos;org.springframework.boot:sp">
-<meta name="keywords" content="java,mysql,spring,redis,mongo">
+<meta name="keywords" content="java,spring,mysql,redis,mongo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring boot 中遇到的坑">
 <meta property="og:url" content="http://yoursite.com/2018/01/22/spring-boot-中遇到的坑/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg">
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-2-1/60995053.jpg">
 <meta property="og:image" content="http://oqb4aabpb.bkt.clouddn.com/18-2-1/70213256.jpg">
-<meta property="og:updated_time" content="2018-02-01T15:51:25.202Z">
+<meta property="og:updated_time" content="2018-04-09T14:26:09.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring boot 中遇到的坑">
 <meta name="twitter:description" content="springboot 中使用 redis 报错12因为我用的 jdk9的缘故,用 jdk8就没问题了,或者导入jaxb-api这个包     restdocs 不能使用需要加上 version  boot启动就停止,不报错 123将tomcat providedRuntime改成runtime//	providedRuntime(&amp;apos;org.springframework.boot:sp">
@@ -211,7 +211,10 @@
 </ol>
 <p>jdk9 和 devtools 不兼容,换成 jdk8或者 spring-boot 2.0.0M 版本</p>
 <ol>
-<li>druid多数据源配置<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/60995053.jpg" alt=""><br>前面忘了加spring<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/70213256.jpg" alt=""></li>
+<li><p>druid多数据源配置<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/60995053.jpg" alt=""><br>前面忘了加spring<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/70213256.jpg" alt=""></p>
+</li>
+<li><p>boot 中集成的 ES 的版本要与服务器的 ES 的版本一致</p>
+</li>
 </ol>
 
       
@@ -261,11 +264,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -484,19 +487,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,11 +495,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,11 +515,23 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,10 +547,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
@@ -556,19 +559,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>
