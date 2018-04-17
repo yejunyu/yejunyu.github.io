@@ -159,6 +159,128 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql-知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-知识点/">mysql 知识点</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-知识点/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>InnoDB</p>
+<hr>
+<blockquote>
+<p>在 mysql5.5以后的版本中, InnoDB 是 mysql 默认引擎</p>
+</blockquote>
+<ul>
+<li>容灾恢复性好</li>
+<li>支持全部四种级别的事务.默认的事务隔离级别是可重复读(Repeatable Read),它的事务支持是通过多版本并发控制(MVCC)来提供的</li>
+<li>使用行级锁</li>
+<li>对于 InnoDB 引擎中的表,其数据的物理组织形式是簇表(Cluster table),数据按主键来组织,也就是说主键索引和数据是在一起的,数据按主键的顺序物理分布.数据表的另一种形式是非簇表,其索引是有序的,而数据是无序的</li>
+<li>实现了缓冲管理,不仅能缓冲索引也能缓冲数据,并且会自动创建散列索引以加快数据的获取.相比之下, MyISAM 只是缓冲了索引</li>
+<li>支持外键</li>
+<li>支持热备份</li>
+</ul>
+<p>MyISAM</p>
+<hr>
+<blockquote>
+<p>不支持事务,灾难恢复性差,所以不建议在生产环节中使用</p>
+</blockquote>
+<ul>
+<li>可以配合锁,实现操作系统下复制备份、迁移</li>
+<li>使用表级索,并发性差</li>
+<li>支持全文检索(mysql InnoDB 在5.6以后也支持全文检索)</li>
+<li>主机宕机后, MyISAM 表易损坏,灾难恢复性不佳</li>
+<li>只缓存索引,数据的缓存是利用操作系统缓冲区来实现的.可能引发过多的系统调用且效率不佳</li>
+<li>数据紧凑存储,因此可以获得更小的索引和更快的全表扫描性能</li>
+</ul>
+<p>MEMORY</p>
+<hr>
+<blockquote>
+<p>MEMORY存储引擎提供内存表,不支持事务,外键.\</p>
+</blockquote>
+<p>使用内存表可以显著提高访问数据的速度,可用于缓存会频繁访问的,可以重构的数据,计算结果,统计值,中间结果</p>
+<ul>
+<li>使用的事表级锁,虽然内存访问快,但如果频繁的读写,表级锁可能会成为瓶颈所在</li>
+<li>只支持固定大小的行.varchar 类型字段会储存为固定长度的 char 类型,浪费空间</li>
+<li>不支持 TEXT,BLOB 字段.当有些查询需要使用到临时表(使用的也是 memory 存储引擎)时,如果表中又 TEXT,BLOB 字段,那么会转化为基于磁盘的 MyISAM 表,严重降低性能</li>
+<li>由于内存资源成本昂贵,一般不建议设置过大的内存表,如果内存表满了,就会在 MySQL 错误日志里发现类似”The table ‘table_name’ is full”这样的错误,可通过清除数据或调整内存表参数来避免错误</li>
+<li>服务器重启后数据会丢失,复制维护时需要小心</li>
+</ul>
+<p>ARCHIVE</p>
+<hr>
+<blockquote>
+<p>ARCHIVE存储引擎是被设计用来存储企业中的大量流水数据的存储引擎,ARCHIVE使用 zlib 无损数据压缩,让数据都保存在压缩的存档表中.当数据被插入时,他们被压缩</p>
+</blockquote>
+<h2 id="他只支持-insert-和-select-支持自增键及其上的索引-不支持其他索引-他适合做日志记录-用户行为分析-不需要-update-和-delete-和索引的数据"><a href="#他只支持-insert-和-select-支持自增键及其上的索引-不支持其他索引-他适合做日志记录-用户行为分析-不需要-update-和-delete-和索引的数据" class="headerlink" title="- 他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据"></a>- 他只支持 insert 和 select, 支持自增键及其上的索引,不支持其他索引.他适合做日志记录,用户行为分析,不需要 update 和 delete 和索引的数据</h2><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-知识点/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -617,128 +739,6 @@
 
 
   
-    <article id="post-zsh-的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/zsh-的使用/">zsh 的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/zsh-的使用/" class="archive-article-date">
-  	<time datetime="2017-12-03T11:44:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>安装 zsh<ul>
-<li>Mac 自带</li>
-<li>Ubuntu<br>  <code>sudo apt-get install zsh</code></li>
-<li>sudo chsh -s $(which zsh)设置zsh为默认shell</li>
-<li>注销后再进入终端可以看到效果</li>
-</ul>
-</li>
-<li><p>安装 oh-my-zsh</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自动安装</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br><span class="line"></span><br><span class="line">手动安装：</span><br><span class="line">git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>主题和别名</p>
-<ul>
-<li>主题在 ~/.oh-my-zsh/themes下</li>
-<li>主题文件中的 PROMPT 改成如下<br><code>PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;&#39;</code><br><img src="http://upload-images.jianshu.io/upload_images/5317015-bbe5f8682f21403b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样式"></li>
-<li>别名\<br>alias zshconfig=”vim ~/.zshrc”<br>alias cls=’clear’<br>alias ll=’ls -l’<br>alias la=’ls -a’<br>alias vi=’vim’<br>alias grep=”grep –color=auto “ # 关键字加颜色<br>alias -s html=vi # 终端输入 yy.html 自动 vim 打开,以下一样<br>alias -s py=vi<br>alias -s js=vi<br>alias -s txt=vi<br>alias -s gz=’tar -xzvf’ # 终端输入 yy.gz 自动解压,以下一样<br>alias -s tgz=’tar -xzvf’<br>alias -s zip=’unzip’<br>alias -s bz2=’tar -xjvf’<br>alias hexoPush=’hexo clean &amp;&amp; hexo g &amp;&amp; hexo d’<br><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-15/96541025.jpg" alt="别名"></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="zsh插件"><a href="#zsh插件" class="headerlink" title="zsh插件"></a>zsh插件</h3><ul>
-<li><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git</a> 自带</li>
-<li><p><a href="https://github.com/mfaerevaag/wd" target="_blank" rel="external">wd</a></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins=(... wd)</span><br><span class="line"></span><br><span class="line">比如我们有一个常用的目录 /usr/nginx/www/html，我们首先进入到这个目录中，然后输入</span><br><span class="line"></span><br><span class="line">wd add web</span><br><span class="line">这个命令相当于给当前目录做了一个标识，标识名叫做  web ，我们下次如果再想进入这个目录，只需输入： </span><br><span class="line"></span><br><span class="line">wd web</span><br><span class="line">这样就可以完成目录切换了，非常方便。</span><br><span class="line"></span><br><span class="line">它的原理并不复杂，它维护了一个标识和实际路径的映射表，我们使用 wd add 命令可以添加新的映射，可以使用 wd rm 命令删除已有的映射，还可以使用 wd show 命令查看现有的映射。</span><br><span class="line"></span><br><span class="line">这个简单的插件解决了一个很实际的问题，推荐使用。 wd 插件的更多内容可以查看它的 github 主页：  https://github.com/mfaerevaag/wd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a></p>
-<ul>
-<li>Mac 安装<br>  <code>brew install autojump</code><br>  plugins=(… autojump)</li>
-<li><p>其他平台</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/joelthelion/autojump.git</span><br><span class="line">cd autojump</span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
-<p>  plugins=(… autojump)</p>
-</li>
-<li>usage  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">跳转到文件夹</span><br><span class="line">j foo</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting.git" target="_blank" rel="external">zsh-syntax-highlighting</a></p>
-<ul>
-<li>Mac 安装  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install zsh-syntax-highlighting</span><br><span class="line">把 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 加入. zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>其他平台</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
-<p>  然后在 plugins=(… zsh-syntax-highlighting)激活,高亮显示命令,错误会显示红色</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/zsh-的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -836,7 +836,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -844,11 +844,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,15 +884,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -908,15 +908,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -924,11 +920,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: JavaScript | 大葉子の林中小屋</title>
+  <title>创建一个dockerfile | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大葉子の林中小屋">
-<meta property="og:url" content="http://yoursite.com/tags/JavaScript/index.html">
+  <meta name="description" content="常用命令介绍123456789101112131415161718# 拉取镜像docker pull [options] name[:tag]比如 docker pull ubuntu/centos:latest# 查看本机全部镜像或者单个镜像docker images [options][repository[:tag]]# 查看运行的容器docker ps# 进入容器docker exec -">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建一个dockerfile">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/创建一个dockerfile/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="常用命令介绍123456789101112131415161718# 拉取镜像docker pull [options] name[:tag]比如 docker pull ubuntu/centos:latest# 查看本机全部镜像或者单个镜像docker images [options][repository[:tag]]# 查看运行的容器docker ps# 进入容器docker exec -">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-17T15:07:00.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大葉子の林中小屋">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:title" content="创建一个dockerfile">
+<meta name="twitter:description" content="常用命令介绍123456789101112131415161718# 拉取镜像docker pull [options] name[:tag]比如 docker pull ubuntu/centos:latest# 查看本机全部镜像或者单个镜像docker images [options][repository[:tag]]# 查看运行的容器docker ps# 进入容器docker exec -">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -157,60 +159,269 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-创建一个dockerfile" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/03/js优化/" class="archive-article-date">
-  	<time datetime="2017-12-03T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/03/js优化/">js优化</a>
+    <h1 class="article-title" itemprop="name">
+      创建一个dockerfile
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/17/创建一个dockerfile/" class="archive-article-date">
+  	<time datetime="2018-04-17T14:50:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常用命令介绍"><a href="#常用命令介绍" class="headerlink" title="常用命令介绍"></a>常用命令介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 拉取镜像</span><br><span class="line">docker pull [options] name[:tag]</span><br><span class="line">比如 docker pull ubuntu/centos:latest</span><br><span class="line"></span><br><span class="line"># 查看本机全部镜像或者单个镜像</span><br><span class="line">docker images [options][repository[:tag]]</span><br><span class="line"></span><br><span class="line"># 查看运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 进入容器</span><br><span class="line">docker exec -it &quot;id&quot; bash</span><br><span class="line"></span><br><span class="line"># 运行 nginx</span><br><span class="line">docker run -d -p 8080:80 nginx</span><br><span class="line">-p [本机端口:容器开放端口]</span><br><span class="line">docker run -d -P nginx</span><br><span class="line">-P 开放容器所有端口映射到本机随机端口</span><br></pre></td></tr></table></figure>
+<h3 id="制作-dockerfile"><a href="#制作-dockerfile" class="headerlink" title="制作 dockerfile"></a>制作 dockerfile</h3><p>比如制作一个 jpress 的网络应用<br><code># vim Dockerfile</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 以什么镜像为基础</span><br><span class="line">FROM tomcat</span><br><span class="line"># 制作人和联系方式</span><br><span class="line">MAINTAINER yejunyu yyyejunyu@gmail.com</span><br><span class="line"># 命令,比如把war包复制到 tomcat 的 root 下</span><br><span class="line">COPY jpress.war /usr/local/tomcat/webapps</span><br></pre></td></tr></table></figure></p>
+<p>COPY指复制命令<br>还有<br>CMD echo “hello docker”<br><code># docker build -t myJpress:latest .</code><br>. 代表打包当前目录</p>
+<p>运行一个 mysql<br><code>docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=mydatabase mysql</code><br>-e 代表环境变量的意思</p>
+<blockquote>
+<p>访问 docker 的 mysql 不能用 localhost, 要用实体机的 ip</p>
+</blockquote>
+<hr>
+<p>第二个 dockerfile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line">MAINTAINER YEJUNYU</span><br><span class="line">RUN sed -i &apos;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&apos; /etc/apt/sources.list</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install -y nginx</span><br><span class="line">COPY index.html /var/www/html</span><br><span class="line">ENTRYPOINT [&quot;/usr/sbin/nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</span><br><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>FROM</td>
+<td>base image</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>RUN</td>
+<td>执行命令</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ADD</td>
+<td>添加文件</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>COPY</td>
+<td>拷贝文件</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>CMD</td>
+<td>执行命令</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>EXPOSE</td>
+<td>暴露端口</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>WORKDIR</td>
+<td>指定路径</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>MAINTAINER</td>
+<td>维护者</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ENV</td>
+<td>设置环境变量</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ENTRYPOINT</td>
+<td>容器入口</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>USER</td>
+<td>指定用户</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>VOLUME</td>
+<td>mount point</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>创建一个仅为别人提供数据的容器<br><code>docker create -v $PWD/data:/var/mydata --name data_container ubuntu</code><br><code>docker run -it --volumes-from data_container ubuntu bash</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line">docker tag ubuntu yejunyu/ubuntu</span><br><span class="line">docker push yejunyu/ubuntu</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/04/17/创建一个dockerfile/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/15/docker小结-nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker小结(nginx)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -233,9 +444,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
