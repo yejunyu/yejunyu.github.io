@@ -159,6 +159,213 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-lombok使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/26/lombok使用/">lombok使用</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/26/lombok使用/" class="archive-article-date">
+  	<time datetime="2018-03-26T14:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@Data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">包含 get,set,toString,和 hashcode 和 equals</span><br></pre></td></tr></table></figure></p>
+<p>@Getter</p>
+<p>@Getter(AccessLevel.PROTECTED)</p>
+<p>@Setter</p>
+<p>@Setter(AccessLevel.PROTECTED)</p>
+<p>@NoArgsConstructor</p>
+<p>@AllArgsConstructor</p>
+<p>@ToString</p>
+<p>@ToString(exclude =”column”)<br>@ToString(exclude={“col1”,”col2”})<br>@ToString(of =”column”)<br>@ToString(of={“col1”,”col2”})</p>
+<p>@EqualsAndHashCode</p>
+<p>@EqualsAndHashCode(exclude = “column”)<br>@EqualsAndHashCode(exclude = {“col1”,”col2”})<br>@EqualsAndHashCode(of = “column”)<br>@EqualsAndHashCode(of = {“col1”,”col2”})</p>
+<p>@Slf4j<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log</span><br></pre></td></tr></table></figure></p>
+<p>@Log4j</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/26/lombok使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-网易面试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/网易面试/">网易面试</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/网易面试/" class="archive-article-date">
+  	<time datetime="2018-03-22T13:55:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>index_a_b_c只查询b走索引吗?<br>不走</p>
+</li>
+<li><p>数据库怎么优化<br>配置优化,sql优化,索引优化,缓存…</p>
+</li>
+<li><p>b+树和b树区别</p>
+</li>
+</ul>
+<ol>
+<li>B+树改进了B树, 让内结点只作索引使用, 去掉了其中指向data record的指针, 使得每个结点中能够存放更多的key, 因此能有更大的出度. 这有什么用? 这样就意味着存放同样多的key, 树的层高能进一步被压缩, 使得检索的时间更短. </li>
+<li>当然了,由于底部的叶子结点是链表形式, 因此也可以实现更方便的顺序遍历, 但是这是比较次要的, 最主要的的还是第(1)点.<br><a href="https://www.cnblogs.com/gengsc/p/7230514.html" target="_blank" rel="external">b+树</a></li>
+</ol>
+<ul>
+<li><p>index_a_b_c在b+树中是怎么存储的</p>
+</li>
+<li><p>mycat如何分片,按id分片的话,查询不走id怎么办<br>比如订单表,按多个维度分片<br><a href="http://blog.jobbole.com/109189/" target="_blank" rel="external">可以配置分片规则</a></p>
+</li>
+<li><p>mysql,mongo的区别<br><a href="http://blog.csdn.net/see__you__again/article/details/51995956" target="_blank" rel="external">关系和非关系型数据库的区别</a></p>
+</li>
+<li><p>spring类加载的过程<br><a href="https://www.cnblogs.com/xrq730/p/6285358.html" target="_blank" rel="external">Bean加载流程</a><br><a href="http://blog.csdn.net/caib1109/article/details/51988951" target="_blank" rel="external">单例多例懒加载</a></p>
+</li>
+<li><p>jvm<br><a href="http://www.importnew.com/23792.html" target="_blank" rel="external">jvm基础</a></p>
+</li>
+<li><p>concurrentHashMap结构<br><a href="http://www.importnew.com/22007.html" target="_blank" rel="external">segment,8不是了又优化了</a></p>
+</li>
+<li><p>syncronized原理<br><a href="http://blog.csdn.net/javazejian/article/details/72828483" target="_blank" rel="external">monitor</a></p>
+</li>
+<li><p>spring事务,事务的传递,如何控制单个事务<br><a href="http://blog.csdn.net/bao19901210/article/details/41724355" target="_blank" rel="external">默认是数据库的隔离级别和新建事务</a></p>
+</li>
+<li><p>future包内容<br><a href="http://www.importnew.com/28319.html" target="_blank" rel="external">completeFuture</a></p>
+</li>
+<li><p>mq的组成<br><a href=""></a></p>
+</li>
+<li><p>mq消息传递失败怎么办</p>
+</li>
+<li><p>线程池的实现</p>
+</li>
+<li><p>线程池拒绝策略</p>
+</li>
+<li><p>分布式锁</p>
+</li>
+<li><p>NIO<br><a href="http://www.importnew.com/28021.html" target="_blank" rel="external">nio</a></p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/网易面试/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-电商实际问题总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -543,176 +750,6 @@
 
 
   
-    <article id="post-webpack打包的事项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/13/webpack打包的事项/">webpack打包的事项</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/13/webpack打包的事项/" class="archive-article-date">
-  	<time datetime="2018-03-13T12:47:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="question"><a href="#question" class="headerlink" title="question:"></a>question:</h2><ul>
-<li>[x] 1. js用什么loader加载?</li>
-<li>[x] 2. 官方文档上的例子中entry只有一个js,多个js怎么办?</li>
-<li>[x] 3. output分文件夹存放目标文件,怎么设置?</li>
-<li>[x] 4. jquery引入</li>
-<li>[x] 5. 想提取公共模块,怎么处理?</li>
-<li>[x] 6. 样式使用怎样的loader</li>
-<li>[x] 7. webpack打包的css怎么独立成单独文件</li>
-</ul>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li><p>最简单的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># cat.js</span><br><span class="line">var cats = [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;];</span><br><span class="line">module.exports = cats;</span><br><span class="line"></span><br><span class="line"># index.js</span><br><span class="line">var cats = require(&apos;./cat&apos;)</span><br><span class="line">console.log(cats);</span><br><span class="line"></span><br><span class="line"># webpack.config.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./src/page/index/index.js&apos;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: &apos;./dist&apos;,</span><br><span class="line">        filename: &apos;app.js&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">在项目目录下输入webpack</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>多文件,多输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var config = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        &quot;index&quot;: [&apos;./src/page/index/index.js&apos;],</span><br><span class="line">        &quot;login&quot;: [&apos;./src/page/login/index.js&apos;]</span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: &apos;./dist&apos;,</span><br><span class="line">        filename: &apos;js/[name].js&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>引入js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. yarn安装jquery</span><br><span class="line">var $$ = require(&apos;jquery&apos;);</span><br><span class="line">$$(&apos;body&apos;).html(&quot;HELLO&quot;)</span><br><span class="line">2. 原始方法,script引入cdn</span><br><span class="line">3. </span><br><span class="line">externals: &#123;</span><br><span class="line">        &apos;jquery&apos;: &apos;window.jQuery&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2018/03/13/webpack打包的事项/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/13/webpack打包的事项/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-支付宝接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/12/支付宝接口/">支付宝接口</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/12/支付宝接口/" class="archive-article-date">
-  	<time datetime="2018-03-12T13:44:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="external">支付宝沙箱</a><br><a href="https://docs.open.alipay.com/194/105072/" target="_blank" rel="external">当面付</a><br><a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="external">rsa2公钥</a></p>
-<p>zfbinfo<br>pid: 商户uid<br>appid: APPID</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">三方sdk</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/12/支付宝接口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -826,7 +863,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -834,7 +871,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -850,19 +887,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -874,19 +899,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -898,11 +931,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
             
             <div class="clearfix"></div>

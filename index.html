@@ -159,6 +159,165 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-proxychains安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/18/proxychains安装/">proxychains安装</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/18/proxychains安装/" class="archive-article-date">
+  	<time datetime="2018-04-18T13:33:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-proxychains安装"><a href="#1-proxychains安装" class="headerlink" title="1. proxychains安装"></a>1. proxychains安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line">git clone https://github.com/rofl0r/proxychains-ng.git</span><br><span class="line">cd proxychains-ng</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">make install-config</span><br><span class="line">cd .. &amp;&amp; rm -rf proxychains-ng</span><br></pre></td></tr></table></figure>
+<h2 id="2-编辑proxychains配置"><a href="#2-编辑proxychains配置" class="headerlink" title="2. 编辑proxychains配置"></a>2. 编辑proxychains配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/proxychains.conf</span><br><span class="line">//将socks4  127.0.0.1 9050改为</span><br><span class="line">socks5  127.0.0.1 1080  //1080改为你自己的端口</span><br></pre></td></tr></table></figure>
+<h2 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 检查是否成功</span><br><span class="line">proxychains4 curl ip.cn</span><br><span class="line">// 代理获取文件</span><br><span class="line">proxychains4 wget http://xxx.com/xxx.zip</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/18/proxychains安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-命令行使用ss代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/18/命令行使用ss代理/">命令行使用ss代理</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/18/命令行使用ss代理/" class="archive-article-date">
+  	<time datetime="2018-04-18T13:33:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>pip install shadowsocks</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># /etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,      #ss服务器IP</span><br><span class="line">    &quot;server_port&quot;:your_server_port, #端口</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,   #本地ip</span><br><span class="line">    &quot;local_port&quot;:1080,              #本地端口</span><br><span class="line">    &quot;password&quot;:&quot;your_server_passwd&quot;,#连接ss密码</span><br><span class="line">    &quot;timeout&quot;:300,                  #等待超时</span><br><span class="line">    &quot;method&quot;:&quot;rc4-md5&quot;,             #加密方式</span><br><span class="line">    &quot;fast_open&quot;: false,             # true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span><br><span class="line">    &quot;workers&quot;: 1                    # 工作线程数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装privoxy"><a href="#安装privoxy" class="headerlink" title="安装privoxy"></a>安装privoxy</h2><p>上述安好了shadowsocks，但它是socks5代理，我门在shell里执行的命令，发起的网络请求现在还不支持socks5代理，只支持http／https代理。为了我门需要安装privoxy代理，它能把电脑上所有http请求转发给shadowsocks。<br>访问官网<a href="http://www.privoxy.org/获得Privoxy的最新源码:privoxy-3.0.24-stable-src.tar.gz,执行tar" target="_blank" rel="external">http://www.privoxy.org/获得Privoxy的最新源码:privoxy-3.0.24-stable-src.tar.gz,执行tar</a> -zxvf privoxy-3.0.24-stable-src.tar.gz解压，然后cd privoxy-3.0.24-stable进去。<br>安装前需要执行useradd privoxy创建一个用户privoxy，然后依次执行如下三条命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">autoheader &amp;&amp; autoconf</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p>查看vim /usr/local/etc/privoxy/config文件，先搜索关键字:listen-address找到listen-address 127.0.0.1:8118这一句，保证这一句没有注释，8118就是将来http代理要输入的端口。然后搜索forward-socks5t,将forward-socks5t / 127.0.0.1:1080 .此句的注释去掉.<br>执行如下命令启动privoxy，<a href="https://www.privoxy.org/user-manual/startup.html" target="_blank" rel="external">参考官网,不同的平台对应不同的方法</a>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">privoxy --user privoxy /usr/local/etc/privoxy/config</span><br></pre></td></tr></table></figure></p>
+<h2 id="配置-etc-profile"><a href="#配置-etc-profile" class="headerlink" title="配置/etc/profile"></a>配置/etc/profile</h2><p>执行vim /etc/profile,添加如下三句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:8118</span><br><span class="line">export https_proxy=http://127.0.0.1:8118</span><br><span class="line">export ftp_proxy=http://127.0.0.1:8118</span><br></pre></td></tr></table></figure></p>
+<p>第三句ftp的代理根据需要，不需要的话可以不添加.然后source /etc/profile，执行curl www.google.com或wget www.google.com判断是否成功访问。</p>
+<p>注意:此处不要用ping命令来检测</p>
+<p>如果不能访问，请重启机器，依次打开shadowsocks和privoxy再测试.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">privoxy --user privoxy /usr/local/etc/privoxy/config</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>备注：如果不需要用代理了，记得把bash里的配置注释上，免得把流量跑完了。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/18/命令行使用ss代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-创建一个dockerfile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -272,7 +431,7 @@
 </tbody>
 </table>
 <p>创建一个仅为别人提供数据的容器<br><code>docker create -v $PWD/data:/var/mydata --name data_container ubuntu</code><br><code>docker run -it --volumes-from data_container ubuntu bash</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line">docker tag ubuntu yejunyu/ubuntu</span><br><span class="line">docker push yejunyu/ubuntu</span><br></pre></td></tr></table></figure></p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 本地镜像打包</span><br><span class="line">docker save 6830dcd7b9b5&gt; /tmp/docker/fabric-images/peer.tar</span><br><span class="line"></span><br><span class="line"># 载入</span><br><span class="line">docker load &lt; /tmp/docker/fabric-peer.tar</span><br></pre></td></tr></table></figure>
       
 
       
@@ -556,213 +715,6 @@
 
 
   
-    <article id="post-lombok使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/26/lombok使用/">lombok使用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/26/lombok使用/" class="archive-article-date">
-  	<time datetime="2018-03-26T14:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@Data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">包含 get,set,toString,和 hashcode 和 equals</span><br></pre></td></tr></table></figure></p>
-<p>@Getter</p>
-<p>@Getter(AccessLevel.PROTECTED)</p>
-<p>@Setter</p>
-<p>@Setter(AccessLevel.PROTECTED)</p>
-<p>@NoArgsConstructor</p>
-<p>@AllArgsConstructor</p>
-<p>@ToString</p>
-<p>@ToString(exclude =”column”)<br>@ToString(exclude={“col1”,”col2”})<br>@ToString(of =”column”)<br>@ToString(of={“col1”,”col2”})</p>
-<p>@EqualsAndHashCode</p>
-<p>@EqualsAndHashCode(exclude = “column”)<br>@EqualsAndHashCode(exclude = {“col1”,”col2”})<br>@EqualsAndHashCode(of = “column”)<br>@EqualsAndHashCode(of = {“col1”,”col2”})</p>
-<p>@Slf4j<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log</span><br></pre></td></tr></table></figure></p>
-<p>@Log4j</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/26/lombok使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-网易面试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/网易面试/">网易面试</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/网易面试/" class="archive-article-date">
-  	<time datetime="2018-03-22T13:55:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>index_a_b_c只查询b走索引吗?<br>不走</p>
-</li>
-<li><p>数据库怎么优化<br>配置优化,sql优化,索引优化,缓存…</p>
-</li>
-<li><p>b+树和b树区别</p>
-</li>
-</ul>
-<ol>
-<li>B+树改进了B树, 让内结点只作索引使用, 去掉了其中指向data record的指针, 使得每个结点中能够存放更多的key, 因此能有更大的出度. 这有什么用? 这样就意味着存放同样多的key, 树的层高能进一步被压缩, 使得检索的时间更短. </li>
-<li>当然了,由于底部的叶子结点是链表形式, 因此也可以实现更方便的顺序遍历, 但是这是比较次要的, 最主要的的还是第(1)点.<br><a href="https://www.cnblogs.com/gengsc/p/7230514.html" target="_blank" rel="external">b+树</a></li>
-</ol>
-<ul>
-<li><p>index_a_b_c在b+树中是怎么存储的</p>
-</li>
-<li><p>mycat如何分片,按id分片的话,查询不走id怎么办<br>比如订单表,按多个维度分片<br><a href="http://blog.jobbole.com/109189/" target="_blank" rel="external">可以配置分片规则</a></p>
-</li>
-<li><p>mysql,mongo的区别<br><a href="http://blog.csdn.net/see__you__again/article/details/51995956" target="_blank" rel="external">关系和非关系型数据库的区别</a></p>
-</li>
-<li><p>spring类加载的过程<br><a href="https://www.cnblogs.com/xrq730/p/6285358.html" target="_blank" rel="external">Bean加载流程</a><br><a href="http://blog.csdn.net/caib1109/article/details/51988951" target="_blank" rel="external">单例多例懒加载</a></p>
-</li>
-<li><p>jvm<br><a href="http://www.importnew.com/23792.html" target="_blank" rel="external">jvm基础</a></p>
-</li>
-<li><p>concurrentHashMap结构<br><a href="http://www.importnew.com/22007.html" target="_blank" rel="external">segment,8不是了又优化了</a></p>
-</li>
-<li><p>syncronized原理<br><a href="http://blog.csdn.net/javazejian/article/details/72828483" target="_blank" rel="external">monitor</a></p>
-</li>
-<li><p>spring事务,事务的传递,如何控制单个事务<br><a href="http://blog.csdn.net/bao19901210/article/details/41724355" target="_blank" rel="external">默认是数据库的隔离级别和新建事务</a></p>
-</li>
-<li><p>future包内容<br><a href="http://www.importnew.com/28319.html" target="_blank" rel="external">completeFuture</a></p>
-</li>
-<li><p>mq的组成<br><a href=""></a></p>
-</li>
-<li><p>mq消息传递失败怎么办</p>
-</li>
-<li><p>线程池的实现</p>
-</li>
-<li><p>线程池拒绝策略</p>
-</li>
-<li><p>分布式锁</p>
-</li>
-<li><p>NIO<br><a href="http://www.importnew.com/28021.html" target="_blank" rel="external">nio</a></p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/网易面试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -876,7 +828,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,7 +836,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -900,19 +852,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -924,19 +864,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -948,11 +896,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
             
             <div class="clearfix"></div>

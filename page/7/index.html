@@ -159,6 +159,191 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mycat和mycat-web安装(ubuntu16.04)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">mycat和mycat-web安装（ubuntu16.04）</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/" class="archive-article-date">
+  	<time datetime="2018-01-09T14:41:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mycat-安装"><a href="#mycat-安装" class="headerlink" title="mycat 安装"></a>mycat 安装</h2><ol>
+<li>安装环境</li>
+</ol>
+<ul>
+<li>java (mycat是用java写的)</li>
+<li>mysql<br>设置<br><strong>lower_case_table_names = 1</strong></li>
+</ul>
+<ol>
+<li>安装mycat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http://dl.mycat.io/</span><br><span class="line">下载最新发布版</span><br><span class="line">解压之后</span><br><span class="line">mv mycat /usr/local/src</span><br><span class="line"># mycat</span><br><span class="line">export MYCAT_HOME=/usr/local/src/mycat</span><br><span class="line"></span><br><span class="line"># PATH</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MYCAT_HOME/bin</span><br><span class="line">查看日志，mycat start启动</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="mycat-web-安装"><a href="#mycat-web-安装" class="headerlink" title="mycat-web 安装"></a>mycat-web 安装</h2><ol>
+<li>下载mycat-web<br><code>http://dl.mycat.io/</code></li>
+<li><p>安装zookeeper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zookeeper</span><br><span class="line"># ubuntu安装在/usr/share/zookeeper</span><br><span class="line">bash zkServer.sh start就可以启动服务了</span><br><span class="line"># 可以写脚本或者起别名方便操作</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动和配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mycat-web下bash start.sh</span><br><span class="line">访问地址http://localhost:8082/mycat</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="gotCha"><a href="#gotCha" class="headerlink" title="gotCha"></a>gotCha</h2><ol>
+<li>远程连接一定要指定连接的数据库，不指定不显示任何数据</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.xml.sax.SAXParseException; lineNumber: 106; columnNumber: 16; The content of element type &quot;mycat:schema&quot; must match &quot;(schema*,dataNode*,dataHost*)&quot;.</span><br><span class="line">原因：要按照schema、datanode 、datahost的顺序放，不能打乱。也就是所有schema要放一起，然后接着才能放datanode。。。。</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql-mariadb-修改最大连接数无效的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">mysql,mariadb 修改最大连接数无效的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/" class="archive-article-date">
+  	<time datetime="2018-01-04T14:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[root@emsc ~]# ulimit -n<br>1024</p>
+<p>可知，操作系统最大文件描述符限制为 1024， 在 配置文件中添加<br>修改配置文件位置：/etc/security/limits.conf末尾添加如下配置项目</p>
+<p>open_files_limit = 65535</p>
+<p>更改 MySQL 在 Linux 的最大文件描述符限制，编辑 /usr/lib/systemd/system/mysqld.service 文件，在文件最后添加:<br>ubuntu16.04 下面位于：/lib/systemd/system/mysql.servive,可以通过find 命令查找</p>
+<p>LimitNOFILE=65535<br>LimitNPROC=65535</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl daemon-reload</span><br><span class="line">$ systemctl restart  mysqld.service</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -461,200 +646,6 @@
 
 
   
-    <article id="post-iterm2快速登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/iterm2快速登录/">iterm2快速登录</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/iterm2快速登录/" class="archive-article-date">
-  	<time datetime="2017-12-15T14:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>在任意地方编辑文本,比如 ~/.ssh/wx</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/expect -f</span><br><span class="line">set port 2121</span><br><span class="line">set user root</span><br><span class="line">set host 172.16.10.71</span><br><span class="line">set password mima123456</span><br><span class="line">set timeout -1</span><br><span class="line"></span><br><span class="line">spawn ssh -p$port $user@$host</span><br><span class="line">expect &quot;*assword:*&quot;</span><br><span class="line">send &quot;$password\r&quot;</span><br><span class="line">interact</span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>command+,打开设置</p>
-</li>
-</ol>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/17-12-15/98196812.jpg" alt="111"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/iterm2快速登录/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关系代词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/关系代词/">关系代词</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/关系代词/" class="archive-article-date">
-  	<time datetime="2017-12-15T00:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1. 代替事物,短语或从句应使用 which</p>
-<blockquote>
-<p>which 作 read 的宾语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">which</span> I like to read.</p>
-<blockquote>
-<p>which 作主语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">which</span> is sure to interest you a lot</p>
-<blockquote>
-<p>which 作介词 in 的宾语</p>
-</blockquote>
-<p>This is a book <span style="border-bottom:2px dashed yellow;">in which</span> I’ve found many errors\<br>= This is a book <span style="border-bottom:2px dashed yellow;">which</span> I’ve found many errors <span style="border-bottom:2px dashed yellow;">in</span></p>
-<blockquote>
-<p>which 代替之前的整个主句,作宾语</p>
-</blockquote>
-<p>There is hardly anything he doesn’t know,<span style="border-bottom:2px dashed yellow;">which</span> I really envy</p>
-<ol>
-<li>代替人则使用 who 或 whom<blockquote>
-<p>who 作主语</p>
-</blockquote>
-</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">who</span> nerver lies</p>
-<blockquote>
-<p>whom 作 respect 的宾语</p>
-</blockquote>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">whom</span> we all respect</p>
-<blockquote>
-<p>whom 作介词 with 的宾语</p>
-</blockquote>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">with whom</span> I enjoy working\<br>= He is a man <span style="border-bottom:2px dashed yellow;">whom</span> I enjoy working <span style="border-bottom:2px dashed yellow;">with</span></p>
-<ol>
-<li>关系代词 who,whom 或 which 之前若无逗号或介词时,均可用 that 替代</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">who</span> never lies\<br>= He is a man <span style="border-bottom:2px dashed yellow;">that</span> never lies</p>
-<ol>
-<li>关系代词作宾语时之前若无逗号或介词,此时该关系代词可省略</li>
-</ol>
-<p>He is a man <span style="border-bottom:2px dashed yellow;">whom</span> we all respect\<br>= He is a man <span style="border-bottom:2px dashed yellow;">that</span> we all respect\<br>= He is a man we all respect</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/关系代词/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -768,7 +759,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -776,7 +767,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -792,19 +783,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,19 +795,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -840,11 +827,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
             
             <div class="clearfix"></div>

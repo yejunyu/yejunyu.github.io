@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="常用命令介绍123456789101112131415161718# 拉取镜像docker pull [options] name[:tag]比如 docker pull ubuntu/centos:latest# 查看本机全部镜像或者单个镜像docker images [options][repository[:tag]]# 查看运行的容器docker ps# 进入容器docker exec -">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-17T15:07:00.481Z">
+<meta property="og:updated_time" content="2018-04-18T13:33:02.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建一个dockerfile">
 <meta name="twitter:description" content="常用命令介绍123456789101112131415161718# 拉取镜像docker pull [options] name[:tag]比如 docker pull ubuntu/centos:latest# 查看本机全部镜像或者单个镜像docker images [options][repository[:tag]]# 查看运行的容器docker ps# 进入容器docker exec -">
@@ -272,7 +272,7 @@
 </tbody>
 </table>
 <p>创建一个仅为别人提供数据的容器<br><code>docker create -v $PWD/data:/var/mydata --name data_container ubuntu</code><br><code>docker run -it --volumes-from data_container ubuntu bash</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line">docker tag ubuntu yejunyu/ubuntu</span><br><span class="line">docker push yejunyu/ubuntu</span><br></pre></td></tr></table></figure></p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 本地镜像打包</span><br><span class="line">docker save 6830dcd7b9b5&gt; /tmp/docker/fabric-images/peer.tar</span><br><span class="line"></span><br><span class="line"># 载入</span><br><span class="line">docker load &lt; /tmp/docker/fabric-peer.tar</span><br></pre></td></tr></table></figure>
       
 
       
@@ -385,6 +385,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/04/18/命令行使用ss代理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          命令行使用ss代理
+        
+      </div>
+    </a>
   
   
     <a href="/2018/04/15/docker小结-nginx/" id="article-nav-older" class="article-nav-link-wrap">
@@ -530,7 +539,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -538,7 +547,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,19 +563,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,19 +575,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,11 +607,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
             
             <div class="clearfix"></div>
