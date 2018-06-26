@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>docker常用命令 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
+  <meta name="description" content="镜像常用命令 docker search docker pull docker images 123--all -a     列出所有镜像--digests    显示摘要--quiet -q   只显示镜像ID  docker rmi  docker save 12ocker save busybox &amp;gt; busybox.tardocker save --output busybox.ta">
+<meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker常用命令">
 <meta property="og:url" content="http://yoursite.com/2018/06/26/docker常用命令/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="镜像常用命令 docker search docker pull docker images 123--all -a     列出所有镜像--digests    显示摘要--quiet -q   只显示镜像ID  docker rmi  docker save 12ocker save busybox &amp;gt; busybox.tardocker save --output busybox.ta">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-26T12:59:25.542Z">
+<meta property="og:updated_time" content="2018-06-26T13:40:48.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker常用命令">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:description" content="镜像常用命令 docker search docker pull docker images 123--all -a     列出所有镜像--digests    显示摘要--quiet -q   只显示镜像ID  docker rmi  docker save 12ocker save busybox &amp;gt; busybox.tardocker save --output busybox.ta">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -178,7 +179,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="镜像常用命令"><a href="#镜像常用命令" class="headerlink" title="镜像常用命令"></a>镜像常用命令</h2><ul>
+<li>docker search</li>
+<li>docker pull</li>
+<li><p>docker images</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--all -a     列出所有镜像</span><br><span class="line">--digests    显示摘要</span><br><span class="line">--quiet -q   只显示镜像ID</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker rmi</p>
+</li>
+<li><p>docker save</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ocker save busybox &gt; busybox.tar</span><br><span class="line">docker save --output busybox.tar busybox</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker load</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load &lt; busybox.tar.gz</span><br><span class="line">docker load --input fedora.tar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker build</p>
+</li>
+</ul>
+<h2 id="容器常用命令"><a href="#容器常用命令" class="headerlink" title="容器常用命令"></a>容器常用命令</h2><ul>
+<li><p>docker run</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 91:80 nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker ps</p>
+</li>
+<li>docker stop</li>
+<li>docker kill</li>
+<li>docker start</li>
+<li>docker restart</li>
+<li>docker inspect</li>
+<li><p>进入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker attach 784fd3b294d7</span><br><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker rm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">删除所有容器</span><br><span class="line">docker rm -f $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker export</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker export red_panda &gt; latest.tar</span><br><span class="line">docker export --output=&quot;latest.tar&quot; red_panda</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker import</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import nginx2.tar nginx</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
 
       
@@ -217,6 +258,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -409,11 +461,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +541,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
