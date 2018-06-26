@@ -159,6 +159,181 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-redis面试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/redis面试/">redis面试</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/07/redis面试/" class="archive-article-date">
+  	<time datetime="2018-03-07T13:27:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="redis-有哪些数据结构"><a href="#redis-有哪些数据结构" class="headerlink" title="redis 有哪些数据结构"></a>redis 有哪些数据结构</h1><p>字符串String、字典Hash、列表List、集合Set、有序集合SortedSet。</p>
+<p>如果你是Redis中高级用户，还需要加上下面几种数据结构HyperLogLog、Geo、Pub/Sub。</p>
+<p>如果你说还玩过Redis Module，像BloomFilter，RedisSearch，Redis-ML，面试官得眼睛就开始发亮了。</p>
+<h1 id="使用过Redis分布式锁么，它是什么回事？"><a href="#使用过Redis分布式锁么，它是什么回事？" class="headerlink" title="使用过Redis分布式锁么，它是什么回事？"></a>使用过Redis分布式锁么，它是什么回事？</h1><p>先拿setnx来争抢锁，抢到之后，再用expire给锁加一个过期时间防止锁忘记了释放。</p>
+<p>这时候对方会告诉你说你回答得不错，然后接着问如果在setnx之后执行expire之前进程意外crash或者要重启维护了，那会怎么样？</p>
+<p>这时候你要给予惊讶的反馈：唉，是喔，这个锁就永远得不到释放了。紧接着你需要抓一抓自己得脑袋，故作思考片刻，好像接下来的结果是你主动思考出来的，然后回答：我记得set指令有非常复杂的参数，这个应该是可以同时把setnx和expire合成一条指令来用的！对方这时会显露笑容，心里开始默念：摁，这小子还不错。</p>
+<h1 id="假如Redis里面有1亿个key，其中有10w个key是以某个固定的已知的前缀开头的，如果将它们全部找出来？"><a href="#假如Redis里面有1亿个key，其中有10w个key是以某个固定的已知的前缀开头的，如果将它们全部找出来？" class="headerlink" title="假如Redis里面有1亿个key，其中有10w个key是以某个固定的已知的前缀开头的，如果将它们全部找出来？"></a>假如Redis里面有1亿个key，其中有10w个key是以某个固定的已知的前缀开头的，如果将它们全部找出来？</h1><p>使用keys指令可以扫出指定模式的key列表。</p>
+<p>对方接着追问：如果这个redis正在给线上的业务提供服务，那使用keys指令会有什么问题？</p>
+<p>这个时候你要回答redis关键的一个特性：redis的单线程的。keys指令会导致线程阻塞一段时间，线上服务会停顿，直到指令执行完毕，服务才能恢复。这个时候可以使用scan指令，scan指令可以无阻塞的提取出指定模式的key列表，但是会有一定的重复概率，在客户端做一次去重就可以了，但是整体所花费的时间会比直接用keys指令长。</p>
+<h1 id="使用过Redis做异步队列么，你是怎么用的？"><a href="#使用过Redis做异步队列么，你是怎么用的？" class="headerlink" title="使用过Redis做异步队列么，你是怎么用的？"></a>使用过Redis做异步队列么，你是怎么用的？</h1><p>一般使用list结构作为队列，rpush生产消息，lpop消费消息。当lpop没有消息的时候，要适当sleep一会再重试。</p>
+<p>如果对方追问可不可以不用sleep呢？list还有个指令叫blpop，在没有消息的时候，它会阻塞住直到消息到来。</p>
+<p>如果对方追问能不能生产一次消费多次呢？使用pub/sub主题订阅者模式，可以实现1:N的消息队列。</p>
+<p>如果对方追问pub/sub有什么缺点？在消费者下线的情况下，生产的消息会丢失，得使用专业的消息队列如rabbitmq等。</p>
+<p>如果对方追问redis如何实现延时队列？我估计现在你很想把面试官一棒打死如果你手上有一根棒球棍的话，怎么问的这么详细。但是你很克制，然后神态自若的回答道：使用sortedset，拿时间戳作为score，消息内容作为key调用zadd来生产消息，消费者用zrangebyscore指令获取N秒之前的数据轮询进行处理。</p>
+<h1 id="如果有大量的key需要设置同一时间过期，一般需要注意什么？"><a href="#如果有大量的key需要设置同一时间过期，一般需要注意什么？" class="headerlink" title="如果有大量的key需要设置同一时间过期，一般需要注意什么？"></a>如果有大量的key需要设置同一时间过期，一般需要注意什么？</h1><p>如果大量的key过期时间设置的过于集中，到过期的那个时间点，redis可能会出现短暂的卡顿现象。一般需要在时间上加一个随机值，使得过期时间分散一些。</p>
+<h1 id="Redis如何做持久化的？"><a href="#Redis如何做持久化的？" class="headerlink" title="Redis如何做持久化的？"></a>Redis如何做持久化的？</h1><p>bgsave做镜像全量持久化，aof做增量持久化。因为bgsave会耗费较长时间，不够实时，在停机的时候会导致大量丢失数据，所以需要aof来配合使用。在redis实例重启时，会使用bgsave持久化文件重新构建内存，再使用aof重放近期的操作指令来实现完整恢复重启之前的状态。</p>
+<p>对方追问那如果突然机器掉电会怎样？取决于aof日志sync属性的配置，如果不要求性能，在每条写指令时都sync一下磁盘，就不会丢失数据。但是在高性能的要求下每次都sync是不现实的，一般都使用定时sync，比如1s1次，这个时候最多就会丢失1s的数据。</p>
+<p>对方追问bgsave的原理是什么？你给出两个词汇就可以了，fork和cow。fork是指redis通过创建子进程来进行bgsave操作，cow指的是copy on write，子进程创建后，父子进程共享数据段，父进程继续提供读写服务，写脏的页面数据会逐渐和子进程分离开来。</p>
+<h1 id="Pipeline有什么好处，为什么要用pipeline？"><a href="#Pipeline有什么好处，为什么要用pipeline？" class="headerlink" title="Pipeline有什么好处，为什么要用pipeline？"></a>Pipeline有什么好处，为什么要用pipeline？</h1><p>可以将多次IO往返的时间缩减为一次，前提是pipeline执行的指令之间没有因果相关性。使用redis-benchmark进行压测的时候可以发现影响redis的QPS峰值的一个重要因素是pipeline批次指令的数目。</p>
+<h1 id="Redis的同步机制了解么？"><a href="#Redis的同步机制了解么？" class="headerlink" title="Redis的同步机制了解么？"></a>Redis的同步机制了解么？</h1><p>Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将rdb文件全量同步到复制节点，复制节点接受完成后将rdb镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。</p>
+<h1 id="是否使用过Redis集群，集群的原理是什么？"><a href="#是否使用过Redis集群，集群的原理是什么？" class="headerlink" title="是否使用过Redis集群，集群的原理是什么？"></a>是否使用过Redis集群，集群的原理是什么？</h1><p>Redis Sentinal着眼于高可用，在master宕机时会自动将slave提升为master，继续提供服务。</p>
+<p>Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster进行分片存储。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/07/redis面试/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-git操作整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/05/git操作整理/">git操作整理</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/05/git操作整理/" class="archive-article-date">
+  	<time datetime="2018-03-05T14:41:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="推送远程仓库"><a href="#推送远程仓库" class="headerlink" title="推送远程仓库"></a>推送远程仓库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add orign git@github.com:yejunyu/javashop.git     </span><br><span class="line">git push -u orign master</span><br></pre></td></tr></table></figure>
+<h1 id="分支开发"><a href="#分支开发" class="headerlink" title="分支开发"></a>分支开发</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b v1.0 orign/master</span><br><span class="line">git push orign HEAD -u</span><br></pre></td></tr></table></figure>
+<h1 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git merge orign v1.0</span><br></pre></td></tr></table></figure>
+<h1 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 推送一个tag,记录当前的代码状态,一般是一个节点时间</span><br><span class="line">git tag tag-dev-initial</span><br><span class="line">git push origin tag-dev-initial</span><br><span class="line"></span><br><span class="line">打标签</span><br><span class="line"></span><br><span class="line">git tag -a v1.01 -m &quot;Relase version 1.01&quot;</span><br><span class="line">注解：git tag 是打标签的命令，-a 是添加标签，其后要跟新标签号，-m 及后面的字符串是对该标签的注释。</span><br><span class="line"></span><br><span class="line">提交标签到远程仓库</span><br><span class="line">git push origin --tags</span><br><span class="line">注解：就像git push origin master 把本地修改提交到远程仓库一样，--tags可以把本地的打的标签全部提交到远程仓库。</span><br><span class="line">删除标签</span><br><span class="line">git tag -d v1.01</span><br><span class="line">注解：-d 表示删除，后面跟要删除的tag名字</span><br><span class="line">删除远程标签</span><br><span class="line">git push origin :refs/tags/v1.01</span><br><span class="line">注解：就像git push origin :branch_1 可以删除远程仓库的分支branch_1一样， 冒号前为空表示删除远程仓库的tag。</span><br><span class="line">查看标签</span><br><span class="line">git tag</span><br><span class="line">或者</span><br><span class="line">git tag -l</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/05/git操作整理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -540,231 +715,9 @@
 
 
   
-    <article id="post-scrapy-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/24/scrapy-入门/">scrapy 入门</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/24/scrapy-入门/" class="archive-article-date">
-  	<time datetime="2018-02-24T14:12:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h1><p><code>scrapy startproject tutorial</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrapy.cfg: 项目的配置文件；（用于发布到服务器）</span><br><span class="line">tutorial/: 该项目文件夹。之后将在此编写Python代码。</span><br><span class="line">tutorial/items.py: 项目中的item文件;（定义结构化数据字段field）.</span><br><span class="line">tutorial/pipelines.py: 项目中的pipelines文件;（用于存放执行后期数据处理的功能，定义如何存储结构化数据)</span><br><span class="line">tutorial/settings.py: 项目的设置文件；(如何修改User-Agent，设置爬取时间间隔，设置代理，配置中间件等等)</span><br><span class="line">tutorial/spiders/: 放置spider代码的目录;（编写爬取网站规则）</span><br></pre></td></tr></table></figure></p>
-<h1 id="定义Item"><a href="#定义Item" class="headerlink" title="定义Item"></a>定义Item</h1><p>Item 定义结构化数据字段，用来保存爬取到的数据；其使用方法和python字典类似<br>可以通过创建一个 scrapy.Item 类， 并且定义类型为 scrapy.Field的类属性来定义一个Item。<br>首先根据需要从腾讯招聘获取到的数据对item进行建模。 我们需要从<a href="https://hr.tencent.com/position.php?&amp;start=0#a" target="_blank" rel="external">腾讯招聘</a>中获取 职位名称、职位详情页url、职位类别、人数、工作地点以及发布时间。 对此，在item中定义相应的字段。编辑 tutorial 目录中的 items.py 文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br></pre></td></tr></table></figure></p>
-<h1 id="编写第一个爬虫"><a href="#编写第一个爬虫" class="headerlink" title="编写第一个爬虫"></a>编写第一个爬虫</h1><p>Spider是开发者编写用于从单个网站(或者一些网站)爬取数据的类。<br>创建一个Spider，必须继承 ‘scrapy.Spider’ 类， 需要定义以下三个属性:</p>
-<ul>
-<li>name:<br>spider名字；必须是唯一的</li>
-<li>start_urls:<br>初始的URL列表</li>
-<li>parse(self, response)：<br>每个初始URL完成下载后被调用<br>这个函数要完成的功能：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.负责解析返回的网页数据(response.body)，提取结构化数据(生成item)</span><br><span class="line">2.生成需要下一页的请求URL。</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>以下为我们的第一个Spider代码，保存在 tutorial/spiders 目录下的 tencent_spider.py 文件中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        f = open(&apos;tengxun.txt&apos;, &apos;wb&apos;)</span><br><span class="line">        f.write(response.body)</span><br><span class="line">        f.close()</span><br></pre></td></tr></table></figure></p>
-<h1 id="爬取"><a href="#爬取" class="headerlink" title="爬取"></a>爬取</h1><p>进入项目的根目录，执行下列命令启动spider:<br><code>scrapy crawl tencent</code><br>crawl tencent 启动用于爬取 tencent 的spider，您将得到类似的输出:<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-24/43569726.jpg" alt=""></p>
-<h1 id="提取Item"><a href="#提取Item" class="headerlink" title="提取Item"></a>提取Item</h1><h3 id="Selectors选择器简介"><a href="#Selectors选择器简介" class="headerlink" title="Selectors选择器简介"></a>Selectors选择器简介</h3><p>Scrapy Selectors 内置XPath 和 CSS Selector 表达式机制<br>Selector有四个基本的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表 。</span><br><span class="line">css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表.</span><br><span class="line">extract(): 序列化该节点为unicode字符串并返回list。</span><br><span class="line">re(): 根据传入的正则表达式对数据进行提取，返回unicode字符串list列表。</span><br></pre></td></tr></table></figure></p>
-<h1 id="尝试Selector选择器"><a href="#尝试Selector选择器" class="headerlink" title="尝试Selector选择器"></a>尝试Selector选择器</h1><p><code>scrapy shell &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">response.xpath(&apos;//title&apos;)</span><br><span class="line">[&lt;Selector xpath=&apos;//title&apos; data=u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&apos;&gt;]</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title&apos;).extract()</span><br><span class="line">[u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&gt;&apos;]</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title&apos;).extract()[0]</span><br><span class="line">&lt;title&gt;职位搜索 | 社会招聘 | Tencent 腾讯招聘&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)</span><br><span class="line">&lt;Selector xpath=&apos;//title/text()&apos; data=u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">职位搜索 | 社会招聘 | Tencent 腾讯招聘</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;).re(&apos;(\w+):&apos;)</span><br><span class="line">[u&apos;\u804c\u4f4d\u641c\u7d22&apos;,</span><br><span class="line"> u&apos;\u793e\u4f1a\u62db\u8058&apos;,</span><br><span class="line"> u&apos;Tencent&apos;,</span><br><span class="line"> u&apos;\u817e\u8baf\u62db\u8058&apos;]</span><br></pre></td></tr></table></figure></p>
-<h1 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h1><p>现在，我们来尝试从这些页面中提取些有用的数据。<br>我们可以通过XPath选择该页面中网站列表里所有 lass=even 元素:<br><code>site = response.xpath(&quot;//*[@class=&#39;l square&#39;]/parent::tr&quot;)</code><br>职位名称:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/text()&apos;).extract()[0])</span><br><span class="line">TEG15-运营开发工程师（深圳）</span><br></pre></td></tr></table></figure></p>
-<p>职位名称详情页:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/@href&apos;).extract()[0])</span><br><span class="line">position_detail.php?id=20744&amp;keywords=&amp;tid=0&amp;lid=0</span><br></pre></td></tr></table></figure></p>
-<p>职位类别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[2]/text()&apos;).extract()[0])</span><br><span class="line">技术类</span><br></pre></td></tr></table></figure></p>
-<p>对于 .xpath() 调用返回selector组成的list， 因此可以拼接更多的 .xpath() 来进一步获取某个节点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">    name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">    detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">    catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">    recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">    workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">    publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">    print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
-<p>在我们的tencent_spider.py文件修改成如下代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
-<p>现在尝试再次爬取hr.tencent.com，您将看到爬取到的网站信息被成功输出:<br><code>scrapy crawl tencent</code></p>
-<h1 id="使用item"><a href="#使用item" class="headerlink" title="使用item"></a>使用item</h1><p>Item 对象是自定义的python字典。可以使用标准的字典语法来获取到其每个字段的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br><span class="line"></span><br><span class="line">item = RecruitItem()</span><br><span class="line">item[&apos;name&apos;] = &apos;sanlang&apos;</span><br><span class="line">item[&apos;name&apos;]</span><br><span class="line">&apos;sanlang&apos;</span><br></pre></td></tr></table></figure></p>
-<p>一般来说，Spider将会将爬取到的数据以Item对象返回。所以为了将爬取的数据返回，最终tencent_spider.py代码将是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print(name, detailLink, catalog, recruitNumber, workLocation, publishTime)</span><br><span class="line">            item = RecruitItem()</span><br><span class="line">            item[&apos;name&apos;] = name.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;detailLink&apos;] = detailLink.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;catalog&apos;] = catalog.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;recruitNumber&apos;] = recruitNumber.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;workLocation&apos;] = workLocation.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;publishTime&apos;] = publishTime.encode(&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure></p>
-<h1 id="保存爬取到的数据"><a href="#保存爬取到的数据" class="headerlink" title="保存爬取到的数据"></a>保存爬取到的数据</h1><p><code>保存爬取到的数据</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">scrapy</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/24/scrapy-入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-个人简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/24/个人简介/">个人简介</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/24/个人简介/" class="archive-article-date">
-  	<time datetime="2018-02-24T14:12:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="叶钧宇"><a href="#叶钧宇" class="headerlink" title="叶钧宇"></a>叶钧宇</h1><ul>
-<li>男/1991.9</li>
-<li>手机: 17611591926</li>
-<li>Email: yyyejunyu@gmail.com</li>
-<li>QQ/微信: 286355004</li>
-<li>本科/燕山大学自动化 </li>
-<li>工作年限：4年(3年互联网创业公司,两年全栈开发)</li>
-<li>技术博客：<a href="http://www.yejunyu.com" target="_blank" rel="external">http://www.yejunyu.com</a></li>
-<li>Github：<a href="http://github.com/yejunyu" target="_blank" rel="external">http://github.com/yejunyu</a></li>
-<li>期望职位：java或python中高级程序员</li>
-<li>期望薪资：面议</li>
-<li>期望城市：不限</li>
-</ul>
-<hr>
-<h1 id="工作经验"><a href="#工作经验" class="headerlink" title="工作经验"></a>工作经验</h1><h2 id="北京聚诚仁和-2017-5月-至今"><a href="#北京聚诚仁和-2017-5月-至今" class="headerlink" title="北京聚诚仁和 2017.5月-至今"></a>北京聚诚仁和 2017.5月-至今</h2><h3 id="1-大数据广告点击系统"><a href="#1-大数据广告点击系统" class="headerlink" title="1. 大数据广告点击系统"></a>1. 大数据广告点击系统</h3><blockquote>
-<p>技术栈: 早期django+mongo+mysql+celery+vue,现在SSM+bootstrap+quartz</p>
-</blockquote>
-<ul>
-<li>主要工作: 技术选型,数据库和架构设计,页面和后台coding  </li>
-</ul>
-<p>本人第一个技术选型且从零开始设计和coding的项目<br>作为核心程序员几乎一个人,完成了数据库(mysql)表设计、网站界面(vue+bootstrap)、调度队列(rabbitmq),future 模块实现多线程操作的开发工作,事后也做了总结差不多记录了200个gotcha。后用两台数据库服务器(一台作为proxy和主机,另一台备机)+mycat搭建读写分离和数据分片,10台服务器完成每天近乎1000w cpm,100w cpc(cpm和cpc是广告里的术语非技术术语)</p>
-<h3 id="2-鑫鑫掌柜小程序和公众号"><a href="#2-鑫鑫掌柜小程序和公众号" class="headerlink" title="2. 鑫鑫掌柜小程序和公众号"></a>2. 鑫鑫掌柜小程序和公众号</h3><blockquote>
-<p>技术栈: SSM+security+mysql+bootstrap+微信小程序  </p>
-</blockquote>
-<ul>
-<li>主要工作: 部分小程序前端页面,程序后台的用户模块(登录,注册,验证码),推广模块(二维码).管理后台的订单管理,统计,权限系统等  </li>
-</ul>
-<p>小程序作为一个热点前期有许多坑(比如不能用jq,不能嵌入iframe,上传不能超过2m),一一被我们克服,按时完成任务,作为一个稍微懂点前端的人, mui的一些坑(禁止了默认的a标签,onclick标签)也是我看文档帮助解决,独立看文档用security开发后台管理的权限管理,期间搭建zabbix,帮助同事快速完成每周各节点检查工作,帮领导方便检查数据库情况并且都做有文字总结:<br><a href="http://yejunyu.com/2018/01/25/zabbix-%E7%9B%91%E6%8E%A7-mysql/" target="_blank" rel="external">percona监控插件</a>: <a href="http://yejunyu.com/2018/01/25/zabbix-%E7%9B%91%E6%8E%A7-mysql/" target="_blank" rel="external">http://yejunyu.com/2018/01/25/zabbix-%E7%9B%91%E6%8E%A7-mysql/</a><br><a href="http://yejunyu.com/2017/11/01/mysql-优化详解/" target="_blank" rel="external">mysql优化</a> : <a href="http://yejunyu.com/2017/11/01/mysql-%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">http://yejunyu.com/2017/11/01/mysql-%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/</a></p>
-<h2 id="北京智线云科技有限公司-2015-11月-2017-4月"><a href="#北京智线云科技有限公司-2015-11月-2017-4月" class="headerlink" title="北京智线云科技有限公司 2015.11月-2017.4月"></a>北京智线云科技有限公司 2015.11月-2017.4月</h2><h3 id="socialpeta"><a href="#socialpeta" class="headerlink" title="socialpeta"></a><a href="http://www.zingfront.com/socialpeta/" target="_blank" rel="external">socialpeta</a></h3><blockquote>
-<p>技术栈: SSM+elasticsearch+echarts+junit+selenium+scrapy</p>
-</blockquote>
-<ul>
-<li>主要工作: 基础库搭建,数据爬取和清洗 </li>
-</ul>
-<p>因为是美国和中国4台服务器云上开发,学习了很多linux知识,现在自己用机已经换成deepin和 mac,之前并没有做过爬虫并且也不知道爬虫是什么,来公司一个星期快速学习爬虫知识,期间用junit网页测试框架,通过selenium和phantomjs,Casper等无头浏览器爬取复杂动态页面,每天经手数据14w条左右,etl大表有9亿条数据,对数据库索引,事务的知识都学到了很多.<br>cdn模块由我编写和维护,视频加载由原来的1s左右减少到0.4s左右<br>我走的时候爬取榜单的国家由32个增加到了80个,30%的自动化shell脚本由我编写</p>
-<h3 id="unreal"><a href="#unreal" class="headerlink" title="unreal"></a><a href="http://www.zingfront.com/unrealfront/" target="_blank" rel="external">unreal</a></h3><p>2017年facebook技术峰会介绍的唯一一款来自亚洲的视频制作软件</p>
-<blockquote>
-<p>技术栈: leaflet+three.js+vue </p>
-</blockquote>
-<ul>
-<li>主要工作: 实现3d模型在页面的数据传递 </li>
-</ul>
-<p>加深了面向对象的思想(因为之前是搞c的),也学习了敏捷开发和前后端分离的开发方式,为了满足客户的需要,每天几乎都迭代两个版本能适应高压环境,git分支开发,用php和echart快速开发数据展示页面都是在一星期之内快速学习并开发.</p>
-<hr>
-<h1 id="个人评价"><a href="#个人评价" class="headerlink" title="个人评价"></a>个人评价</h1><p>大学是自动化专业,学的微机原理和汇编,并没有学 c, 后自学c一次考过二级,自认为对编程充满了兴趣,也希望能够一直保持这种兴趣.因公司需要期间用过php,python,也写过前端页面,一直把全栈作为自己的目标</p>
-<p>感谢您花时间阅读我的简历，期待能有机会和您共事。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人简介</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/24/个人简介/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -859,11 +812,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -875,15 +828,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -891,11 +836,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -907,11 +852,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -919,19 +864,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -943,15 +884,27 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
