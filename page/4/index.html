@@ -159,6 +159,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-支付宝接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/支付宝接口/">支付宝接口</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/12/支付宝接口/" class="archive-article-date">
+  	<time datetime="2018-03-12T13:44:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="external">支付宝沙箱</a><br><a href="https://docs.open.alipay.com/194/105072/" target="_blank" rel="external">当面付</a><br><a href="https://docs.open.alipay.com/291/105971" target="_blank" rel="external">rsa2公钥</a></p>
+<p>zfbinfo<br>pid: 商户uid<br>appid: APPID</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">三方sdk</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/12/支付宝接口/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-电商开发小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -636,141 +711,6 @@
 
 
   
-    <article id="post-java线程池的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/08/java线程池的使用/">java线程池的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/08/java线程池的使用/" class="archive-article-date">
-  	<time datetime="2018-03-08T11:55:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>主要介绍<code>ThreadPoolExecutor</code>的用法，和较浅显的认识，场景的使用方案等等，比较忙碌，如果有错误还请大家指出</p>
-<h4 id="ThreadPoolExecutor介绍"><a href="#ThreadPoolExecutor介绍" class="headerlink" title="ThreadPoolExecutor介绍"></a>ThreadPoolExecutor介绍</h4><p>ThreadPoolExecutor的完整构造方法的签名如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor</span><br><span class="line">(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory,RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure>
-<ol>
-<li>corePoolSize（线程池的基本大小）：当提交一个任务到线程池时，线程池会<strong>创建一个线程来执行任务</strong>，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时就不再创建。如果调用了线程池的<code>prestartAllCoreThreads</code>方法，<strong>线程池会提前创建并启动所有基本线程。</strong></li>
-<li><p>workQueue任务队列）：用于保存等待执行的任务的阻塞队列。可以选择以下几个阻塞队列。</p>
-<ol>
-<li>ArrayBlockingQueue：是一个基于数组结构的<strong>有界阻塞队列</strong>，此队列按 FIFO（先进先出）原则对元素进行排序。</li>
-<li>LinkedBlockingQueue：一个基于<strong>链表结构</strong>的阻塞队列，此队列按FIFO （先进先出） 排序元素，吞吐量通常要高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列</li>
-<li>SynchronousQueue：一个<strong>不存储元素的阻塞队列</strong>。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于<strong>阻塞状态</strong>，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。</li>
-<li>PriorityBlockingQueue：一个具有<strong>优先级的无限阻塞队列</strong>。</li>
-</ol>
-</li>
-<li><p>maximumPoolSize（线程池最大大小）：线程池允许创建的最大线程数。如果队列满了，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程执行任务。值得注意的是如果使用了无界的任务队列这个参数就没什么效果。</p>
-</li>
-<li><p>ThreadFactory：用于设置创建线程的工厂，可以通过线程工厂给每个创建出来的线程做些更有意义的事情，比如设置daemon和优先级等等</p>
-</li>
-<li><p>RejectedExecutionHandler（饱和策略）：当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。这个策略默认情况下是AbortPolicy，表示无法处理新任务时抛出异常。以下是JDK1.5提供的四种策略。</p>
-<ol>
-<li>AbortPolicy：直接抛出异常。</li>
-<li>CallerRunsPolicy：只用调用者所在线程来运行任务。</li>
-<li>DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。</li>
-<li>DiscardPolicy：不处理，丢弃掉。</li>
-<li>也可以根据<strong>应用场景</strong>需要来实现<code>RejectedExecutionHandler</code>接口自定义策略。如记录日志或持久化不能处理的任务。</li>
-</ol>
-</li>
-<li>keepAliveTime（线程活动保持时间）：线程池的工作线程空闲后，<strong>保持存活的时间</strong>。所以如果任务很多，并且每个任务执行的时间比较短，可以调大这个时间，提高线程的利用率。</li>
-<li>TimeUnit（线程活动保持时间的单位）：可选的单位有天（DAYS），小时（HOURS），分钟（MINUTES），毫秒(MILLISECONDS)，微秒(MICROSECONDS, 千分之一毫秒)和毫微秒(NANOSECONDS, 千分之一微秒)。</li>
-</ol>
-<p>根据上面的描述，我相信我们能够在熟悉参数的情况下自定义自己的线程池，但是我们发现在jdk帮助文档里面有这样一句话</p>
-<blockquote>
-<p>强烈建议程序员使用较为方便的 Executors 工厂方法 Executors.newCachedThreadPool()（无界线程池，可以进行自动线程回收）、Executors.newFixedThreadPool(int)（固定大小线程池）和Executors.newSingleThreadExecutor()（单个后台线程），它们均为大多数使用场景预定义了设置。</p>
-</blockquote>
-<h4 id="线程池的工作方式"><a href="#线程池的工作方式" class="headerlink" title="线程池的工作方式"></a>线程池的工作方式</h4><ol>
-<li>如果运行的线程少于 corePoolSize，<strong>则 Executor 始终首选添加新的线程</strong>，而不进行排队。（什么意思？如果当前运行的线程小于corePoolSize，则任务根本不会存放，添加到queue中</li>
-<li>如果运行的线程等于或多于 corePoolSize，则 Executor 始终首选将请求加入队列，<strong>而不添加新的线程</strong>。</li>
-<li>如果无法将请求加入队列（队列已满），则创建新的线程，除非创建此线程超出 maximumPoolSize，如果超过，在这种情况下，新的任务将被拒绝。</li>
-</ol>
-<p>那么我们可以发现，队列在线程池中是非常重要的角色，那么Executors就是根据不同的队列实现了功能不同的线程池，下面我们来看看</p>
-<h4 id="Executors包含的常用线程池"><a href="#Executors包含的常用线程池" class="headerlink" title="Executors包含的常用线程池"></a>Executors包含的常用线程池</h4><p>1.<code>ExecutorService newFixedThreadPool(int nThreads)</code>:固定大小线程池。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;  </span><br><span class="line">        return new ThreadPoolExecutor(nThreads, nThreads,  </span><br><span class="line">                                      0L, TimeUnit.MILLISECONDS, </span><br><span class="line">                                      new LinkedBlockingQueue&lt;Runnable&gt;());  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>我们可以发现，coresize和maxsize相同，超时时间为0，队列用的LinkedBlockingQueue无界的FIFO队列，这表示什么，很明显，这个线程池始终只有<code>&lt;size</code>的线程在运行，同时超时时间为0,线程运行完后就关闭，<strong>而不会再等待超时时间</strong>，如果队列里面有线程任务的话就从队列里面取出线程，然后开启一个新的线程开始执行</p>
-<p>2.<code>ExecutorService newCachedThreadPool()</code>：无界线程池</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newCachedThreadPool() &#123;  </span><br><span class="line">        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,  </span><br><span class="line">                                      60L, TimeUnit.SECONDS,  </span><br><span class="line">                                      new SynchronousQueue&lt;Runnable&gt;());  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>SynchronousQueue队列，一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作。所以，当我们提交第一个任务的时候，是加入不了队列的，这就满足了，一个线程池条件<strong>“当无法加入队列的时候，且任务没有达到maxsize时，我们将新开启一个线程任务”</strong>。所以我们的maxsize是big big。时间是60s，当一个线程没有任务执行会暂时保存60s超时时间，如果没有的新的任务的话，<strong>会从cache中remove掉。</strong></p>
-<p>3.<code>Executors.newSingleThreadExecutor()</code>；大小为1的固定线程池，这个其实就是newFixedThreadPool（1）.关注newFixedThreadPool的用法就行</p>
-<h4 id="排队策略"><a href="#排队策略" class="headerlink" title="排队策略"></a>排队策略</h4><p>排队有三种通用策略：<br>1. 直接提交。工作队列的默认选项是 <code>SynchronousQueue</code>，它将任务<strong>直接提交给线程</strong>而不保持它们。在此，如果不存在可用于立即运行任务的线程，则试图把任务加入队列将失败，<strong>因此会构造一个新的线程</strong>。此策略可以避免在处理可能具有内部依赖性的请求集时<strong>出现锁</strong>。直接提交通常要求<strong>无界</strong> maximumPoolSizes 以避免拒绝新提交的任务。当命令以超过队列所能处理的平均数连续到达时，此策略允许无界线程具有增长的可能性。<br>2. 无界队列。使用无界队列（例如，不具有预定义容量的 LinkedBlockingQueue）将导致在所有 corePoolSize 线程都忙时新任务在队列中等待。这样，创建的线程就不会超过 corePoolSize。（因此，maximumPoolSize 的值也就无效了。）当每个任务完全独立于其他任务，即任务执行互不影响时，适合于使用无界队列<br>3. 有界队列。当使用有限的 maximumPoolSizes 时，有界队列（如 ArrayBlockingQueue）<strong>有助于防止资源耗尽</strong>，但是可能较难调整和控制。队列大小和最大池大小可能需要<strong>相互折衷</strong>：使用大型队列和小型池可以最大限度地降低 CPU 使用率、操作系统资源和上下文切换开销，但是可能导致人工降低吞吐量。<strong>如果任务频繁阻塞（例如，如果它们是 I/O 边界），则系统可能为超过您许可的更多线程安排时间</strong>。使用小型队列通常要求较大的池大小，CPU 使用率较高，但是可能遇到<strong>不可接受的调度开销</strong>，这样也会降低吞吐量。</p>
-<h4 id="使用直接提交策略，即SynchronousQueue。"><a href="#使用直接提交策略，即SynchronousQueue。" class="headerlink" title="使用直接提交策略，即SynchronousQueue。"></a>使用直接提交策略，即SynchronousQueue。</h4><p>首先SynchronousQueue是无界的，也就是说他存数任务的能力是没有限制的，但是由于该Queue本身的特性，在某次添加元素后必须等待其他线程取走后才能继续添加。在这里不是核心线程便是新创建的线程，但是我们试想一样下，下面的场景。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new ThreadPoolExecutor(  </span><br><span class="line">            2, 3, 30, TimeUnit.SECONDS,   </span><br><span class="line">            new SynchronousQueue&lt;Runnable&gt;(),   </span><br><span class="line">            new RecorderThreadFactory(&quot;CookieRecorderPool&quot;),   </span><br><span class="line">            new ThreadPoolExecutor.CallerRunsPolicy());</span><br></pre></td></tr></table></figure>
-<p>当核心线程已经有2个正在运行.<br>1. 此时继续来了一个任务（A），根据前面介绍的“如果运行的线程等于或多于 corePoolSize，则 Executor 始终首选将请求加入队列，而不添加新的线程。”,所以A被添加到queue中。<br>2. 又来了一个任务（B），且核心2个线程还没有忙完，OK，接下来首先尝试1中描述，但是由于使用的SynchronousQueue，<strong>所以一定无法加入进去</strong><br>3. 此时便满足了上面提到的<strong>“如果无法将请求加入队列，则创建新的线程，除非创建此线程超出maximumPoolSize，在这种情况下，任务将被拒绝。”</strong>，所以必然会<strong>新建一个线程</strong>来运行这个任务。<br>4. 暂时还可以，但是如果这三个任务都还没完成，连续来了两个任务，第一个添加入queue中，后一个呢？queue中无法插入，而线程数达到了maximumPoolSize，所以只好执行异常策略了。</p>
-<p>所以在使用SynchronousQueue通常要求maximumPoolSize是无界的，这样就可以避免上述情况发生（如果希望限制就直接使用有界队列）。对于使用SynchronousQueue的作用jdk中写的很清楚：<strong>此策略可以避免在处理可能具有内部依赖性的请求集时出现锁。</strong><br>什么意思？如果你的任务A1，A2有内部关联，A1需要先运行，那么先提交A1，再提交A2，当使用SynchronousQueue我们可以保证，<strong>A1必定先被执行，在A1么有被执行前，A2不可能添加入queue中</strong></p>
-<h4 id="使用无界队列策略，即LinkedBlockingQueue"><a href="#使用无界队列策略，即LinkedBlockingQueue" class="headerlink" title="使用无界队列策略，即LinkedBlockingQueue"></a>使用无界队列策略，即LinkedBlockingQueue</h4><p>这个就拿newFixedThreadPool来说，根据前文提到的规则：如果运行的线程少于 corePoolSize，则 Executor 始终首选添加新的线程，而不进行排队。那么当任务继续增加，会发生什么呢？<br>如果无法将请求加入队列，则创建新的线程，除非创建此线程超出 maximumPoolSize，在这种情况下，任务将被拒绝。<br>这里就很有意思了，可能会出现无法加入队列吗？不像SynchronousQueue那样有其自身的特点，对于无界队列来说，<strong>总是可以加入的（资源耗尽，当然另当别论）</strong>。换句说，永远也不会触发产生新的线程！corePoolSize大小的线程数会一直运行，忙完当前的，就从队列中拿任务开始运行。所以要防止任务疯长，比如任务运行的实行比较长，<strong>而添加任务的速度远远超过处理任务的时间，而且还不断增加，</strong>如果任务内存大一些，不一会儿就爆了</p>
-<h4 id="有界队列，使用ArrayBlockingQueue。"><a href="#有界队列，使用ArrayBlockingQueue。" class="headerlink" title="有界队列，使用ArrayBlockingQueue。"></a>有界队列，使用ArrayBlockingQueue。</h4><p>个是最为复杂的使用，所以JDK不推荐使用也有些道理。与上面的相比，最大的特点便是可以防止资源耗尽的情况发生。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new ThreadPoolExecutor(  </span><br><span class="line">            2, 4, 30, TimeUnit.SECONDS,   </span><br><span class="line">            new ArrayBlockingQueue&lt;Runnable&gt;(2),   </span><br><span class="line">            new RecorderThreadFactory(&quot;CookieRecorderPool&quot;),   </span><br><span class="line">            new ThreadPoolExecutor.CallerRunsPolicy());</span><br></pre></td></tr></table></figure>
-<p><strong>假设，所有的任务都永远无法执行完</strong>。对于首先来的A,B来说直接运行，接下来，如果来了C,D，他们会被放到queu中，如果接下来再来E,F，则增加线程运行E，F。但是如果再来任务，队列无法再接受了，线程数也到达最大的限制了，所以就会使用拒绝策略来处理。</p>
-<h4 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h4><ol>
-<li>ThreadPoolExecutor的使用还是很有技巧的。</li>
-<li>使用无界queue可能会耗尽系统资源。</li>
-<li>使用有界queue可能不能很好的满足性能，需要调节线程数和queue大小</li>
-<li>线程数自然也有开销，所以需要根据不同应用进行调节。</li>
-</ol>
-<p>通常来说对于静态任务可以归为：<br>1. 数量大，但是执行时间很短<br>2. 数量小，但是执行时间较长<br>3. 数量又大执行时间又长<br>4. 除了以上特点外，任务间还有些内在关系<br>5. <strong>CPU密集或者IO密集型任务</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/08/java线程池的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -868,6 +808,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -893,6 +837,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">

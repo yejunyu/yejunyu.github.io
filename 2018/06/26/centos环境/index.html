@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>centos环境 | 大葉子の林中小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我真不会玩王者荣耀">
+  <meta name="description" content="关闭图形界面  切换方法  12345# 命令模式systemctl set-default multi-user.target# 图形模式systemctl set-default graphical.target  配置yum源  12wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos">
+<meta name="keywords" content="虚拟化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos环境">
 <meta property="og:url" content="http://yoursite.com/2018/06/26/centos环境/index.html">
 <meta property="og:site_name" content="大葉子の林中小屋">
-<meta property="og:description" content="我真不会玩王者荣耀">
+<meta property="og:description" content="关闭图形界面  切换方法  12345# 命令模式systemctl set-default multi-user.target# 图形模式systemctl set-default graphical.target  配置yum源  12wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-26T12:59:09.831Z">
+<meta property="og:updated_time" content="2018-06-26T14:23:26.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos环境">
-<meta name="twitter:description" content="我真不会玩王者荣耀">
+<meta name="twitter:description" content="关闭图形界面  切换方法  12345# 命令模式systemctl set-default multi-user.target# 图形模式systemctl set-default graphical.target  配置yum源  12wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos">
   
     <link rel="alternative" href="/atom.xml" title="大葉子の林中小屋" type="application/atom+xml">
   
@@ -178,7 +179,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ol>
+<li><p>关闭图形界面</p>
+<p> <a href="https://blog.csdn.net/dujiajiyu/article/details/37725681" target="_blank" rel="external">切换方法</a></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 命令模式</span><br><span class="line">systemctl set-default multi-user.target</span><br><span class="line"></span><br><span class="line"># 图形模式</span><br><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置yum源</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo </span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld &amp; systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭swap</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 临时关闭</span><br><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line"># 永久关闭</span><br><span class="line">/etc/fstab,找到swap,注释重启</span><br><span class="line">或</span><br><span class="line">sed -i &apos;/ swap / s/^/#/&apos; /etc/fstab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭安全组</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker和docker-compose(略)</p>
+</li>
+</ol>
+
       
 
       
@@ -217,6 +238,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -418,6 +450,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -443,6 +479,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
