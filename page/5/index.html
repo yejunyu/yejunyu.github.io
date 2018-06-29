@@ -159,6 +159,382 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql优化调试技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/mysql优化调试技巧/">mysql优化调试技巧</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/12/mysql优化调试技巧/" class="archive-article-date">
+  	<time datetime="2018-03-12T13:43:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL是一个功能强大的开源数据库。随着越来越多的数据库驱动的应用程序，人们一直在推动MySQL发展到它的极限。这里是101条调节和优化MySQL安装的技巧。一些技巧是针对特定的安装环境的，但这些思路是通用的。我已经把他们分成几类，来帮助你掌握更多MySQL的调节和优化技巧。</p>
+<h2 id="MySQL-服务器硬件和操作系统调节"><a href="#MySQL-服务器硬件和操作系统调节" class="headerlink" title="MySQL 服务器硬件和操作系统调节:"></a>MySQL 服务器硬件和操作系统调节:</h2><p>1. 拥有足够的物理内存来把整个InnoDB文件加载到内存中——在内存中访问文件时的速度要比在硬盘中访问时快的多。</p>
+<p>2. 不惜一切代价避免使用Swap交换分区 – 交换时是从硬盘读取的，它的速度很慢。</p>
+<p>3. 使用电池供电的RAM（注：RAM即随机存储器）。</p>
+<p>4. 使用高级的RAID（注：Redundant Arrays of Inexpensive Disks，即磁盘阵列） – 最好是RAID10或更高。</p>
+<p>5. 避免RAID5（注：一种存储性能、数据安全和存储成本兼顾的存储解决方案） – 确保数据库完整性的校验是要付出代价的。</p>
+<p>6. 将操作系统和数据分区分开，不仅仅是逻辑上，还包括物理上 – 操作系统的读写操作会影响数据库的性能。</p>
+<p>7. 把MySQL临时空间和复制日志与数据放到不同的分区 – 当数据库后台从磁盘进行读写操作时会影响数据库的性能。</p>
+<p>8. 更多的磁盘空间等于更快的速度。</p>
+<p>9. 更好更快的磁盘。</p>
+<p>10. 使用SAS（注： Serial Attached SCSI，即串行连接SCSI）代替SATA（注：SATA，即串口硬盘）。</p>
+<p>11. 较小的硬盘 比 较大的硬盘快，尤其是在RAID配置的情况下。</p>
+<p>12. 使用电池支持的高速缓存RAID控制器。</p>
+<p>13. 避免使用软件磁盘阵列。</p>
+<p>14. 考虑为数据分区使用固态IO卡 (不是磁盘驱动器)  – 这些卡能够为几乎任何数量的数据支持2GB/s的写入速度。</p>
+<p>15. 在Linux中设置swappiness的值为0 – 在数据库服务器中没有理由缓存文件，这是一个服务器或台式机的优势。</p>
+<p>16. 如果可以的话，使用  noatime 和 nodirtime 挂载文件系统 – 没有理由更新访问数据库文件的修改时间。</p>
+<p>17. 使用 XFS 文件系统 – 一种比ext3更快、更小的文件系统，并且有许多日志选项， 而且ext3 已被证实与MySQL有双缓冲问题。</p>
+<p>18. 调整 XFS 文件系统日志和缓冲变量 – 为了最高性能标准。</p>
+<p>19. 在 Linux 系统中, 使用 NOOP 或者 DEADLINE IO 定时调度程序 – 同 NOOP 和 DEADLINE定时调度程序相比，这个 CFQ 和 ANTICIPATORY 定时调度程序 显得非常慢。</p>
+<p>20. 使用64位的操作系统 – 对于MySQL，会有更大的内存支持和使用。</p>
+<p>21. 删除服务器上未使用的安装包和守护进程 – 更少的资源占用。</p>
+<p>22. 把使用MySQL的host和你的MySQL host放到一个hosts文件中 – 没有DNS查找。</p>
+<p>23. 切勿强制杀死一个MySQL进程 – 你会损坏数据库和正在运行备份的程序。</p>
+<p>24. 把服务器贡献给MySQL – 后台进程和其他服务能够缩短数据库占用CPU的时间。</p>
+<h2 id="MySQL-配置"><a href="#MySQL-配置" class="headerlink" title="MySQL 配置:"></a>MySQL 配置:</h2><p>25. 当写入时，使用 innodb_flush_method=O_DIRECT 来避免双缓冲。</p>
+<p>26. 避免使用 O_DIRECT 和 EXT3 文件系统 – 你将序列化所有要写入的。</p>
+<p>27. 分配足够的 innodb_buffer_pool_size 来加载整个 InnoDB 文件到内存中– 少从磁盘中读取。</p>
+<p>28. 不要将 innodb_log_file_size 参数设置太大， 这样可以更快同时有更多的磁盘空间 – 丢掉多的日志通常是好的，在数据库崩溃后可以降低恢复数据库的时间。</p>
+<p>29. 不要混用 innodb_thread_concurrency 和 thread_concurrency 参数– 这2个值是不兼容的。</p>
+<p>30. 分配一个极小的数量给 max_connections 参数 – 太多的连接会用尽RAM并锁定MySQL服务。</p>
+<p>31. 保持 thread_cache 在一个相对较高的数字，大约 16 – 防止打开连接时缓慢。</p>
+<p>32. 使用skip-name-resolve参数 – 去掉 DNS 查找。</p>
+<p>33.如果你的查询都是重复的，并且数据不常常发生变化，那么可以使用查询缓存。但是如果你的数据经常发生变化，那么使用查询缓存会让你感到失望。</p>
+<p>34.增大temp_table_size值，以防止写入磁盘</p>
+<p>35.增大max_heap_table_size值，以防止写入磁盘</p>
+<p>36.不要把sort_buffer_size值设置的太高，否则的话你的内存将会很快耗尽</p>
+<p>37.根据key_read_requests和key_reads值来决定key_buffer的大小，一般情况下key_read_requests应该比key_reads值高，否则你不能高效的使用key_buffer</p>
+<p>38.将innodb_flush_log_at_trx_commit设置为0将会提高性能，但是如果你要保持默认值（1）的话，那么你就要确保数据的完整性，同时你也要确保复制不会滞后。</p>
+<p>39.你要有一个测试环境，来测试你的配置，并且在不影响正常生产的情况下，可以常常进行重启。</p>
+<h2 id="MySQL模式优化"><a href="#MySQL模式优化" class="headerlink" title="MySQL模式优化:"></a>MySQL模式优化:</h2><p>40. 保持你的数据库整理性。</p>
+<p>41. 旧数据归档 – 删除多余的行返回或搜索查询。</p>
+<p>42. 将您的数据加上索引.</p>
+<p>43. 不要过度使用索引，比较与查询.</p>
+<p>44. 压缩文字和BLOB数据类型 – 以节省空间和减少磁盘读取次数.</p>
+<p>45. UTF 8和UTF16都低于latin1执行效率.</p>
+<p>46. 有节制地使用触发器.</p>
+<p>47. 冗余数据保持到最低限度 – 不重复不必要的数据.</p>
+<p>48. 使用链接表，而不是扩展行.</p>
+<p>49. 注意数据类型，在您的真实数据中，尽可能使用最小的一个.</p>
+<p>50. 如果其他数据经常被用于查询时，而BLOB / TEXT数据不是，就把BLOB / TEXT数据从其他数据分离出来.</p>
+<p>51.检查和经常优化表.</p>
+<p>52. 经常重写InnoDB表优化.</p>
+<p>53. 有时，当添加列时删除索引，然后在添加回来索引，这样就会更快.</p>
+<p>54. 针对不同的需求，使用不同的存储引擎.</p>
+<p>55. 使用归档存储引擎日志表或审计表-这是更有效地写道.</p>
+<ol>
+<li>会话数据存储在缓存（memcache）的而不是MySQL中 – 缓存允许自动自动填值的，并阻止您创建难以读取和写入到MySQL的时空数据.</li>
+</ol>
+<p>57.存储可变长度的字符串时使用VARCHAR而不是CHAR – 节省空间，因为固定长度的CHAR，而VARCHAR长度不固定（UTF8不受此影响）.</p>
+<p>58. 逐步进行模式的变化 – 一个小的变化，可以有巨大的影响.</p>
+<p>59.在开发环境中测试所有模式，反映生产变化.</p>
+<ol>
+<li><p>不要随意更改你的配置文件中的值，它可以产生灾难性的影响.</p>
+</li>
+<li><p>有时候，在MySQL的configs少即是多.</p>
+</li>
+</ol>
+<p>62.有疑问时使用一个通用的MySQL配置文件.</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化:"></a>查询优化:</h2><p>63. 使用慢查询日志去发现慢查询。</p>
+<p>64. 使用执行计划去判断查询是否正常运行。</p>
+<p>65. 总是去测试你的查询看看是否他们运行在最佳状态下 –久而久之性能总会变化。</p>
+<p>66. 避免在整个表上使用count(*),它可能锁住整张表。</p>
+<p>67. 使查询保持一致以便后续相似的查询可以使用查询缓存。</p>
+<p>68. 在适当的情形下使用GROUP BY而不是DISTINCT。</p>
+<p>69. 在WHERE, GROUP BY和ORDER BY子句中使用有索引的列。</p>
+<p>70. 保持索引简单,不在多个索引中包含同一个列。</p>
+<p>71. 有时候MySQL会使用错误的索引,对于这种情况使用USE INDEX。</p>
+<p>72. 检查使用SQL_MODE=STRICT的问题。</p>
+<p>73. 对于记录数小于5的索引字段，在UNION的时候使用LIMIT不是是用OR.</p>
+<p>74. 为了 避免在更新前SELECT，使用INSERT ON DUPLICATE KEY或者INSERT IGNORE ,不要用UPDATE去实现。</p>
+<p>75. 不要使用 MAX,使用索引字段和ORDER BY子句。</p>
+<p>76. 避免使用ORDER BY RAND().</p>
+<ol>
+<li><p>LIMIT M，N实际上可以减缓查询在某些情况下，有节制地使用。</p>
+</li>
+<li><p>在WHERE子句中使用UNION代替子查询。</p>
+</li>
+<li><p>对于UPDATES（更新），使用 SHARE MODE（共享模式），以防止独占锁。</p>
+</li>
+<li><p>在重新启动的MySQL，记得来温暖你的数据库，以确保您的数据在内存和查询速度快。</p>
+</li>
+<li><p>使用DROP TABLE，CREATE TABLE DELETE FROM从表中删除所有数据。</p>
+</li>
+<li><p>最小化的数据在查询你需要的数据，使用*消耗大量的时间。</p>
+</li>
+<li><p>考虑持久连接，而不是多个连接，以减少开销。</p>
+</li>
+<li><p>基准查询，包括使用服务器上的负载，有时一个简单的查询可以影响其他查询。</p>
+</li>
+<li><p>当负载增加您的服务器上，使用SHOW PROCESSLIST查看慢的和有问题的查询。</p>
+</li>
+<li><p>在开发环境中产生的镜像数据中 测试的所有可疑的查询。</p>
+</li>
+</ol>
+<h2 id="MySQL-备份过程"><a href="#MySQL-备份过程" class="headerlink" title="MySQL 备份过程:"></a>MySQL 备份过程:</h2><p>87. 从二级复制服务器上进行备份。</p>
+<p>88. 在进行备份期间停止复制，以避免在数据依赖和外键约束上出现不一致。</p>
+<p>89. 彻底停止MySQL，从数据库文件进行备份。</p>
+<p>90. 如果使用 MySQL dump进行备份，请同时备份二进制日志文件 – 确保复制没有中断。</p>
+<p>91. 不要信任LVM 快照 – 这很可能产生数据不一致，将来会给你带来麻烦。</p>
+<p>92. 为了更容易进行单表恢复，以表为单位导出数据 – 如果数据是与其他表隔离的。</p>
+<p>93. 当使用mysqldump时请使用 –opt。</p>
+<p>94. 在备份之前检查和优化表。</p>
+<p>95. 为了更快的进行导入，在导入时临时禁用外键约束。</p>
+<p>96. 为了更快的进行导入，在导入时临时禁用唯一性检测。</p>
+<p>97. 在每一次备份后计算数据库，表以及索引的尺寸，以便更够监控数据尺寸的增长。</p>
+<p>98. 通过自动调度脚本监控复制实例的错误和延迟。</p>
+<p>99. 定期执行备份。</p>
+<p>100. 定期测试你的备份。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/12/mysql优化调试技巧/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-用markdown写论文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/10/用markdown写论文/">用markdown写论文</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/10/用markdown写论文/" class="archive-article-date">
+  	<time datetime="2018-03-10T15:31:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>转载<br><a href="https://sspai.com/post/43471" target="_blank" rel="external">如何用 markdown 写论文</a><br>本文用简明的样例，介绍如何使用 Markdown 和自动化工具帮你处理数学公式、参考文献引用、图片交叉索引等学术论文写作中常见的棘手问题。快来试试吧。</p>
+</blockquote>
+<h2 id="苦恼"><a href="#苦恼" class="headerlink" title="苦恼"></a>苦恼</h2><p>自从我学会了如何在数字文档上用红笔写写画画，跟学生合写文章和指导毕业论文的工作就变得轻松多了。</p>
+<figure tabindex="0" class="ss-img-wrapper"><img src="http://oejqwrqkh.bkt.clouddn.com/2018-03-01-21-45-40-387762.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="null"></figure>
+
+<p>有的部分，学生会很快改完反馈给我。但是我发现每次对引言和文献综述部分做出调整要求，学生们的反馈都非常慢。</p>
+<p>有的时候，学生甚至会求饶，「老师，参考文献顺序能不能不动？或者全文都确定下来再统一做？每次调整一个，就需要很长时间！」</p>
+<p>我一时惊愕，为什么需要那么久？</p>
+<p>后来才明白，他们居然是在 Word 中一条条<em>手动插入</em>尾注，来引用参考文献的。尾注的内容有的直接搬过来，有的手动输入，结果参考文献列表的格式「丰富多彩」——有的信息不全，有的格式根本就不符合 GB/T 7714-2015 的规范。</p>
+<p>在我的帮助下，许多学生学会了使用 NoteExpress、Endnote、Zotero 和 Mendeley 等工具，用自动化方式管理和引用参考文献。</p>
+<p>但即便是这样，效率依然不够高。尤其是跟别人协作的时候，参考文献引用的修改就成了噩梦。</p>
+<p>你可能需要每次都把 Mendeley 或者 Zotero 的文献库同步给对方，否则自动生成的引用标记就容易乱掉。</p>
+<p>写作学术论文时，你还不得不时常面对图表交叉引用、数学公式和脚注等问题。如果方法不当，会把宝贵的时间和注意力耗散掉，劳而无功。</p>
+<p>Word 编辑器用来写学术论文，可能真的<em>并不是最优</em>方案。</p>
+<p>但是没办法，国内学术界，尤其是人文社科领域，目前投稿模板还主要是 Word 的。</p>
+<p>好消息是，即便是形成 Word 文稿，效率也是可挖掘的。</p>
+<p>我平时写作学术论文的时候，用的依然是让人喜欢的标记语言——Markdown。对，你没听错，它不光可以帮你写公众号、做幻灯，也可以写论文哦。</p>
+<p>通过本文，我把自己用 Markdown 写作学术论文的流程分享给你。希望看过之后，能帮助你提升效率，带来更多愉悦的写作体验。<br>
+        
+          <a class="article-more-a" href="/2018/03/10/用markdown写论文/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">个人</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/10/用markdown写论文/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-前端环境搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/09/前端环境搭建/">前端环境搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/09/前端环境搭建/" class="archive-article-date">
+  	<time datetime="2018-03-09T14:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>node</li>
+<li><p>cnpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>升级 npm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install npm -g</span><br><span class="line">cnpm install npm -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack<br><code>npm install webpack -g</code></p>
+</li>
+<li>vue<br><code>npm install vue</code></li>
+<li>node 管理工具    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install n -g</span><br><span class="line">查看 node 版本</span><br><span class="line">n list</span><br><span class="line">安装最新版</span><br><span class="line">n latest</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/09/前端环境搭建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java线程池的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -393,278 +769,9 @@
 
 
   
-    <article id="post-git操作整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/05/git操作整理/">git操作整理</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/05/git操作整理/" class="archive-article-date">
-  	<time datetime="2018-03-05T14:41:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="推送远程仓库"><a href="#推送远程仓库" class="headerlink" title="推送远程仓库"></a>推送远程仓库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add orign git@github.com:yejunyu/javashop.git     </span><br><span class="line">git push -u orign master</span><br></pre></td></tr></table></figure>
-<h1 id="分支开发"><a href="#分支开发" class="headerlink" title="分支开发"></a>分支开发</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b v1.0 orign/master</span><br><span class="line">git push orign HEAD -u</span><br></pre></td></tr></table></figure>
-<h1 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git merge orign v1.0</span><br></pre></td></tr></table></figure>
-<h1 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 推送一个tag,记录当前的代码状态,一般是一个节点时间</span><br><span class="line">git tag tag-dev-initial</span><br><span class="line">git push origin tag-dev-initial</span><br><span class="line"></span><br><span class="line">打标签</span><br><span class="line"></span><br><span class="line">git tag -a v1.01 -m &quot;Relase version 1.01&quot;</span><br><span class="line">注解：git tag 是打标签的命令，-a 是添加标签，其后要跟新标签号，-m 及后面的字符串是对该标签的注释。</span><br><span class="line"></span><br><span class="line">提交标签到远程仓库</span><br><span class="line">git push origin --tags</span><br><span class="line">注解：就像git push origin master 把本地修改提交到远程仓库一样，--tags可以把本地的打的标签全部提交到远程仓库。</span><br><span class="line">删除标签</span><br><span class="line">git tag -d v1.01</span><br><span class="line">注解：-d 表示删除，后面跟要删除的tag名字</span><br><span class="line">删除远程标签</span><br><span class="line">git push origin :refs/tags/v1.01</span><br><span class="line">注解：就像git push origin :branch_1 可以删除远程仓库的分支branch_1一样， 冒号前为空表示删除远程仓库的tag。</span><br><span class="line">查看标签</span><br><span class="line">git tag</span><br><span class="line">或者</span><br><span class="line">git tag -l</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/05/git操作整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/02/mysql锁/">mysql锁</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/02/mysql锁/" class="archive-article-date">
-  	<time datetime="2018-03-02T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mysql-innodb的3种行锁"><a href="#mysql-innodb的3种行锁" class="headerlink" title="mysql innodb的3种行锁"></a>mysql innodb的3种行锁</h1><h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>这是一个索引记录锁。<br>它是建立在索引记录上的锁， 很多时候， 扫描一个表， 由于无索引， 往往会导致整个表被锁住， 建立合适的索引可以防止<br>扫描整个表。</p>
-<h2 id="间隙锁（-gap-lock）"><a href="#间隙锁（-gap-lock）" class="headerlink" title="间隙锁（ gap lock）"></a>间隙锁（ gap lock）</h2><p>这是施加于索引记录间隙上的锁</p>
-<h2 id="next-key锁"><a href="#next-key锁" class="headerlink" title="next-key锁"></a>next-key锁</h2><p>记录锁加间隙锁的组合。 也就是说next-key锁技术包含了记录锁和间隙锁。</p>
-<hr>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>产生死锁的4个必要条件</p>
-<ul>
-<li>禁止抢占（ no preemption）</li>
-<li>持有和等待（ hold and wait）</li>
-<li>互斥（ mutual exclusion）</li>
-<li>循环等待（ circular waiting）</li>
-</ul>
-<p>预防死锁就是至少破坏这4个条件中的一项， 即破坏“禁止抢占”、 “持有等待”、 “资源互斥”或“循环等待”</p>
-<p>实践中， 处理死锁的方法大致分为两种。 既可以检测死锁并进行修复， 也可以对事务进行管理， 使死锁永远都不可能形<br>成。 当存在死锁时， 对该状态进行修复以使所有涉及的事务都能继续执行通常是不可能的。 因此， 至少其中的一个事务必须终<br>止并重新开始。 InnoDB会自动检测死锁。 据官方文档可知， 目前InnoDB处理死锁的机制是： 发现有循环等待的现象， 立即回退<br>（ rollback） 开销更小的事务， 也就是插入、 修改、 删除了更少记录的事务</p>
-<p>对于MySQL死锁的解决， 通常有如下方法。</p>
-<ul>
-<li>经常提交你的事务。 小事务更少地倾向于冲突.</li>
-<li>以固定的顺序访问你的表和行。 这样事务就会形成定义良好的查询并且没有死锁</li>
-<li>将精心选定的索引添加到你的表中。 这样你的查询就只需要扫描更少的索引记录， 并且因此也可以设置更少的锁定。</li>
-<li>不要把无关的操作放到事务里面。</li>
-<li>在并发比较高的系统中， 不要显式加锁， 特别是在事务里显式加锁。 如SELECT…FOR UPDATE语句， 如果是在事务里<br>（ 运行了START TRANSACTION或设置了autocommit等于0） ， 那么就会锁定所查找到的记录</li>
-<li>尽量按照主键/索引去查找记录， 范围查找增加了锁冲突的可能性， 也不要利用数据库做一些额外的计算工作。 比如有些<br>读者会用到“SELECT…WHERE…ORDER BY RAND();”这样的语句， 由于类似这样的语句用不到索引， 因此将导致整个表的数<br>据都被锁住</li>
-<li>优化SQL和表设计， 减少同时占用太多资源的情况。 比如说， 减少连接的表， 将复杂SQL分解为多个简单的SQL</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/02/mysql锁/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-慢查询分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/慢查询分析/">慢查询分析</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/01/慢查询分析/" class="archive-article-date">
-  	<time datetime="2018-03-01T14:51:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="开启慢查询"><a href="#开启慢查询" class="headerlink" title="开启慢查询"></a>开启慢查询</h2><p>mysql&gt; show variables like ‘slow_query%’;<br>+—————————+———————————-+<br>| Variable_name             | Value                            |<br>+—————————+———————————-+<br>| slow_query_log            | OFF                              |<br>| slow_query_log_file       | /mysql/data/localhost-slow.log   |<br>+—————————+———————————-+</p>
-<p>mysql&gt; show variables like ‘long_query_time’;<br>+—————–+———–+<br>| Variable_name   | Value     |<br>+—————–+———–+<br>| long_query_time | 10.000000 |<br>+—————–+———–+</p>
-<p>设置<br>方法一：全局变量设置<br>将 slow_query_log 全局变量设置为“ON”状态<br><code>mysql&gt; set global slow_query_log=&#39;ON&#39;;</code><br>设置慢查询日志存放的位置<br><code>mysql&gt; set global slow_query_log_file=&#39;/usr/local/mysql/data/slow.log&#39;;</code><br>查询超过1秒就记录<br><code>mysql&gt; set global long_query_time=1;</code></p>
-<p>方法二：配置文件设置<br>修改配置文件my.cnf，在[mysqld]下的下方加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">slow_query_log = ON</span><br><span class="line">slow_query_log_file = /usr/local/mysql/data/slow.log</span><br><span class="line">long_query_time = 1</span><br></pre></td></tr></table></figure></p>
-<p>重启mysql</p>
-<p>测试<br>1.执行一条慢查询SQL语句<br><code>mysql&gt; select sleep(2);</code><br>2.查看是否生成慢查询日志<br><code>ls /usr/local/mysql/data/slow.log</code></p>
-<h2 id="pt-query-digest"><a href="#pt-query-digest" class="headerlink" title="pt-query-digest"></a>pt-query-digest</h2><ol>
-<li><p>安装<br><a href="https://www.percona.com/doc/percona-toolkit/3.0/installation.html" target="_blank" rel="external">官网</a><br><code>sudo yum install percona-toolkit</code></p>
-</li>
-<li><p>用法简介 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(1)慢查询日志分析统计</span><br><span class="line">pt-query-digest /usr/local/mysql/data/slow.log</span><br><span class="line"></span><br><span class="line">(2)服务器摘要</span><br><span class="line">pt-summary </span><br><span class="line"></span><br><span class="line">(3)服务器磁盘监测</span><br><span class="line">pt-diskstats </span><br><span class="line"></span><br><span class="line">(4)mysql服务状态摘要</span><br><span class="line">pt-mysql-summary -- --user=root --password=root</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数说明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pt-query-digest [OPTIONS] [FILES] [DSN]</span><br><span class="line">--create-review-table  当使用--review参数把分析结果输出到表中时，如果没有表就自动创建。</span><br><span class="line">--create-history-table  当使用--history参数把分析结果输出到表中时，如果没有表就自动创建。</span><br><span class="line">--filter  对输入的慢查询按指定的字符串进行匹配过滤后再进行分析</span><br><span class="line">--limit    限制输出结果百分比或数量，默认值是20,即将最慢的20条语句输出，如果是50%则按总响应时间占比从大到小排序，输出到总和达到50%位置截止。</span><br><span class="line">--host  mysql服务器地址</span><br><span class="line">--user  mysql用户名</span><br><span class="line">--password  mysql用户密码</span><br><span class="line">--history 将分析结果保存到表中，分析结果比较详细，下次再使用--history时，如果存在相同的语句，且查询所在的时间区间和历史表中的不同，则会记录到数据表中，可以通过查询同一CHECKSUM来比较某类型查询的历史变化。</span><br><span class="line">--review 将分析结果保存到表中，这个分析只是对查询条件进行参数化，一个类型的查询一条记录，比较简单。当下次使用--review时，如果存在相同的语句分析，就不会记录到数据表中。</span><br><span class="line">--output 分析结果输出类型，值可以是report(标准分析报告)、slowlog(Mysql slow log)、json、json-anon，一般使用report，以便于阅读。</span><br><span class="line">--since 从什么时间开始分析，值为字符串，可以是指定的某个”yyyy-mm-dd [hh:mm:ss]”格式的时间点，也可以是简单的一个时间值：s(秒)、h(小时)、m(分钟)、d(天)，如12h就表示从12小时前开始统计。</span><br><span class="line">--until 截止时间，配合—since可以分析一段时间内的慢查询。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>分析结果<br>第一部分：总体统计结果<br>Overall：总共有多少条查询<br>Time range：查询执行的时间范围<br>unique：唯一查询数量，即对查询条件进行参数化以后，总共有多少个不同的查询<br>total：总计   min：最小   max：最大  avg：平均<br>95%：把所有值从小到大排列，位置位于95%的那个数，这个数一般最具有参考价值<br>median：中位数，把所有值从小到大排列，位置位于中间那个数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 该工具执行日志分析的用户时间，系统时间，物理内存占用大小，虚拟内存占用大小</span><br><span class="line"># 340ms user time, 140ms system time, 23.99M rss, 203.11M vsz</span><br><span class="line"># 工具执行时间</span><br><span class="line"># Current date: Fri Nov 25 02:37:18 2016</span><br><span class="line"># 运行分析工具的主机名</span><br><span class="line"># Hostname: localhost.localdomain</span><br><span class="line"># 被分析的文件名</span><br><span class="line"># Files: slow.log</span><br><span class="line"># 语句总数量，唯一的语句数量，QPS，并发数</span><br><span class="line"># Overall: 2 total, 2 unique, 0.01 QPS, 0.01x concurrency ________________</span><br><span class="line"># 日志记录的时间范围</span><br><span class="line"># Time range: 2016-11-22 06:06:18 to 06:11:40</span><br><span class="line"># 属性               总计      最小    最大    平均    95%  标准    中等</span><br><span class="line"># Attribute          total     min     max     avg     95%  stddev  median</span><br><span class="line"># ============     ======= ======= ======= ======= ======= ======= =======</span><br><span class="line"># 语句执行时间</span><br><span class="line"># Exec time             3s   640ms      2s      1s      2s   999ms      1s</span><br><span class="line"># 锁占用时间</span><br><span class="line"># Lock time            1ms       0     1ms   723us     1ms     1ms   723us</span><br><span class="line"># 发送到客户端的行数</span><br><span class="line"># Rows sent              5       1       4    2.50       4    2.12    2.50</span><br><span class="line"># select语句扫描行数</span><br><span class="line"># Rows examine     186.17k       0 186.17k  93.09k 186.17k 131.64k  93.09k</span><br><span class="line"># 查询的字符数</span><br><span class="line"># Query size           455      15     440  227.50     440  300.52  227.50</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>第二部分：查询分组统计结果<br>Rank：所有语句的排名，默认按查询时间降序排列，通过–order-by指定<br>Query ID：语句的ID，（去掉多余空格和文本字符，计算hash值）<br>Response：总的响应时间<br>time：该查询在本次分析中总的时间占比<br>calls：执行次数，即本次分析总共有多少条这种类型的查询语句<br>R/Call：平均每次执行的响应时间<br>V/M：响应时间Variance-to-mean的比率<br>Item：查询对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Profile</span><br><span class="line"># Rank Query ID           Response time Calls R/Call V/M   Item</span><br><span class="line"># ==== ================== ============= ===== ====== ===== ===============</span><br><span class="line">#    1 0xF9A57DD5A41825CA  2.0529 76.2%     1 2.0529  0.00 SELECT</span><br><span class="line">#    2 0x4194D8F83F4F9365  0.6401 23.8%     1 0.6401  0.00 SELECT wx_member_base</span><br></pre></td></tr></table></figure></p>
-<p>第三部分：每一种查询的详细统计结果<br>由下面查询的详细统计结果，最上面的表格列出了执行次数、最大、最小、平均、95%等各项目的统计。<br>ID：查询的ID号，和上图的Query ID对应<br>Databases：数据库名<br>Users：各个用户执行的次数（占比）<br>Query_time distribution ：查询时间分布, 长短体现区间占比，本例中1s-10s之间查询数量是10s以上的两倍。<br>Tables：查询中涉及到的表<br>Explain：SQL语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Query 1: 0 QPS, 0x concurrency, ID 0xF9A57DD5A41825CA at byte 802 ______</span><br><span class="line"># This item is included in the report because it matches --limit.</span><br><span class="line"># Scores: V/M = 0.00</span><br><span class="line"># Time range: all events occurred at 2016-11-22 06:11:40</span><br><span class="line"># Attribute    pct   total     min     max     avg     95%  stddev  median</span><br><span class="line"># ============ === ======= ======= ======= ======= ======= ======= =======</span><br><span class="line"># Count         50       1</span><br><span class="line"># Exec time     76      2s      2s      2s      2s      2s       0      2s</span><br><span class="line"># Lock time      0       0       0       0       0       0       0       0</span><br><span class="line"># Rows sent     20       1       1       1       1       1       0       1</span><br><span class="line"># Rows examine   0       0       0       0       0       0       0       0</span><br><span class="line"># Query size     3      15      15      15      15      15       0      15</span><br><span class="line"># String:</span><br><span class="line"># Databases    test</span><br><span class="line"># Hosts        192.168.8.1</span><br><span class="line"># Users        mysql</span><br><span class="line"># Query_time distribution</span><br><span class="line">#   1us</span><br><span class="line">#  10us</span><br><span class="line"># 100us</span><br><span class="line">#   1ms</span><br><span class="line">#  10ms</span><br><span class="line"># 100ms</span><br><span class="line">#    1s  ################################################################</span><br><span class="line">#  10s+</span><br><span class="line"># EXPLAIN /*!50100 PARTITIONS*/</span><br><span class="line">select sleep(2)\G</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>用法示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1.直接分析慢查询文件:</span><br><span class="line">pt-query-digest  slow.log &gt; slow_report.log</span><br><span class="line"></span><br><span class="line">2.分析最近12小时内的查询：</span><br><span class="line">pt-query-digest  --since=12h  slow.log &gt; slow_report2.log</span><br><span class="line"></span><br><span class="line">3.分析指定时间范围内的查询：</span><br><span class="line">pt-query-digest slow.log --since &apos;2017-01-07 09:30:00&apos; --until &apos;2017-01-07 10:00:00&apos;&gt; &gt; slow_report3.log</span><br><span class="line"></span><br><span class="line">4.分析指含有select语句的慢查询</span><br><span class="line">pt-query-digest --filter &apos;$event-&gt;&#123;fingerprint&#125; =~ m/^select/i&apos; slow.log&gt; slow_report4.log</span><br><span class="line"></span><br><span class="line">5.针对某个用户的慢查询</span><br><span class="line">pt-query-digest --filter &apos;($event-&gt;&#123;user&#125; || &quot;&quot;) =~ m/^root/i&apos; slow.log&gt; slow_report5.log</span><br><span class="line"></span><br><span class="line">6.查询所有所有的全表扫描或full join的慢查询</span><br><span class="line">pt-query-digest --filter &apos;(($event-&gt;&#123;Full_scan&#125; || &quot;&quot;) eq &quot;yes&quot;) ||(($event-&gt;&#123;Full_join&#125; || &quot;&quot;) eq &quot;yes&quot;)&apos; slow.log&gt; slow_report6.log</span><br><span class="line"></span><br><span class="line">7.把查询保存到query_review表</span><br><span class="line">pt-query-digest --user=root –password=abc123 --review  h=localhost,D=test,t=query_review--create-review-table  slow.log</span><br><span class="line"></span><br><span class="line">8.把查询保存到query_history表</span><br><span class="line">pt-query-digest  --user=root –password=abc123 --review  h=localhost,D=test,t=query_history--create-review-table  slow.log_0001</span><br><span class="line">pt-query-digest  --user=root –password=abc123 --review  h=localhost,D=test,t=query_history--create-review-table  slow.log_0002</span><br><span class="line"></span><br><span class="line">9.通过tcpdump抓取mysql的tcp协议数据，然后再分析</span><br><span class="line">tcpdump -s 65535 -x -nn -q -tttt -i any -c 1000 port 3306 &gt; mysql.tcp.txt</span><br><span class="line">pt-query-digest --type tcpdump mysql.tcp.txt&gt; slow_report9.log</span><br><span class="line"></span><br><span class="line">10.分析binlog</span><br><span class="line">mysqlbinlog mysql-bin.000093 &gt; mysql-bin000093.sql</span><br><span class="line">pt-query-digest  --type=binlog  mysql-bin000093.sql &gt; slow_report10.log</span><br><span class="line"></span><br><span class="line">11.分析general log</span><br><span class="line">pt-query-digest  --type=genlog  localhost.log &gt; slow_report11.log</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/慢查询分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -759,11 +866,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +898,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -840,6 +951,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">

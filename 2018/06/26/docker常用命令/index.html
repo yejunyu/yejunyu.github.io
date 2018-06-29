@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="镜像常用命令 docker search docker pull docker images 123--all -a     列出所有镜像--digests    显示摘要--quiet -q   只显示镜像ID  docker rmi  docker save 12ocker save busybox &amp;gt; busybox.tardocker save --output busybox.ta">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-26T13:40:48.092Z">
+<meta property="og:updated_time" content="2018-06-29T14:41:32.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker常用命令">
 <meta name="twitter:description" content="镜像常用命令 docker search docker pull docker images 123--all -a     列出所有镜像--digests    显示摘要--quiet -q   只显示镜像ID  docker rmi  docker save 12ocker save busybox &amp;gt; busybox.tardocker save --output busybox.ta">
@@ -194,6 +194,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load &lt; busybox.tar.gz</span><br><span class="line">docker load --input fedora.tar</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>docker build</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t yyyejunyu/nginx:test .</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="容器常用命令"><a href="#容器常用命令" class="headerlink" title="容器常用命令"></a>容器常用命令</h2><ul>
@@ -217,8 +218,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker export red_panda &gt; latest.tar</span><br><span class="line">docker export --output=&quot;latest.tar&quot; red_panda</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>docker import</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import nginx2.tar nginx</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import nginx2.tar nginx</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<h2 id="容器备份"><a href="#容器备份" class="headerlink" title="容器备份"></a>容器备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 生成容器快照</span><br><span class="line">docker commit -p 30b8f18f20b4(容器id) container-backup</span><br><span class="line">会生成一个镜像</span><br><span class="line">2. 打包 </span><br><span class="line">docker save -o ~/container-backup.tar container-backup</span><br></pre></td></tr></table></figure>
+<h2 id="容器恢复"><a href="#容器恢复" class="headerlink" title="容器恢复"></a>容器恢复</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load -i ~/container-backup.tar</span><br><span class="line">docker run -d -p 80:80 container-backup</span><br></pre></td></tr></table></figure>
 
       
 
@@ -470,11 +474,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,11 +506,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,6 +559,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">

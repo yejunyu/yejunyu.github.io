@@ -159,6 +159,376 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/mysql-常用命令/">mysql 常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/09/mysql-常用命令/" class="archive-article-date">
+  	<time datetime="2017-12-09T03:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="增"><a href="#增" class="headerlink" title="增"></a>增</h1><ul>
+<li>创建库<br><code>create database DB</code>    </li>
+<li>创建表<br><code>create table t1(a integer, b char(10))</code></li>
+<li>添加一个新列<br><code>alter table t1 add d timestamp</code></li>
+<li>插入数据<br><code>insert into table_name(col1,col2...) values(value1,value2...)</code></li>
+</ul>
+<hr>
+<h1 id="删"><a href="#删" class="headerlink" title="删"></a>删</h1><ul>
+<li>删除表<br><code>drop table t1</code></li>
+<li>删除库<br><code>drop database DB</code></li>
+<li>删除列<br><code>alter table t1 drop c</code></li>
+<li>删除数据<br><code>delete from table_name [where conditions]</code></li>
+</ul>
+<hr>
+<h1 id="改"><a href="#改" class="headerlink" title="改"></a>改</h1><ul>
+<li>修改表名<br><code>alter table t1 rename t2</code></li>
+<li>字段改类型和重命名<br><code>alter table t1 modify a tiny int not null,change b c char(20)</code></li>
+<li>修改数据<br><code>update table_name set col1=value1,col2=value2... [where conditions]</code></li>
+</ul>
+<hr>
+<h1 id="查"><a href="#查" class="headerlink" title="查"></a>查</h1><ul>
+<li><p>查询数据<br><code>select col1,col2... from table_name [where conditions]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># sql 两个通配符&apos;_&apos;匹配任意单个字符,&apos;%&apos;匹配多个字符(包括0个字符)</span><br><span class="line"># 查询以字母 D 开头的员工记录</span><br><span class="line">select * from table_name where first_name like &apos;D%&apos;;</span><br><span class="line">select emp_no,birth_date,`first_name`,`last_name` FROM `employees` where `first_name` LIKE &apos;Ang__&apos; and `last_name` like &apos;Con__&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>逻辑操作符<br>AND OR NOT (与或非)    </p>
+</li>
+<li>范围操作 IN 和 BETWEEN<br>选择在 employee 表中分别在’1964-06-01’,’1964-06-02’,’1964-06-04’这三天出生的员工<br><code>select * from &#39;employees&#39; where &#39;birth_date&#39; in (&#39;1964-06-01&#39;,&#39;1964-06-02&#39;,&#39;1964-06-04&#39;)</code><br>选择在1964-06-01到1964-06-04之间出生的<br><code>select * from &#39;employees&#39; where &#39;birth_date&#39; BETWEEN &#39;1964-06-01&#39; and &#39;1964-06-04&#39;</code>    </li>
+<li>限制获取记录<br><code>select * from employees limit 5</code>   </li>
+<li>排序<br>查询按生日100到109的员工<br><code>select * from employees order by birth_date asc limit 100,10</code>  </li>
+<li><p>数据计算<br>计算员工年龄,并且按 first_name,last_name 排序,返回记录限制10条    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT *,CURRENT_DATE,TIMESTAMPDIFF(YEAR,`birth_date`,CURRENT_DATE) as age FROM `employees` ORDER BY `first_name`,`last_name` LIMIT 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取不重复的值   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT(`first_name`) from `employees`</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>聚集函数(count,min,max,avg,sum)   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 查询总记录数</span><br><span class="line">SELECT COUNT(*) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询最小工号</span><br><span class="line">SELECT MIN(`emp_no`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询出生最晚(最年轻)的员工</span><br><span class="line">SELECT MAX(`birth_date`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询雇员平均薪水</span><br><span class="line">SELECT AVG(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 查询薪水总额</span><br><span class="line">SELECT SUM(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 统计&apos;1986-06-26&apos;和&apos;1985-11-21&apos;分别多少人入职    </span><br><span class="line">SELECT sum(`hire_date`=&apos;1986-06-26&apos;) as sum_1986_06_26,sum(`hire_date`=&apos;1985-11-21&apos;) as sum_1985_11_21 from `employees`</span><br><span class="line">查询语句里 hire_date=&apos;1986-06-26&apos;是一个计算表达式,满足为1,不满足为0</span><br><span class="line"></span><br><span class="line"># 分组统计 group by 子句</span><br><span class="line">查询 employees 表,按照 first_name 分组,并根据 first_name 出现次数降序排列</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># group by 用 having 来筛选</span><br><span class="line">查询 first_name 出现次数大于270的</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># 并集操作</span><br><span class="line">union 和 union all</span><br><span class="line">union 实际上是 union distinct</span><br><span class="line"></span><br><span class="line"># NULL 不能用 &gt; = &lt; 只能用 is NULL is not NULL</span><br><span class="line"></span><br><span class="line"># 连接</span><br><span class="line">join 和 子查询</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
+<li>添加索引<br><code>alter table t1 add index(a),add index(d)</code></li>
+<li>添加一个 primary key<br><code>alter table t1 add c int unsigned not null auto_increment,add primary key(c)</code></li>
+<li>创建索引<br><code>create index id_index on table_name(id)</code></li>
+<li>在 user 表的 name 列上创建索引,使用 name 列的前10个字符<br><code>create index part_of_name on user (name(10))</code></li>
+<li>在表 tb1的a,b,c 列上创建一个复合索引<br><code>create index idx_a_b_c on tb1(a,b,c)</code></li>
+<li>删除索引<br><code>drop index index_name on tb1</code></li>
+</ul>
+<hr>
+<h1 id="创建用户和授权"><a href="#创建用户和授权" class="headerlink" title="创建用户和授权"></a>创建用户和授权</h1><p>`CREATE USER ‘root’@’%’ IDENTIFIED BY ‘123456’;<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER <span class="string">'yy'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>; </span><br><span class="line">GRANT ALL ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line">grant select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span> identified by <span class="string">'password'</span>;</span><br><span class="line">revoke select,insert,update,delete on db_name.* to user_name@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>显示某个用户的权限<br><code>SHOW GRANTS FOR username@&#39;ip_range&#39;;</code></li>
+<li>赋予某个用户对库db1进行SELECT、 INSERT、 UPDATE和DELETE的权限的命令<br><code>GRANT SELECT,INSERT,UPDATE,DELETE ON db1.* TO username@&#39;10.%&#39; IDENTIFIED BY &#39;your_password&#39;;</code></li>
+</ul>
+<hr>
+<h1 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h1><ul>
+<li>RANGE分区的表是通过如下这种方式进行分区的， 基于一个连续区间的列值， 把多行分配给分区， 例如某个时间段的值属于某个分区， 某个数值范围的值应该属于某个分区</li>
+<li>MySQL中的LIST分区在很多方面都类似于RANGE分区。 和按照RANGE进行分区的方式一样， 每个分区都必须明确定义。它们的主要区别在于， LIST分区中每个分区的定义和选择是基于值列表的， 而RANGE分区是从属于一个连续区间值的集合的</li>
+<li>HASH分区是基于用户定义的表达式的返回值选择分区。 它主要用来确保数据在预先确定了数目的分区中是平均分布的。在RANGE分区和LIST分区中， 必须明确指定一个给定的列值或列值集合应该保存在哪个分区中； 而在HASH分区中， MySQL将自动完成这些工作， 你所要做的只是为将要被散列的列值指定一个列值或表达式， 以及指定被分区的表将要被分割成的分区数量</li>
+<li><p>按照KEY进行分区类似于按照HASH进行分区， 除了HASH分区使用的是用户自定义的表达式， 而KEY分区的散列函数是由MySQL服务器提供的。</p>
+</li>
+<li><p>创建一个RANGE分区表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table trb3 (id INT,name vachar(30),purchased DATE)</span><br><span class="line">    partition by range(year(purchased))(</span><br><span class="line">        partition p0 values less than(1990),</span><br><span class="line">        partition p1 values less than(1995),</span><br><span class="line">        partition p2 values less than(2000),</span><br><span class="line">        partition p3 values less than(2005),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分区(需要 drop 权限)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table tr drop partition p2;</span><br><span class="line">如果需要调整分区,但不想丢失数据,那么可以重整分区.</span><br><span class="line">alter table ... reorganize partition</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">对于 range 分区,只能从分区列表的最高端开始增加,例如:</span><br><span class="line">create table members(</span><br><span class="line">    id int,</span><br><span class="line">    fname varchar(25),</span><br><span class="line">    lname varchar(25),</span><br><span class="line">    dob date</span><br><span class="line">)</span><br><span class="line">partition by range(year(dob))(</span><br><span class="line">    partition p0 values less than(1970),</span><br><span class="line">    partition p1 values less than(1980),</span><br><span class="line">    partition p2 values less than(1990)</span><br><span class="line">)</span><br><span class="line"># 增加一个分区</span><br><span class="line">alter table member add partition(</span><br><span class="line">    partition p3 values less than(2000)</span><br><span class="line">);</span><br><span class="line"># 也可以增加多个分区</span><br><span class="line">alter table member add partition(</span><br><span class="line">    partition p3 values less than(2000),</span><br><span class="line">    partition p4 values less than maxvalue</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调整分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果想要调整分区，比如在分区列表中加入一个分区，或者忘记增加分区了，所有的数据都落入了最后一个分区，这时想</span><br><span class="line">重新定义最后的分区，那么你可以使用重整分区的功能。</span><br><span class="line">ALTER TABLE members</span><br><span class="line">REORGANIZE PARTITION p0 INTO (</span><br><span class="line">PARTITION n0 VALUES LESS THAN (1960), PARTITION n1 VALUES LESS THAN (1970)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">还可以合并分区，注意，对于RANGE分区，合并的分区必须是相邻的分区。</span><br><span class="line">ALTER TABLE members REORGANIZE PARTITION s0,s1 INTO ( PARTITION p0 VALUES LESS THAN (1970)</span><br><span class="line">);</span><br><span class="line">ALTER TABLE members REORGANIZE PARTITION p0,p1,p2,p3 INTO (</span><br><span class="line">PARTITION m0 VALUES LESS THAN (1980), PARTITION m1 VALUES LESS THAN (2000)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">对于LIST分区，如果新加分区中的元素和旧的分区有冲突，那么可以先添加分区(只有没有冲突的元素)，然后重整分 区。</span><br><span class="line">ALTER TABLE tt ADD PARTITION (PARTITION np VALUES IN (4, 8)); ALTER TABLE tt REORGANIZE PARTITION p1,np INTO (</span><br><span class="line">PARTITION p1 VALUES IN (6, 18), PARTITION np VALUES in (4, 8, 12)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重建分区(rebuilding partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">相当于删除所有的数据，再INSERT所有的数据，整理碎片可用，语句如下。</span><br><span class="line">ALTER TABLE t1 REBUILD PARTITION p0, p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>优化分区(optimizing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果某个分区中删除了大量数据，或者频繁修改了表(有可变字段)，那么可以考虑优化该分区，语句如下。</span><br><span class="line">ALTER TABLE t1 OPTIMIZE PARTITION p0, p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分析分区(analyzing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如下这个命令将分析分区的key分布信息。</span><br><span class="line">ALTER TABLE t1 ANALYZE PARTITION p3;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查分区(checking partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">检查表，如果坏了，则用REPAIR命令修复，语句如下。</span><br><span class="line">ALTER TABLE trb3 CHECK PARTITION p1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修复分区(repairing partition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">修复分区的语句如下。</span><br><span class="line">ALTER TABLE t1 REPAIR PARTITION p0,p1;</span><br><span class="line">如果需要对所有分区进行操作，那么可加入All关键字，语句如下。 mysql&gt; ALTER TABLE hotspace_0 ANALYZE PARTITION ALL;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
+<li>更改密码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR user@&apos;ip_range&apos; = PASSWORD(&apos;some password&apos;);</span><br><span class="line">或</span><br><span class="line">GRANT USAGE ON *.* TO user@&apos;ip_range&apos; IDENTIFIED BY &apos;some password&apos;;</span><br><span class="line">或</span><br><span class="line">shell&gt; mysql -u root</span><br><span class="line">mysql&gt; UPDATE mysql.user SET PASSWORD=PASSWORD(&apos;newpwd&apos;)</span><br><span class="line">WHERE user=&apos;root&apos;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/09/mysql-常用命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-动词总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/07/动词总结/">动词总结</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/07/动词总结/" class="archive-article-date">
+  	<time datetime="2017-12-07T13:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>主语 + 完全不及物动词<br> He fainted.(他昏倒了)</li>
+<li>主语 + 不完全不及物动词 + 表语<br> He is a gentleman.(他是个君子)</li>
+<li>主语 + 完全及物动词 + 宾语<br> I love her.(我爱她)</li>
+<li>主语 + 不完全及物动词 + 宾语 + 宾语补足语<br> He made me angry.( 它使我生气)</li>
+<li>主语 + 授予动词 + 间接宾语 + 直接宾语<br> He gave me a book.(他给我一本书)</li>
+</ol>
+<h2 id="完全不及物动词"><a href="#完全不及物动词" class="headerlink" title="完全不及物动词"></a>完全不及物动词</h2><blockquote>
+<p>完全不及物动词即无须加宾语句子意思就很完全的动词</p>
+</blockquote>
+<ol>
+<li>主语 + vi.<br> Something happened.<br> Something will happen.<br> Something has happened.</li>
+<li>主语 + be + vi. 的现在分词<br> Something was happening.<br> <strong>由上得知,凡不及物动词,不可造成下列句子:</strong><br> Something was happened. (X)</li>
+</ol>
+<h2 id="完全及物动词"><a href="#完全及物动词" class="headerlink" title="完全及物动词"></a>完全及物动词</h2><blockquote>
+<p>完全及物动词即加了宾语句子意思很完全的动词</p>
+</blockquote>
+<ol>
+<li>主语 + vt. + 宾语<br> He wrote a book.</li>
+<li>主语 + be + vt.的现在分词 + 宾语(正在…)<br> He was writing a book.</li>
+<li>主语 + be + vt.的过去分词(被…)<br> The book was written by him.</li>
+<li>主语 + be + being + vt.的过去分词(正在被…)<br> THe book was being written by him.</li>
+</ol>
+<h2 id="不完全不及物动词"><a href="#不完全不及物动词" class="headerlink" title="不完全不及物动词"></a>不完全不及物动词</h2><blockquote>
+<p>不完全不及物动词仍是不及物动词,但句子意思不完全,所以不能独立存在</p>
+</blockquote>
+<ol>
+<li>be 动词</li>
+<li>表”变成”(become, turn, get, go, fall)</li>
+<li>表”似乎”(seem)的动词</li>
+<li>感官动词(look, sound, taste, smell, feel)<blockquote>
+<p>后面加 like 后面可接名词\<br>It sounds like a good idea\<br>like 后面接动名词表示想要…\<br>I feel like dancing</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="不完全及物动词"><a href="#不完全及物动词" class="headerlink" title="不完全及物动词"></a>不完全及物动词</h2><blockquote>
+<p>不完全及物动词仍是及物动词,但此类动词加了宾语之后句子意思并不完全,需要加补语</p>
+</blockquote>
+<ol>
+<li>使役动词<ol>
+<li>叫…<br> make/have + 宾语 + 原形动词 = get + 宾语 + to V</li>
+<li>让…<br> let + 宾语 + 原形动词 = allow/permit + 宾语 + to V</li>
+<li>强迫/要求…<br> force/compel/require/ask/urge/encourage/want/tell/expect/wish…+ 宾语 + to V
+        
+          <a class="article-more-a" href="/2017/12/07/动词总结/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/07/动词总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-git-撤销操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/03/git-撤销操作/">git 撤销操作</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/03/git-撤销操作/" class="archive-article-date">
+  	<time datetime="2017-12-03T15:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="正常流程"><a href="#正常流程" class="headerlink" title="正常流程:"></a>正常流程:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;comment&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="查看修改"><a href="#查看修改" class="headerlink" title="查看修改"></a>查看修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">已修改未暂存,代码在工作区</span><br><span class="line">git diff</span><br><span class="line"></span><br><span class="line">已暂存未提交,代码在暂存区</span><br><span class="line">git diff --cached</span><br><span class="line"></span><br><span class="line">已提交未推送,代码在本地仓库</span><br><span class="line">git diff master origin/master</span><br></pre></td></tr></table></figure>
+<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">代码还没 add, 代码在工作区</span><br><span class="line">git checkout . 或者</span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">已暂存未提交,代码在暂存区</span><br><span class="line">git reset</span><br><span class="line">git checkout . 或者</span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">已提交,未推送,代码在本地仓库</span><br><span class="line">git reset --hard origin/master</span><br><span class="line"></span><br><span class="line">已经推送,代码已经在远程仓库了</span><br><span class="line">所以首先要把本地仓库代码撤销,然后再强制推送</span><br><span class="line">git reset --hard HEAD^  // 本地仓库撤销操作</span><br><span class="line">git push -f             // 强制推送到远程仓库</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/03/git-撤销操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -377,317 +747,9 @@
 
 
   
-    <article id="post-mysql-优化详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/01/mysql-优化详解/">mysql 优化详解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/01/mysql-优化详解/" class="archive-article-date">
-  	<time datetime="2017-11-01T02:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><h1 id="系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了"><a href="#系统层面-基本不用动，看了下，买的云服务器基本都已经优化过了" class="headerlink" title="系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)"></a>系统层面(基本不用动，看了下，买的云服务器基本都已经优化过了)</h1><h2 id="内核相关参数-etc-sysctl-conf"><a href="#内核相关参数-etc-sysctl-conf" class="headerlink" title="内核相关参数(/etc/sysctl.conf)"></a>内核相关参数(/etc/sysctl.conf)</h2></li>
-</ol>
-<h4 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h4><ul>
-<li>net.core.somaxconn = 65535</li>
-<li>net.core.netdev_max_backlog = 65535</li>
-<li>net.ipv4.tcp_max_syn_backlog = 65535</li>
-<li>net.ipv4.tcp_fin_timeout = 10</li>
-<li>net.ipv4.tcp_tw_resue = 1</li>
-<li>net.ipv4.tcp_tw_recycle = 1</li>
-</ul>
-<h4 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h4><ul>
-<li>net.core.wmem_default = 87380</li>
-<li>net.core.wmem_max = 16777216</li>
-<li>net.core.rmem_default = 87380</li>
-<li>net.core.rmem_max = 16777216</li>
-</ul>
-<h4 id="失效链接"><a href="#失效链接" class="headerlink" title="失效链接"></a>失效链接</h4><ul>
-<li>net.ipv4.tcp_keepalive_time = 120</li>
-<li>net.ipv4.tcp_keepalive_intvl = 30</li>
-<li>net.ipv4.tcp_keepalive_probes = 3</li>
-</ul>
-<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
-<li>kernel.shmmax = 4294967295<blockquote>
-<p>linux内核参数中最重要的参数之一,用于定义单个共享内存段的最大值.</p>
-</blockquote>
-</li>
-<li>vm.swappiness = 0<blockquote>
-<p>交换分区</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<h2 id="增加资源限制-etc-security-limit-conf"><a href="#增加资源限制-etc-security-limit-conf" class="headerlink" title="增加资源限制(/etc/security/limit.conf)"></a>增加资源限制(/etc/security/limit.conf)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>加到limi.conf文件末尾<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*     表示对所有用户有效</span><br><span class="line">soft  指的是当前系统生效的设置</span><br><span class="line">hard  表明系统中所能设定的最大值</span><br><span class="line">nofile表示所限制的资源是打开文件的最大数目</span><br><span class="line">65535 限制的数量</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<h2 id="磁盘调度策略-sys-block-devname-queue-scheduler"><a href="#磁盘调度策略-sys-block-devname-queue-scheduler" class="headerlink" title="磁盘调度策略(/sys/block/devname/queue/scheduler)"></a>磁盘调度策略(/sys/block/devname/queue/scheduler)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>noop anticipatory deadline [cfq]</p>
-</blockquote>
-<ol>
-<li><h1 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h1>
-        
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/01/mysql-优化详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java中的24种设计模式与7大原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/Java中的24种设计模式与7大原则/">Java中的24种设计模式与7大原则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/Java中的24种设计模式与7大原则/" class="archive-article-date">
-  	<time datetime="2017-09-12T03:18:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>转载 <a href="https://zhuanlan.zhihu.com/p/26935579" target="_blank" rel="external">知乎</a></p>
-</blockquote>
-<h2 id="一-创建型模式"><a href="#一-创建型模式" class="headerlink" title="一.创建型模式"></a><strong>一.创建型模式</strong></h2><ol>
-<li>抽象工厂模式(Abstract factory pattern): 提供一个接口, 用于创建相关或依赖对象的家族, 而不需要指定具体类.</li>
-<li>生成器模式(Builder pattern): 使用生成器模式封装一个产品的构造过程, 并允许按步骤构造. 将一个复杂对象的构建与它的表示分离, 使得同样的构建过程可以创建不同的表示.</li>
-<li>工厂模式(factory method pattern): 定义了一个创建对象的接口, 但由子类决定要实例化的类是哪一个. 工厂方法让类把实例化推迟到子类.</li>
-<li>原型模式(prototype pattern): 当创建给定类的实例过程很昂贵或很复杂时, 就使用原形模式.</li>
-<li>单例了模式(Singleton pattern): 确保一个类只有一个实例, 并提供全局访问点.</li>
-<li><p>多例模式(Multition pattern): 在一个解决方案中结合两个或多个模式, 以解决一般或重复发生的问题.</p>
-        
-          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/Java中的24种设计模式与7大原则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mongo基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/mongo基础/">mongo基础</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/16/mongo基础/" class="archive-article-date">
-  	<time datetime="2017-06-16T02:23:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>安装:略(详见官网)</p>
-</li>
-<li><p>安全设置和远程登录<br> mongo为了方便使用，安装完是没有安全验证和用户名和密码的，如果是公网ip很容易遭受攻击(本人在安装完第二天就遇到过，数据被清空，只留了个要求打钱的邮箱。。。)</p>
-<p> 简单说下配置</p>
-<p> 首先进入mongo   </p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.createUser(</span><br><span class="line">...   &#123;</span><br><span class="line">...     user: <span class="string">"dba"</span>,</span><br><span class="line">...     pwd: <span class="string">"dba"</span>,</span><br><span class="line">...     roles: [ &#123; role: <span class="string">"root"</span>, db: <span class="string">"admin"</span> &#125; ]</span><br><span class="line">...   &#125;</span><br><span class="line">... )</span><br><span class="line">Successfully added user: &#123;</span><br><span class="line">    <span class="string">"user"</span> : <span class="string">"dba"</span>,</span><br><span class="line">    <span class="string">"roles"</span> : [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"role"</span> : <span class="string">"root"</span>,</span><br><span class="line">            <span class="string">"db"</span> : <span class="string">"admin"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">user：用户名</span><br><span class="line"></span><br><span class="line">pwd：密码</span><br><span class="line"></span><br><span class="line">roles：指定用户的角色，可以用一个空数组给新用户设定空角色；在roles字段,可以指定内置角色和用户定义的角色。role里的角色可以选：</span><br><span class="line"></span><br><span class="line">Built-In Roles（内置角色）：</span><br><span class="line">1. 数据库用户角色：read、readWrite;</span><br><span class="line">2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；</span><br><span class="line">3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；</span><br><span class="line">4. 备份恢复角色：backup、restore；</span><br><span class="line">5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase</span><br><span class="line">6. 超级用户角色：root  </span><br><span class="line">// 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）</span><br><span class="line">7. 内部角色：__system</span><br><span class="line">    具体角色： </span><br><span class="line"></span><br><span class="line">Read：允许用户读取指定数据库</span><br><span class="line">readWrite：允许用户读写指定数据库</span><br><span class="line">dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile</span><br><span class="line">userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户</span><br><span class="line">clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。</span><br><span class="line">readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</span><br><span class="line">readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</span><br><span class="line">userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</span><br><span class="line">dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。</span><br><span class="line">root：只在admin数据库中可用。超级账号，超级权限</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>/etc/mongod.conf  </p>
-</blockquote>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net:</span><br><span class="line">  port: <span class="number">27018</span></span><br><span class="line">#  bindIp: <span class="number">127.0</span>.<span class="number">0.1</span>  # Listen to <span class="meta">local</span> <span class="keyword">interface</span> only, comment to listen on <span class="built_in">all</span> interfaces.</span><br><span class="line"> </span><br><span class="line">security:</span><br><span class="line">  authorization: enabled</span><br></pre></td></tr></table></figure>
-<p> yaml 语法, security:后新行空两个空格，冒号后需要一个空格</p>
-<p> 重启mongo</p>
-<blockquote>
-<p>systemctl restart mongod.service</p>
-</blockquote>
-<p> 现在进入mongo需要先认证了</p>
- <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.auth(<span class="string">'用户'</span>,<span class="string">'密码'</span>)  #用创建的readWrite帐号进行写入</span><br><span class="line"><span class="number">1</span> #代表认证成功</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>增删改查:略</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/mongo基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
     </nav>
   
 
@@ -782,11 +844,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -814,11 +876,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -863,6 +929,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">三方sdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
