@@ -159,6 +159,123 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-docker常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/docker常用命令/">docker常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/docker常用命令/" class="archive-article-date">
+  	<time datetime="2018-06-26T12:59:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="镜像常用命令"><a href="#镜像常用命令" class="headerlink" title="镜像常用命令"></a>镜像常用命令</h2><ul>
+<li>docker search</li>
+<li>docker pull</li>
+<li><p>docker images</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--all -a     列出所有镜像</span><br><span class="line">--digests    显示摘要</span><br><span class="line">--quiet -q   只显示镜像ID</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker rmi</p>
+</li>
+<li><p>docker save</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ocker save busybox &gt; busybox.tar</span><br><span class="line">docker save --output busybox.tar busybox</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker load</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load &lt; busybox.tar.gz</span><br><span class="line">docker load --input fedora.tar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker build</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t yyyejunyu/nginx:test .</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="容器常用命令"><a href="#容器常用命令" class="headerlink" title="容器常用命令"></a>容器常用命令</h2><ul>
+<li><p>docker run</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 91:80 nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker ps</p>
+</li>
+<li>docker stop</li>
+<li>docker kill</li>
+<li>docker start</li>
+<li>docker restart</li>
+<li>docker inspect</li>
+<li><p>进入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker attach 784fd3b294d7</span><br><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker rm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">删除所有容器</span><br><span class="line">docker rm -f $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker export</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker export red_panda &gt; latest.tar</span><br><span class="line">docker export --output=&quot;latest.tar&quot; red_panda</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker import</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import nginx2.tar nginx</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="容器备份"><a href="#容器备份" class="headerlink" title="容器备份"></a>容器备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 生成容器快照</span><br><span class="line">docker commit -p 30b8f18f20b4(容器id) container-backup</span><br><span class="line">会生成一个镜像</span><br><span class="line">2. 打包 </span><br><span class="line">docker save -o ~/container-backup.tar container-backup</span><br></pre></td></tr></table></figure>
+<h2 id="容器恢复"><a href="#容器恢复" class="headerlink" title="容器恢复"></a>容器恢复</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load -i ~/container-backup.tar</span><br><span class="line">docker run -d -p 80:80 container-backup</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/docker常用命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-centos环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -494,172 +611,6 @@
 
 
   
-    <article id="post-创建一个dockerfile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/17/创建一个dockerfile/">创建一个dockerfile</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/17/创建一个dockerfile/" class="archive-article-date">
-  	<time datetime="2018-04-17T14:50:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="常用命令介绍"><a href="#常用命令介绍" class="headerlink" title="常用命令介绍"></a>常用命令介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 拉取镜像</span><br><span class="line">docker pull [options] name[:tag]</span><br><span class="line">比如 docker pull ubuntu/centos:latest</span><br><span class="line"></span><br><span class="line"># 查看本机全部镜像或者单个镜像</span><br><span class="line">docker images [options][repository[:tag]]</span><br><span class="line"></span><br><span class="line"># 查看运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 进入容器</span><br><span class="line">docker exec -it &quot;id&quot; bash</span><br><span class="line"></span><br><span class="line"># 运行 nginx</span><br><span class="line">docker run -d -p 8080:80 nginx</span><br><span class="line">-p [本机端口:容器开放端口]</span><br><span class="line">docker run -d -P nginx</span><br><span class="line">-P 开放容器所有端口映射到本机随机端口</span><br></pre></td></tr></table></figure>
-<h3 id="制作-dockerfile"><a href="#制作-dockerfile" class="headerlink" title="制作 dockerfile"></a>制作 dockerfile</h3><p>比如制作一个 jpress 的网络应用<br><code># vim Dockerfile</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 以什么镜像为基础</span><br><span class="line">FROM tomcat</span><br><span class="line"># 制作人和联系方式</span><br><span class="line">MAINTAINER yejunyu yyyejunyu@gmail.com</span><br><span class="line"># 命令,比如把war包复制到 tomcat 的 root 下</span><br><span class="line">COPY jpress.war /usr/local/tomcat/webapps</span><br></pre></td></tr></table></figure></p>
-<p>COPY指复制命令<br>还有<br>CMD echo “hello docker”<br><code># docker build -t myJpress:latest .</code><br>. 代表打包当前目录</p>
-<p>运行一个 mysql<br><code>docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=mydatabase mysql</code><br>-e 代表环境变量的意思</p>
-<blockquote>
-<p>访问 docker 的 mysql 不能用 localhost, 要用实体机的 ip</p>
-</blockquote>
-<hr>
-<p>第二个 dockerfile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line">MAINTAINER YEJUNYU</span><br><span class="line">RUN sed -i &apos;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&apos; /etc/apt/sources.list</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install -y nginx</span><br><span class="line">COPY index.html /var/www/html</span><br><span class="line">ENTRYPOINT [&quot;/usr/sbin/nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</span><br><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>命令</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>FROM</td>
-<td>base image</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>RUN</td>
-<td>执行命令</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>ADD</td>
-<td>添加文件</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>COPY</td>
-<td>拷贝文件</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>CMD</td>
-<td>执行命令</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>EXPOSE</td>
-<td>暴露端口</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>WORKDIR</td>
-<td>指定路径</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>MAINTAINER</td>
-<td>维护者</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>ENV</td>
-<td>设置环境变量</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>ENTRYPOINT</td>
-<td>容器入口</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>USER</td>
-<td>指定用户</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>VOLUME</td>
-<td>mount point</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>创建一个仅为别人提供数据的容器<br><code>docker create -v $PWD/data:/var/mydata --name data_container ubuntu</code><br><code>docker run -it --volumes-from data_container ubuntu bash</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line">docker tag ubuntu yejunyu/ubuntu</span><br><span class="line">docker push yejunyu/ubuntu</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 本地镜像打包</span><br><span class="line">docker save 6830dcd7b9b5&gt; /tmp/docker/fabric-images/peer.tar</span><br><span class="line"></span><br><span class="line"># 载入</span><br><span class="line">docker load &lt; /tmp/docker/fabric-peer.tar</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/17/创建一个dockerfile/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -757,15 +708,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,11 +732,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,11 +744,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -825,11 +776,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -845,11 +796,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -870,6 +821,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">个人</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">高级操作系统</a>
               </li>
             
             <div class="clearfix"></div>
