@@ -159,6 +159,580 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-dockerfile常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/dockerfile常用命令/">dockerfile常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/29/dockerfile常用命令/" class="archive-article-date">
+  	<time datetime="2018-06-29T14:41:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ADD-复制文件"><a href="#ADD-复制文件" class="headerlink" title="ADD 复制文件"></a>ADD 复制文件</h2><ul>
+<li>ADD ‘src’ ‘dest’<br><code>ADD microservice-discovery-eureka-0.0.1-SNAPSHOT.jar app.jar</code></li>
+</ul>
+<ol>
+<li>src必须在构建的上下文内，不能使用例如：ADD ../somethine /something 这样的命令，因为<code>docker build</code> 命令首先会将上下文路径和其子目录发送到docker daemon。</li>
+<li>如果src是一个URL，同时dest不以斜杠结尾，dest将会被视为文件，src对应内容文件将会被下载到dest。</li>
+<li>如果src是一个URL，同时dest以斜杠结尾，dest将被视为目录，src对应内容将会被下载到dest目录。</li>
+<li>如果src是一个目录，那么整个目录下的内容将会被拷贝，包括文件系统元数据。</li>
+<li>如果文件是可识别的压缩包格式，则docker会自动解压。</li>
+</ol>
+<h2 id="ARG-设置构建参数"><a href="#ARG-设置构建参数" class="headerlink" title="ARG 设置构建参数"></a>ARG 设置构建参数</h2><p>ARG指令用于设置构建参数，类似于ENV。和ARG不同的是，ARG设置的是构建时的环境变量，在容器运行时是不会存在这些变量的。</p>
+<ul>
+<li><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code><br><code>ARG user1=someuser</code></li>
+</ul>
+<h2 id="CMD-容器启动命令"><a href="#CMD-容器启动命令" class="headerlink" title="CMD 容器启动命令"></a>CMD 容器启动命令</h2><p>CMD指令用于为执行容器提供默认值。每个Dockerfile只有一个CMD命令，如果指定了多个CMD命令，那么只有最后一条会被执行，如果启动容器的时候指定了运行的命令，则会覆盖掉CMD指定的命令。</p>
+<p><code>CMD echo &quot;This is a test.&quot; | wc -</code></p>
+<h2 id="COPY-复制文件"><a href="#COPY-复制文件" class="headerlink" title="COPY 复制文件"></a>COPY 复制文件</h2><p>复制本地端的src到容器的dest。COPY指令和ADD指令类似，COPY不支持URL和压缩包。</p>
+<ul>
+<li><code>COPY &lt;src&gt;... &lt;dest&gt;</code></li>
+</ul>
+<h2 id="ENTRYPOINT-入口点"><a href="#ENTRYPOINT-入口点" class="headerlink" title="ENTRYPOINT 入口点"></a>ENTRYPOINT 入口点</h2><p>ENTRYPOINT和CMD指令的目的一样，都是指定Docker容器启动时执行的命令，可多次设置，但只有最后一个有效。ENTRYPOINT不可被重写覆盖。</p>
+<ul>
+<li><code>ENTRYPOINT command param1 param2</code></li>
+</ul>
+<h2 id="ENV-设置环境变量"><a href="#ENV-设置环境变量" class="headerlink" title="ENV 设置环境变量"></a>ENV 设置环境变量</h2><ul>
+<li><code>ENV &lt;key&gt; &lt;value&gt;</code><br><code>ENV JAVA_HOME /path/to/java</code></li>
+</ul>
+<h2 id="EXPOSE-声明暴露的端口"><a href="#EXPOSE-声明暴露的端口" class="headerlink" title="EXPOSE 声明暴露的端口"></a>EXPOSE 声明暴露的端口</h2><p>EXPOSE指令用于声明在运行时容器提供服务的端口，格式为：<br><code>EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 声明暴露一个端口示例</span><br><span class="line">EXPOSE port1</span><br><span class="line"># 相应的运行容器使用的命令</span><br><span class="line">docker run -p port1 image</span><br><span class="line"># 也可使用-P选项启动</span><br><span class="line">docker run -P image</span><br><span class="line"># 声明暴露多个端口示例</span><br><span class="line">EXPOSE port1 port2 port3</span><br><span class="line"># 相应的运行容器使用的命令</span><br><span class="line">docker run -p port1 -p port2 -p port3 image</span><br><span class="line"># 也可指定需要映射到宿主机器上的端口号  </span><br><span class="line">docker run -p host_port1:port1 -p host_port2:port2 -p host_port3:port3 image</span><br></pre></td></tr></table></figure>
+<h2 id="FROM-指定基础镜像"><a href="#FROM-指定基础镜像" class="headerlink" title="FROM 指定基础镜像"></a>FROM 指定基础镜像</h2><p>支持三种格式:</p>
+<ul>
+<li><code>FROM &lt;image&gt;</code></li>
+<li><code>FROM &lt;image&gt;:&lt;tag&gt;</code></li>
+<li><code>FROM &lt;image&gt;@&lt;digest&gt;</code></li>
+</ul>
+<h2 id="LABEL-为镜像添加元数据-取代MAINTAINER"><a href="#LABEL-为镜像添加元数据-取代MAINTAINER" class="headerlink" title="LABEL 为镜像添加元数据(取代MAINTAINER)"></a>LABEL 为镜像添加元数据(取代MAINTAINER)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LABEL &quot;com.example.vendor&quot;=&quot;ACME Incorporated&quot;</span><br><span class="line">LABEL com.example.label-with-value=&quot;foo&quot;</span><br><span class="line">LABEL version=&quot;1.0&quot;</span><br><span class="line">LABEL description=&quot;This text illustrates \</span><br><span class="line">that label-values can span multiple lines.&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="RUN-执行命令"><a href="#RUN-执行命令" class="headerlink" title="RUN 执行命令"></a>RUN 执行命令</h2><ul>
+<li><code>RUN &lt;command&gt;</code></li>
+<li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code><br><code>RUN &lt;command&gt;</code> 在shell终端中运行，在Linux中默认是<code>/bin/sh -c</code> ，在Windows中是 <code>cmd /s /c</code> ，使用这种格式，就像直接在命令行中输入命令一样。<br><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> 使用exec执行，这种方式类似于函数调用。指定其他终端可以通过该方式操作，例如：<code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo hello&quot;]</code> ，该方式必须使用双引号[“]而不能使用单引号[‘]，因为该方式会被转换成一个JSON 数组。</li>
+</ul>
+<h2 id="VOLUME-指定挂载点"><a href="#VOLUME-指定挂载点" class="headerlink" title="VOLUME 指定挂载点"></a>VOLUME 指定挂载点</h2><p>该指令使容器中的一个目录具有持久化存储的功能，该目录可被容器本身使用，也可共享给其他容器。当容器中的应用有持久化数据的需求时可以在Dockerfile中使用该指令。格式为:</p>
+<ul>
+<li><code>VOLUME [&quot;/data&quot;]</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM nginx</span><br><span class="line">VOLUME /tmp</span><br><span class="line"></span><br><span class="line"># 容器ID是第一个容器的ID，镜像是第二个容器所使用的镜像。</span><br><span class="line">docker run -volume-from 容器ID 镜像名称</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="WORKDIR-指定工作目录"><a href="#WORKDIR-指定工作目录" class="headerlink" title="WORKDIR 指定工作目录"></a>WORKDIR 指定工作目录</h2><ul>
+<li><code>WORKDIR /path/to/workdir</code><br>切换目录指令，类似于cd命令，写在该指令后的<code>RUN</code>，<code>CMD</code>以及<code>ENTRYPOINT</code>指令都将该目录作为当前目录，并执行相应的命令。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/29/dockerfile常用命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-markdown数学公式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/markdown数学公式/">markdown数学公式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/29/markdown数学公式/" class="archive-article-date">
+  	<time datetime="2018-06-29T14:40:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="分数-平方"><a href="#分数-平方" class="headerlink" title="分数,平方"></a>分数,平方</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{7x+5}{1+y^2}$</td>
+<td style="text-align:right">\$\frac{7x+5}{1+y^2}\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$z=z_l$</td>
+<td style="text-align:right">\$z=z_l\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="省略号"><a href="#省略号" class="headerlink" title="省略号"></a>省略号</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\cdots$</td>
+<td style="text-align:right">\$\cdots\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行间公式"><a href="#行间公式" class="headerlink" title="行间公式"></a>行间公式</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{d}{dx}e^{ax}=ae^{ax}\quad \sum_{i=1}^{n}{(X_i - \overline{X})^2}</td>
+</tr>
+</tbody>
+</table>
+<p>$|\$\frac{d}{dx}e^{ax}=ae^{ax}\quad \sum_{i=1}^{n}{(X_i - \overline{X})^2}\$ |</p>
+<h2 id="省略号-1"><a href="#省略号-1" class="headerlink" title="省略号"></a>省略号</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\cdots$</td>
+<td style="text-align:right">\$\cdots\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="开根号"><a href="#开根号" class="headerlink" title="开根号"></a>开根号</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sqrt{2};\sqrt[n]{3}</td>
+</tr>
+</tbody>
+</table>
+<p>$|\$\sqrt{2};\sqrt[n]{3}\$ |</p>
+<h2 id="矢量"><a href="#矢量" class="headerlink" title="矢量"></a>矢量</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\vec{a} \cdot \vec{b}=0$</td>
+<td style="text-align:right">\$\vec{a} \cdot \vec{b}=0\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\int ^2_3 x^2 {\rm d}x</td>
+</tr>
+</tbody>
+</table>
+<p>$|\$\int ^2_3 x^2 {\rm d}x\$ |</p>
+<h2 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\lim_{n\rightarrow+\infty} n$</td>
+<td style="text-align:right">\$\lim_{n\rightarrow+\infty} n\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="累加"><a href="#累加" class="headerlink" title="累加"></a>累加</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sum \frac{1}{i^2}$</td>
+<td style="text-align:right">\$\sum \frac{1}{i^2}\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="累乘"><a href="#累乘" class="headerlink" title="累乘"></a>累乘</h2><table>
+<thead>
+<tr>
+<th>算式</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\prod \frac{1}{i^2}$</td>
+<td style="text-align:right">\$\prod \frac{1}{i^2}\$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="希腊字母"><a href="#希腊字母" class="headerlink" title="希腊字母"></a>希腊字母</h2><table>
+<thead>
+<tr>
+<th>大写</th>
+<th style="text-align:right">markdown</th>
+<th style="text-align:right">小写</th>
+<th style="text-align:right">markdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$A$</td>
+<td style="text-align:right">\$A\$</td>
+<td style="text-align:right">$\alpha$</td>
+<td style="text-align:right">\$\alpha\$</td>
+</tr>
+<tr>
+<td>$B$</td>
+<td style="text-align:right">\$B\$</td>
+<td style="text-align:right">$\beta$</td>
+<td style="text-align:right">\$\beta\$</td>
+</tr>
+<tr>
+<td>$\Gamma$</td>
+<td style="text-align:right">\$Gamma\$</td>
+<td style="text-align:right">$\gamma$</td>
+<td style="text-align:right">\$\gamma\$</td>
+</tr>
+<tr>
+<td>$\Delta$</td>
+<td style="text-align:right">\$Delta\$</td>
+<td style="text-align:right">$\delta$</td>
+<td style="text-align:right">\$\delta\$</td>
+</tr>
+<tr>
+<td>$E$</td>
+<td style="text-align:right">\$E\$</td>
+<td style="text-align:right">$\epsilon$</td>
+<td style="text-align:right">\$\epsilon\$</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">$\varepsilon$</td>
+<td style="text-align:right">\$\varepsilon\$</td>
+</tr>
+<tr>
+<td>$Z$</td>
+<td style="text-align:right">\$Z\$</td>
+<td style="text-align:right">$\zeta$</td>
+<td style="text-align:right">\$\zeta\$</td>
+</tr>
+<tr>
+<td>$H$</td>
+<td style="text-align:right">\$H\$</td>
+<td style="text-align:right">$\eta$</td>
+<td style="text-align:right">\$\eta\$</td>
+</tr>
+</tbody>
+</table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdown</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/29/markdown数学公式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-离散数学公式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/离散数学公式/">离散数学公式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/29/离散数学公式/" class="archive-article-date">
+  	<time datetime="2018-06-29T14:38:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="命题逻辑基本概念"><a href="#命题逻辑基本概念" class="headerlink" title="命题逻辑基本概念"></a>命题逻辑基本概念</h2><p>p$\rightharpoondown$q有很多表示法:</p>
+<ul>
+<li>如果p,则q</li>
+<li>若p,就q</li>
+<li>只要p,就q</li>
+<li>p仅当q</li>
+<li>只有q才p</li>
+<li>除非q,才p</li>
+<li>除非q否则非p</li>
+</ul>
+<p>当且仅当:<br>p $\leftrightarrow$ q</p>
+<ol>
+<li><p>($\rightharpoondown$p$\rightarrow$$\rightharpoondown$q) $\leftrightarrow$ (q $\rightarrow$p) </p>
+</li>
+<li><p>(p $\rightarrow$ q) $\Lambda$ ($\rightharpoondown$p $\rightarrow$ $\rightharpoondown$q) $\leftrightarrow$ (p $\rightarrow$ q) $\Lambda$ (q $\rightarrow$ p) $\leftrightarrow$ p $\leftrightarrow$ q</p>
+</li>
+</ol>
+<h2 id="矛盾式-恒为0-和重言式-恒为1-和非重言满足式"><a href="#矛盾式-恒为0-和重言式-恒为1-和非重言满足式" class="headerlink" title="矛盾式(恒为0)和重言式(恒为1)和非重言满足式"></a>矛盾式(恒为0)和重言式(恒为1)和非重言满足式</h2><h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p><img src="http://oqb4aabpb.bkt.clouddn.com/18-6-29/48600093.jpg" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/29/离散数学公式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-log4j参数解释" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/log4j参数解释/">log4j参数解释</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/log4j参数解释/" class="archive-article-date">
+  	<time datetime="2018-06-26T14:22:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>log4j日志输出格式一览：<br>%c 输出日志信息所属的类的全名<br>%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyy-MM-dd HH:mm:ss }，输出类似：2002-10-18- 22：10：28<br>%f 输出日志信息所属的类的类名<br>%l 输出日志事件的发生位置，即输出日志信息的语句处于它所在的类的第几行<br>%m 输出代码中指定的信息，如log(message)中的message<br>%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”<br>%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL。如果是调用debug()输出的，则为DEBUG，依此类推<br>%r 输出自应用启动到输出该日志信息所耗费的毫秒数<br>%t 输出产生该日志事件的线程名</p>
+<p>所以：<br>%5p [%t] (%F:%L) - %m%n 就表示<br>宽度是5的优先等级 线程名称 (文件名:行号) - 信息 回车换行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">log</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/log4j参数解释/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-docker常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -276,344 +850,9 @@
 
 
   
-    <article id="post-centos环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/26/centos环境/">centos环境</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/26/centos环境/" class="archive-article-date">
-  	<time datetime="2018-06-26T12:59:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>关闭图形界面</p>
-<p> <a href="https://blog.csdn.net/dujiajiyu/article/details/37725681" target="_blank" rel="external">切换方法</a></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 命令模式</span><br><span class="line">systemctl set-default multi-user.target</span><br><span class="line"></span><br><span class="line"># 图形模式</span><br><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置yum源</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo </span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭防火墙</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld &amp; systemctl disable firewalld</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭swap</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 临时关闭</span><br><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line"># 永久关闭</span><br><span class="line">/etc/fstab,找到swap,注释重启</span><br><span class="line">或</span><br><span class="line">sed -i &apos;/ swap / s/^/#/&apos; /etc/fstab</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭安全组</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>docker和docker-compose(略)</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/26/centos环境/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fabric-GotCha" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/20/fabric-GotCha/">fabric GotCha</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/20/fabric-GotCha/" class="archive-article-date">
-  	<time datetime="2018-04-20T15:21:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>fabric代码放/opt/gopath下,因为yaml配置文件是这么写的</li>
-<li>docker-compose.yaml文件,cli environment需要修改,按照peer和org</li>
-<li>创建多节点时,bash scripts/script.sh mychannel 要就在当前目录执行</li>
-<li>kafka和zookeeper环境也得配置</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">区块链</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">fabric</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/20/fabric-GotCha/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-proxychains安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/proxychains安装/">proxychains安装</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/18/proxychains安装/" class="archive-article-date">
-  	<time datetime="2018-04-18T13:33:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-proxychains安装"><a href="#1-proxychains安装" class="headerlink" title="1. proxychains安装"></a>1. proxychains安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line">git clone https://github.com/rofl0r/proxychains-ng.git</span><br><span class="line">cd proxychains-ng</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">make install-config</span><br><span class="line">cd .. &amp;&amp; rm -rf proxychains-ng</span><br></pre></td></tr></table></figure>
-<h2 id="2-编辑proxychains配置"><a href="#2-编辑proxychains配置" class="headerlink" title="2. 编辑proxychains配置"></a>2. 编辑proxychains配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/proxychains.conf</span><br><span class="line">//将socks4  127.0.0.1 9050改为</span><br><span class="line">socks5  127.0.0.1 1080  //1080改为你自己的端口</span><br></pre></td></tr></table></figure>
-<h2 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 检查是否成功</span><br><span class="line">proxychains4 curl ip.cn</span><br><span class="line">// 代理获取文件</span><br><span class="line">proxychains4 wget http://xxx.com/xxx.zip</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/18/proxychains安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-命令行使用ss代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/命令行使用ss代理/">命令行使用ss代理</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/18/命令行使用ss代理/" class="archive-article-date">
-  	<time datetime="2018-04-18T13:33:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>pip install shadowsocks</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># /etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,      #ss服务器IP</span><br><span class="line">    &quot;server_port&quot;:your_server_port, #端口</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,   #本地ip</span><br><span class="line">    &quot;local_port&quot;:1080,              #本地端口</span><br><span class="line">    &quot;password&quot;:&quot;your_server_passwd&quot;,#连接ss密码</span><br><span class="line">    &quot;timeout&quot;:300,                  #等待超时</span><br><span class="line">    &quot;method&quot;:&quot;rc4-md5&quot;,             #加密方式</span><br><span class="line">    &quot;fast_open&quot;: false,             # true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span><br><span class="line">    &quot;workers&quot;: 1                    # 工作线程数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="安装privoxy"><a href="#安装privoxy" class="headerlink" title="安装privoxy"></a>安装privoxy</h2><p>上述安好了shadowsocks，但它是socks5代理，我门在shell里执行的命令，发起的网络请求现在还不支持socks5代理，只支持http／https代理。为了我门需要安装privoxy代理，它能把电脑上所有http请求转发给shadowsocks。<br>访问官网<a href="http://www.privoxy.org/获得Privoxy的最新源码:privoxy-3.0.24-stable-src.tar.gz,执行tar" target="_blank" rel="external">http://www.privoxy.org/获得Privoxy的最新源码:privoxy-3.0.24-stable-src.tar.gz,执行tar</a> -zxvf privoxy-3.0.24-stable-src.tar.gz解压，然后cd privoxy-3.0.24-stable进去。<br>安装前需要执行useradd privoxy创建一个用户privoxy，然后依次执行如下三条命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">autoheader &amp;&amp; autoconf</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<p>查看vim /usr/local/etc/privoxy/config文件，先搜索关键字:listen-address找到listen-address 127.0.0.1:8118这一句，保证这一句没有注释，8118就是将来http代理要输入的端口。然后搜索forward-socks5t,将forward-socks5t / 127.0.0.1:1080 .此句的注释去掉.<br>执行如下命令启动privoxy，<a href="https://www.privoxy.org/user-manual/startup.html" target="_blank" rel="external">参考官网,不同的平台对应不同的方法</a>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">privoxy --user privoxy /usr/local/etc/privoxy/config</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置-etc-profile"><a href="#配置-etc-profile" class="headerlink" title="配置/etc/profile"></a>配置/etc/profile</h2><p>执行vim /etc/profile,添加如下三句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:8118</span><br><span class="line">export https_proxy=http://127.0.0.1:8118</span><br><span class="line">export ftp_proxy=http://127.0.0.1:8118</span><br></pre></td></tr></table></figure></p>
-<p>第三句ftp的代理根据需要，不需要的话可以不添加.然后source /etc/profile，执行curl www.google.com或wget www.google.com判断是否成功访问。</p>
-<p>注意:此处不要用ping命令来检测</p>
-<p>如果不能访问，请重启机器，依次打开shadowsocks和privoxy再测试.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">privoxy --user privoxy /usr/local/etc/privoxy/config</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>备注：如果不需要用代理了，记得把bash里的配置注释上，免得把流量跑完了。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/18/命令行使用ss代理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -625,7 +864,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 神级第六人
+    		&copy; 2019 神级第六人
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -732,11 +971,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,15 +1003,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,11 +1023,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +1043,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">

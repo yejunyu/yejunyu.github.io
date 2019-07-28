@@ -159,6 +159,380 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-scrapy-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/24/scrapy-入门/">scrapy 入门</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/24/scrapy-入门/" class="archive-article-date">
+  	<time datetime="2018-02-24T14:12:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h1><p><code>scrapy startproject tutorial</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrapy.cfg: 项目的配置文件；（用于发布到服务器）</span><br><span class="line">tutorial/: 该项目文件夹。之后将在此编写Python代码。</span><br><span class="line">tutorial/items.py: 项目中的item文件;（定义结构化数据字段field）.</span><br><span class="line">tutorial/pipelines.py: 项目中的pipelines文件;（用于存放执行后期数据处理的功能，定义如何存储结构化数据)</span><br><span class="line">tutorial/settings.py: 项目的设置文件；(如何修改User-Agent，设置爬取时间间隔，设置代理，配置中间件等等)</span><br><span class="line">tutorial/spiders/: 放置spider代码的目录;（编写爬取网站规则）</span><br></pre></td></tr></table></figure></p>
+<h1 id="定义Item"><a href="#定义Item" class="headerlink" title="定义Item"></a>定义Item</h1><p>Item 定义结构化数据字段，用来保存爬取到的数据；其使用方法和python字典类似<br>可以通过创建一个 scrapy.Item 类， 并且定义类型为 scrapy.Field的类属性来定义一个Item。<br>首先根据需要从腾讯招聘获取到的数据对item进行建模。 我们需要从<a href="https://hr.tencent.com/position.php?&amp;start=0#a" target="_blank" rel="external">腾讯招聘</a>中获取 职位名称、职位详情页url、职位类别、人数、工作地点以及发布时间。 对此，在item中定义相应的字段。编辑 tutorial 目录中的 items.py 文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br></pre></td></tr></table></figure></p>
+<h1 id="编写第一个爬虫"><a href="#编写第一个爬虫" class="headerlink" title="编写第一个爬虫"></a>编写第一个爬虫</h1><p>Spider是开发者编写用于从单个网站(或者一些网站)爬取数据的类。<br>创建一个Spider，必须继承 ‘scrapy.Spider’ 类， 需要定义以下三个属性:</p>
+<ul>
+<li>name:<br>spider名字；必须是唯一的</li>
+<li>start_urls:<br>初始的URL列表</li>
+<li>parse(self, response)：<br>每个初始URL完成下载后被调用<br>这个函数要完成的功能：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.负责解析返回的网页数据(response.body)，提取结构化数据(生成item)</span><br><span class="line">2.生成需要下一页的请求URL。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以下为我们的第一个Spider代码，保存在 tutorial/spiders 目录下的 tencent_spider.py 文件中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        f = open(&apos;tengxun.txt&apos;, &apos;wb&apos;)</span><br><span class="line">        f.write(response.body)</span><br><span class="line">        f.close()</span><br></pre></td></tr></table></figure></p>
+<h1 id="爬取"><a href="#爬取" class="headerlink" title="爬取"></a>爬取</h1><p>进入项目的根目录，执行下列命令启动spider:<br><code>scrapy crawl tencent</code><br>crawl tencent 启动用于爬取 tencent 的spider，您将得到类似的输出:<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-24/43569726.jpg" alt=""></p>
+<h1 id="提取Item"><a href="#提取Item" class="headerlink" title="提取Item"></a>提取Item</h1><h3 id="Selectors选择器简介"><a href="#Selectors选择器简介" class="headerlink" title="Selectors选择器简介"></a>Selectors选择器简介</h3><p>Scrapy Selectors 内置XPath 和 CSS Selector 表达式机制<br>Selector有四个基本的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表 。</span><br><span class="line">css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表.</span><br><span class="line">extract(): 序列化该节点为unicode字符串并返回list。</span><br><span class="line">re(): 根据传入的正则表达式对数据进行提取，返回unicode字符串list列表。</span><br></pre></td></tr></table></figure></p>
+<h1 id="尝试Selector选择器"><a href="#尝试Selector选择器" class="headerlink" title="尝试Selector选择器"></a>尝试Selector选择器</h1><p><code>scrapy shell &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">response.xpath(&apos;//title&apos;)</span><br><span class="line">[&lt;Selector xpath=&apos;//title&apos; data=u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&apos;&gt;]</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title&apos;).extract()</span><br><span class="line">[u&apos;&lt;title&gt;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&lt;/title&gt;&apos;]</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title&apos;).extract()[0]</span><br><span class="line">&lt;title&gt;职位搜索 | 社会招聘 | Tencent 腾讯招聘&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)</span><br><span class="line">&lt;Selector xpath=&apos;//title/text()&apos; data=u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;&gt;</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">u&apos;\u804c\u4f4d\u641c\u7d22 | \u793e\u4f1a\u62db\u8058 | Tencent \u817e\u8baf\u62db\u8058&apos;</span><br><span class="line"></span><br><span class="line">print response.xpath(&apos;//title/text()&apos;)[0].extract()</span><br><span class="line">职位搜索 | 社会招聘 | Tencent 腾讯招聘</span><br><span class="line"></span><br><span class="line">response.xpath(&apos;//title/text()&apos;).re(&apos;(\w+):&apos;)</span><br><span class="line">[u&apos;\u804c\u4f4d\u641c\u7d22&apos;,</span><br><span class="line"> u&apos;\u793e\u4f1a\u62db\u8058&apos;,</span><br><span class="line"> u&apos;Tencent&apos;,</span><br><span class="line"> u&apos;\u817e\u8baf\u62db\u8058&apos;]</span><br></pre></td></tr></table></figure></p>
+<h1 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h1><p>现在，我们来尝试从这些页面中提取些有用的数据。<br>我们可以通过XPath选择该页面中网站列表里所有 lass=even 元素:<br><code>site = response.xpath(&quot;//*[@class=&#39;l square&#39;]/parent::tr&quot;)</code><br>职位名称:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/text()&apos;).extract()[0])</span><br><span class="line">TEG15-运营开发工程师（深圳）</span><br></pre></td></tr></table></figure></p>
+<p>职位名称详情页:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[1]/a/@href&apos;).extract()[0])</span><br><span class="line">position_detail.php?id=20744&amp;keywords=&amp;tid=0&amp;lid=0</span><br></pre></td></tr></table></figure></p>
+<p>职位类别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print (site[0].xpath(&apos;./td[2]/text()&apos;).extract()[0])</span><br><span class="line">技术类</span><br></pre></td></tr></table></figure></p>
+<p>对于 .xpath() 调用返回selector组成的list， 因此可以拼接更多的 .xpath() 来进一步获取某个节点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">    name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">    detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">    catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">    recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">    workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">    publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">    print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
+<p>在我们的tencent_spider.py文件修改成如下代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print (name, detailLink, catalog,recruitNumber,workLocation,publishTime)</span><br></pre></td></tr></table></figure></p>
+<p>现在尝试再次爬取hr.tencent.com，您将看到爬取到的网站信息被成功输出:<br><code>scrapy crawl tencent</code></p>
+<h1 id="使用item"><a href="#使用item" class="headerlink" title="使用item"></a>使用item</h1><p>Item 对象是自定义的python字典。可以使用标准的字典语法来获取到其每个字段的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class RecruitItem(scrapy.Item):</span><br><span class="line">    name  = scrapy.Field()</span><br><span class="line">    detailLink = scrapy.Field()</span><br><span class="line">    catalog = scrapy.Field()</span><br><span class="line">    recruitNumber = scrapy.Field()</span><br><span class="line">    workLocation = scrapy.Field()</span><br><span class="line">    publishTime = scrapy.Field()</span><br><span class="line"></span><br><span class="line">item = RecruitItem()</span><br><span class="line">item[&apos;name&apos;] = &apos;sanlang&apos;</span><br><span class="line">item[&apos;name&apos;]</span><br><span class="line">&apos;sanlang&apos;</span><br></pre></td></tr></table></figure></p>
+<p>一般来说，Spider将会将爬取到的数据以Item对象返回。所以为了将爬取的数据返回，最终tencent_spider.py代码将是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class RecruitSpider(scrapy.Spider):</span><br><span class="line">    name = &quot;tencent&quot;</span><br><span class="line">    allowed_domains = [&quot;hr.tencent.com&quot;]</span><br><span class="line">    start_urls = [</span><br><span class="line">        &quot;http://hr.tencent.com/position.php?&amp;start=0#a&quot;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        for sel in response.xpath(&quot;//*[@class=&apos;l square&apos;]/parent::tr&quot;):</span><br><span class="line">            name = sel.xpath(&apos;./td[1]/a/text()&apos;).extract()[0]</span><br><span class="line">            detailLink = sel.xpath(&apos;./td[1]/a/@href&apos;).extract()[0]</span><br><span class="line">            catalog = sel.xpath(&apos;./td[2]/text()&apos;).extract()[0]</span><br><span class="line">            recruitNumber = sel.xpath(&apos;./td[3]/text()&apos;).extract()[0]</span><br><span class="line">            workLocation = sel.xpath(&apos;./td[4]/text()&apos;).extract()[0]</span><br><span class="line">            publishTime = sel.xpath(&apos;./td[5]/text()&apos;).extract()[0]</span><br><span class="line">            print(name, detailLink, catalog, recruitNumber, workLocation, publishTime)</span><br><span class="line">            item = RecruitItem()</span><br><span class="line">            item[&apos;name&apos;] = name.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;detailLink&apos;] = detailLink.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;catalog&apos;] = catalog.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;recruitNumber&apos;] = recruitNumber.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;workLocation&apos;] = workLocation.encode(&apos;utf-8&apos;)</span><br><span class="line">            item[&apos;publishTime&apos;] = publishTime.encode(&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure></p>
+<h1 id="保存爬取到的数据"><a href="#保存爬取到的数据" class="headerlink" title="保存爬取到的数据"></a>保存爬取到的数据</h1><p><code>保存爬取到的数据</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/24/scrapy-入门/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mybatis完整配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/mybatis完整配置/">mybatis完整配置</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/01/mybatis完整配置/" class="archive-article-date">
+  	<time datetime="2018-02-01T15:52:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line">&lt;!-- 配置生成器 --&gt;</span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">&lt;!-- 可以用于加载配置项或者配置文件，在整个配置文件中就可以使用$&#123;propertyKey&#125;的方式来引用配置项</span><br><span class="line">    resource：配置资源加载地址，使用resource，MBG从classpath开始找，比如com/myproject/generatorConfig.properties        </span><br><span class="line">    url：配置资源加载地质，使用URL的方式，比如file:///C:/myfolder/generatorConfig.properties.</span><br><span class="line">    注意，两个属性只能选址一个;</span><br><span class="line">    </span><br><span class="line">    另外，如果使用了mybatis-generator-maven-plugin，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用</span><br><span class="line">&lt;properties resource=&quot;&quot; url=&quot;&quot; /&gt;</span><br><span class="line"> --&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;!-- 在MBG工作的时候，需要额外加载的依赖包</span><br><span class="line">    location属性指明加载jar/zip包的全路径</span><br><span class="line">&lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  </span><br><span class="line">&lt;!-- </span><br><span class="line">    context:生成一组对象的环境 </span><br><span class="line">    id:必选，上下文id，用于在生成错误时提示</span><br><span class="line">    defaultModelType:指定生成对象的样式</span><br><span class="line">        1，conditional：类似hierarchical；</span><br><span class="line">        2，flat：所有内容（主键，blob）等全部生成在一个对象中；</span><br><span class="line">        3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)</span><br><span class="line">    targetRuntime:</span><br><span class="line">        1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；</span><br><span class="line">        2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；</span><br><span class="line">    introspectedColumnImpl：类全限定名，用于扩展MBG</span><br><span class="line">--&gt;</span><br><span class="line">&lt;context id=&quot;mysql&quot; defaultModelType=&quot;hierarchical&quot; targetRuntime=&quot;MyBatis3Simple&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；</span><br><span class="line">        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;property name=&quot;autoDelimitKeywords&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;!-- 生成的Java文件的编码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFileEncoding&quot; value=&quot;UTF-8&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化java代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;javaFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultJavaFormatter&quot;/&gt;</span><br><span class="line">    &lt;!-- 格式化XML代码 --&gt;</span><br><span class="line">    &lt;property name=&quot;xmlFormatter&quot; value=&quot;org.mybatis.generator.api.dom.DefaultXmlFormatter&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span><br><span class="line">    &lt;property name=&quot;beginningDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;endingDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 必须要有的，使用这个配置链接数据库</span><br><span class="line">        @TODO:是否可以扩展</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot; connectionURL=&quot;jdbc:mysql:///pss&quot; userId=&quot;root&quot; password=&quot;admin&quot;&gt;</span><br><span class="line">        &lt;!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 --&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- java类型处理器 </span><br><span class="line">        用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；</span><br><span class="line">        注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； </span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaTypeResolver type=&quot;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&quot;&gt;</span><br><span class="line">        &lt;!-- </span><br><span class="line">            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型</span><br><span class="line">            false：默认,</span><br><span class="line">                scale&gt;0;length&gt;18：使用BigDecimal;</span><br><span class="line">                scale=0;length[10,18]：使用Long；</span><br><span class="line">                scale=0;length[5,9]：使用Integer；</span><br><span class="line">                scale=0;length&lt;5：使用Short；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- java模型创建器，是必须要的元素</span><br><span class="line">        负责：1，key类（见context的defaultModelType）；2，java类；3，查询类</span><br><span class="line">        targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；</span><br><span class="line">        targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com._520it.mybatis.domain&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!--  for MyBatis3/MyBatis3Simple</span><br><span class="line">            自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- for MyBatis3 / MyBatis3Simple</span><br><span class="line">            是否创建一个不可变的类，如果为true，</span><br><span class="line">            那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置一个根对象，</span><br><span class="line">            如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项</span><br><span class="line">            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：</span><br><span class="line">                1，属性名相同，类型相同，有相同的getter/setter方法；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;com._520it.mybatis.domain.BaseDomain&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置是否在getter方法中，对String类型字段调用trim()方法 --&gt;</span><br><span class="line">        &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 生成SQL map的XML文件生成器，</span><br><span class="line">        注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），</span><br><span class="line">            或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置</span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; targetProject=&quot;src/main/resources&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 </span><br><span class="line">        targetPackage/targetProject:同javaModelGenerator</span><br><span class="line">        type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：</span><br><span class="line">            1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；</span><br><span class="line">            2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；</span><br><span class="line">            3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；</span><br><span class="line">        注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;javaClientGenerator targetPackage=&quot;com._520it.mybatis.mapper&quot; type=&quot;ANNOTATEDMAPPER&quot; targetProject=&quot;src/main/java&quot;&gt;</span><br><span class="line">        &lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span><br><span class="line">        &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素</span><br><span class="line">        选择的table会生成一下文件：</span><br><span class="line">        1，SQL map文件</span><br><span class="line">        2，生成一个主键类；</span><br><span class="line">        3，除了BLOB和主键的其他字段的类；</span><br><span class="line">        4，包含BLOB的类；</span><br><span class="line">        5，一个用户生成动态查询的条件类（selectByExample, deleteByExample），可选；</span><br><span class="line">        6，Mapper接口（可选）</span><br><span class="line">    </span><br><span class="line">        tableName（必要）：要生成对象的表名；</span><br><span class="line">        注意：大小写敏感问题。正常情况下，MBG会自动的去识别数据库标识符的大小写敏感度，在一般情况下，MBG会</span><br><span class="line">            根据设置的schema，catalog或tablename去查询数据表，按照下面的流程：</span><br><span class="line">            1，如果schema，catalog或tablename中有空格，那么设置的是什么格式，就精确的使用指定的大小写格式去查询；</span><br><span class="line">            2，否则，如果数据库的标识符使用大写的，那么MBG自动把表名变成大写再查找；</span><br><span class="line">            3，否则，如果数据库的标识符使用小写的，那么MBG自动把表名变成小写再查找；</span><br><span class="line">            4，否则，使用指定的大小写格式查询；</span><br><span class="line">        另外的，如果在创建表的时候，使用的&quot;&quot;把数据库对象规定大小写，就算数据库标识符是使用的大写，在这种情况下也会使用给定的大小写来创建表名；</span><br><span class="line">        这个时候，请设置delimitIdentifiers=&quot;true&quot;即可保留大小写格式；</span><br><span class="line">        </span><br><span class="line">        可选：</span><br><span class="line">        1，schema：数据库的schema；</span><br><span class="line">        2，catalog：数据库的catalog；</span><br><span class="line">        3，alias：为数据表设置的别名，如果设置了alias，那么生成的所有的SELECT SQL语句中，列名会变成：alias_actualColumnName</span><br><span class="line">        4，domainObjectName：生成的domain类的名字，如果不设置，直接使用表名作为domain类的名字；可以设置为somepck.domainName，那么会自动把domainName类再放到somepck包里面；</span><br><span class="line">        5，enableInsert（默认true）：指定是否生成insert语句；</span><br><span class="line">        6，enableSelectByPrimaryKey（默认true）：指定是否生成按照主键查询对象的语句（就是getById或get）；</span><br><span class="line">        7，enableSelectByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询语句；</span><br><span class="line">        8，enableUpdateByPrimaryKey（默认true）：指定是否生成按照主键修改对象的语句（即update)；</span><br><span class="line">        9，enableDeleteByPrimaryKey（默认true）：指定是否生成按照主键删除对象的语句（即delete）；</span><br><span class="line">        10，enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；</span><br><span class="line">        11，enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；</span><br><span class="line">        12，enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；</span><br><span class="line">        13，modelType：参考context元素的defaultModelType，相当于覆盖；</span><br><span class="line">        14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）</span><br><span class="line">        15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性</span><br><span class="line">        </span><br><span class="line">        注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;table tableName=&quot;userinfo&quot; &gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 constructorBased属性--&gt;</span><br><span class="line">        &lt;property name=&quot;constructorBased&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； --&gt;</span><br><span class="line">        &lt;property name=&quot;ignoreQualifiersAtRuntime&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 immutable 属性 --&gt;</span><br><span class="line">        &lt;property name=&quot;immutable&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 --&gt;</span><br><span class="line">        &lt;property name=&quot;modelOnly&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 参考 javaModelGenerator 的 rootClass 属性 </span><br><span class="line">        &lt;property name=&quot;rootClass&quot; value=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">        &lt;!-- 参考javaClientGenerator 的  rootInterface 属性</span><br><span class="line">        &lt;property name=&quot;rootInterface&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog </span><br><span class="line">        &lt;property name=&quot;runtimeCatalog&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema </span><br><span class="line">        &lt;property name=&quot;runtimeSchema&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename </span><br><span class="line">        &lt;property name=&quot;runtimeTableName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">        --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 注意，该属性只针对MyBatis3Simple有用；</span><br><span class="line">            如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；</span><br><span class="line">         --&gt;</span><br><span class="line">        &lt;property name=&quot;selectAllOrderByClause&quot; value=&quot;age desc,username asc&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate --&gt;</span><br><span class="line">        &lt;property name=&quot;useActualColumnNames&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        &lt;!-- generatedKey用于生成生成主键的方法，</span><br><span class="line">            如果设置了该元素，MBG会在生成的&lt;insert&gt;元素中生成一条正确的&lt;selectKey&gt;元素，该元素可选</span><br><span class="line">            column:主键的列名；</span><br><span class="line">            sqlStatement：要生成的selectKey语句，有以下可选项：</span><br><span class="line">                Cloudscape:相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2       :相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                DB2_MF    :相当于selectKey的SQL为：SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1</span><br><span class="line">                Derby     :相当于selectKey的SQL为：VALUES IDENTITY_VAL_LOCAL()</span><br><span class="line">                HSQLDB    :相当于selectKey的SQL为：CALL IDENTITY()</span><br><span class="line">                Informix  :相当于selectKey的SQL为：select dbinfo(&apos;sqlca.sqlerrd1&apos;) from systables where tabid=1</span><br><span class="line">                MySql     :相当于selectKey的SQL为：SELECT LAST_INSERT_ID()</span><br><span class="line">                SqlServer :相当于selectKey的SQL为：SELECT SCOPE_IDENTITY()</span><br><span class="line">                SYBASE    :相当于selectKey的SQL为：SELECT @@IDENTITY</span><br><span class="line">                JDBC      :相当于在生成的insert元素上添加useGeneratedKeys=&quot;true&quot;和keyProperty属性</span><br><span class="line">        &lt;generatedKey column=&quot;&quot; sqlStatement=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- </span><br><span class="line">            该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，</span><br><span class="line">            比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；</span><br><span class="line">            那么就可以设置searchString为&quot;^CUST_&quot;，并使用空白替换，那么生成的Customer对象中的属性名称就不是</span><br><span class="line">            custId,custName等，而是先被替换为ID,NAME,EMAIL,然后变成属性：id，name，email；</span><br><span class="line">            </span><br><span class="line">            注意，MBG是使用java.util.regex.Matcher.replaceAll来替换searchString和replaceString的，</span><br><span class="line">            如果使用了columnOverride元素，该属性无效；</span><br><span class="line">            </span><br><span class="line">        &lt;columnRenamingRule searchString=&quot;&quot; replaceString=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">         </span><br><span class="line">         </span><br><span class="line">         &lt;!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；</span><br><span class="line">            column:要重新设置的列名；</span><br><span class="line">            注意，一个table元素中可以有多个columnOverride元素哈~</span><br><span class="line">          --&gt;</span><br><span class="line">         &lt;columnOverride column=&quot;username&quot;&gt;</span><br><span class="line">            &lt;!-- 使用property属性来指定列要生成的属性名称 --&gt;</span><br><span class="line">            &lt;property name=&quot;property&quot; value=&quot;userName&quot;/&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名</span><br><span class="line">            &lt;property name=&quot;javaType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- jdbcType用于指定该列的JDBC类型 </span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">             </span><br><span class="line">            &lt;!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名</span><br><span class="line">                注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler</span><br><span class="line">                只会生成类似：where id = #&#123;id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler&#125;的参数描述</span><br><span class="line">            &lt;property name=&quot;jdbcType&quot; value=&quot;&quot;/&gt;</span><br><span class="line">            --&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- 参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            &lt;property name=&quot;delimitedColumnName&quot; value=&quot;&quot;/&gt;</span><br><span class="line">             --&gt;</span><br><span class="line">         &lt;/columnOverride&gt;</span><br><span class="line">         </span><br><span class="line">         &lt;!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现 </span><br><span class="line">            column:指定要忽略的列的名字；</span><br><span class="line">            delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false</span><br><span class="line">            </span><br><span class="line">            注意，一个table元素中可以有多个ignoreColumn元素</span><br><span class="line">         &lt;ignoreColumn column=&quot;deptId&quot; delimitedColumnName=&quot;&quot;/&gt;</span><br><span class="line">         --&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/context&gt;</span><br><span class="line"></span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/01/mybatis完整配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-python-闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/31/python-闭包/">python 闭包</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/31/python-闭包/" class="archive-article-date">
+  	<time datetime="2018-01-31T15:01:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484229&amp;idx=1&amp;sn=9514866e182d0a56ff460b2f88ad542a&amp;chksm=ec5edc38db29552e1a2746b8ce7182ec2bba2bdead93868fd3eb4e5943fadc42902e7608d4e4&amp;scene=21#wechat_redirect" target="_blank" rel="external">转载</a></p>
+</blockquote>
+<p>曾经介绍过两篇关于函数的文章，第一篇是 关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484227&amp;idx=1&amp;sn=710bec026d8a1c7294cd06fd7c59b43b&amp;chksm=ec5edc3edb295528236af46510832d240fe05cdded7040eeac6a9f8341c535b98c8ab558715f&amp;scene=21#wechat_redirect" target="_blank" rel="external">Python 函数是第一类对象</a>，第二篇是关于 <a href="https://mp.weixin.qq.com/s?__biz=MzI5NDY1MjQzNA==&amp;mid=2247484228&amp;idx=1&amp;sn=a42152bf9c7ddb5f68e88f1c6c0122e9&amp;chksm=ec5edc39db29552f161465de77336346afcd3e9dc2af1a8e353ef5fb4824639513edf61d5572&amp;scene=21#wechat_redirect" target="_blank" rel="external">Lambda 函数</a>，今天来说说 Python 闭包。</p>
+<p>什么是闭包？闭包有什么用？为什么要用闭包？今天我们就带着这3个问题来一步一步认识闭包。</p>
+<p>闭包和函数紧密联系在一起，介绍闭包前有必要先介绍一些背景知识，诸如嵌套函数、变量的作用域等概念</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>作用域是程序运行时变量可被访问的范围，定义在函数内的变量是局部变量，局部变量的作用范围只能是函数内部范围内，它不能在函数外引用。</p>
+<p>定义在模块最外层的变量是全局变量，它是全局范围内可见的，当然在函数里面也可以读取到全局变量的。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = 10 # 全局作用域变量def foo():    print(num)  # 10</span><br></pre></td></tr></table></figure>
+<p>而在函数外部则不可以访问局部变量。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def foo():    num = 10print(num)  # NameError: name &apos;num&apos; is not defined</span><br></pre></td></tr></table></figure>
+<h3 id="嵌套函数"><a href="#嵌套函数" class="headerlink" title="嵌套函数"></a>嵌套函数</h3><p>函数不仅可以定义在模块的最外层，还可以定义在另外一个函数的内部，像这种定义在函数里面的函数称之为<strong>嵌套函数</strong>（nested function）例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def print_msg(): </span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    printer()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">print_msg()</span><br></pre></td></tr></table></figure>
+<p>对于嵌套函数，它可以访问到其外层作用域中声明的非局部（non-local）变量，比如代码示例中的变量 <code>msg</code> 可以被嵌套函数 <code>printer</code> 正常访问。</p>
+<p>那么有没有一种可能即使脱离了函数本身的作用范围，局部变量还可以被访问得到呢？答案是闭包</p>
+<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>函数身为第一类对象，它可以作为函数的返回值返回，现在我们来考虑如下的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def print_msg():</span><br><span class="line">    # print_msg 是外围函数</span><br><span class="line">    msg = &quot;zen of python&quot;</span><br><span class="line">    def printer():</span><br><span class="line">        # printer 是嵌套函数</span><br><span class="line">        print(msg)</span><br><span class="line">    return printer</span><br><span class="line">another = print_msg()</span><br><span class="line"># 输出 zen of python</span><br><span class="line">another()</span><br></pre></td></tr></table></figure>
+<p>这段代码和前面例子的效果完全一样，同样输出 “zen of python”。不同的地方在于内部函数 <code>printer</code> 直接作为返回值返回了。</p>
+<p>一般情况下，函数中的局部变量仅在函数的执行期间可用，一旦 <code>print_msg()</code> 执行过后，我们会认为 <code>msg</code>变量将不再可用。然而，在这里我们发现 print_msg 执行完之后，在调用 another 的时候 msg 变量的值正常输出了，这就是闭包的作用，闭包使得局部变量在函数外被访问成为可能。</p>
+<p>看完这个例子，我们再来定义闭包，维基百科上的解释是:</p>
+<blockquote>
+<p>在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
+</blockquote>
+<p>这里的 <code>another</code> 就是一个闭包，闭包本质上是一个函数，它由两部分组成，<code>printer</code> 函数和变量 <code>msg</code>。闭包使得这些变量的值始终保存在内存中。</p>
+<p>闭包，顾名思义，就是一个封闭的包裹，里面包裹着自由变量，就像在类里面定义的属性值一样，自由变量的可见范围随同包裹一起，哪里可以访问到这个包裹，哪里就可以访问到这个自由变量。</p>
+<h3 id="为什么要使用闭包"><a href="#为什么要使用闭包" class="headerlink" title="为什么要使用闭包"></a>为什么要使用闭包</h3><p>闭包避免了使用全局变量，此外，闭包允许将函数与其所操作的某些数据（环境）关连起来。这一点与面向对象编程是非常类似的，在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。</p>
+<p>一般来说，当对象中只有一个方法时，这时使用闭包是更好的选择。来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def adder(x):</span><br><span class="line">    def wrapper(y):</span><br><span class="line">        return x + y</span><br><span class="line">    return wrapper</span><br><span class="line">adder5 = adder(5)</span><br><span class="line"># 输出 15</span><br><span class="line">adder5(10)</span><br><span class="line"># 输出 11</span><br><span class="line">adder5(6)</span><br></pre></td></tr></table></figure>
+<p>这比用类来实现更优雅，此外装饰器也是基于闭包的一中应用场景。</p>
+<p>所有函数都有一个 <code>__closure__</code>属性，如果这个函数是一个闭包的话，那么它返回的是一个由 cell 对象 组成的元组对象。cell 对象的cell_contents 属性就是闭包中的自由变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; adder.__closure__</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__(&lt;cell at 0x103075910: int object at 0x7fd251604518&gt;,)</span><br><span class="line">&gt;&gt;&gt; adder5.__closure__[0].cell_contents5</span><br></pre></td></tr></table></figure>
+<p>这解释了为什么局部变量脱离函数之后，还可以在函数之外被访问的原因的，因为它存储在了闭包的 cell_contents中了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/31/python-闭包/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-gradle-中使用-mybatis-generator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/29/gradle-中使用-mybatis-generator/">gradle 中使用 mybatis-generator</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/29/gradle-中使用-mybatis-generator/" class="archive-article-date">
+  	<time datetime="2018-01-29T14:50:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>添加依赖<br>在build.gradle中添加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configurations &#123;</span><br><span class="line">    mybatisGenerator</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>注意把前面的compile group改成mybatisGenerator<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mybatisGenerator &apos;org.mybatis.generator:mybatis-generator-core:1.3.6&apos;</span><br><span class="line">mybatisGenerator &apos;mysql:mysql-connector-java:5.1.45&apos;</span><br><span class="line">mybatisGenerator &apos;tk.mybatis:mapper:3.5.2&apos;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ol>
+<li>设置数据库信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 resources 下，新建 mybatis 文件夹，并新建 config.properties 和 generatorConfig.xml，文件结构如下：</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-29/28781470.jpg" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># JDBC 驱动类名</span><br><span class="line">jdbc.driverClassName=com.mysql.jdbc.Driver</span><br><span class="line"># JDBC URL: jdbc:mysql:// + 数据库主机地址 + 端口号 + 数据库名</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8</span><br><span class="line"># JDBC 用户名及密码</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br><span class="line"></span><br><span class="line"># 生成实体类所在的包</span><br><span class="line">package.model=com.yy.boot.domain</span><br><span class="line"># 生成 mapper 类所在的包</span><br><span class="line">package.mapper=com.yy.boot.dao</span><br><span class="line"># 生成 mapper xml 文件所在的包，默认存储在 resources 目录下</span><br><span class="line">package.xml=mybatis/mapper</span><br></pre></td></tr></table></figure></p>
+<p>generator.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">    &lt;!--MyBatis3Simple或者MyBatis3,生成的xml文件略有不同--&gt;</span><br><span class="line">    &lt;context id=&quot;Mysql&quot; targetRuntime=&quot;MyBatis3Simple&quot; defaultModelType=&quot;flat&quot;&gt;</span><br><span class="line">        &lt;commentGenerator&gt;</span><br><span class="line">            &lt;property name=&quot;suppressAllComments&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;javaFileEncoding&quot; value=&quot;utf-8&quot;/&gt;</span><br><span class="line">        &lt;/commentGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;jdbcConnection driverClass=&quot;$&#123;driverClass&#125;&quot;</span><br><span class="line">                        connectionURL=&quot;$&#123;connectionURL&#125;&quot;</span><br><span class="line">                        userId=&quot;$&#123;userId&#125;&quot;</span><br><span class="line">                        password=&quot;$&#123;password&#125;&quot;&gt;</span><br><span class="line">        &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">        &lt;javaTypeResolver&gt;</span><br><span class="line">            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">        &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;javaModelGenerator targetPackage=&quot;$&#123;modelPackage&#125;&quot; targetProject=&quot;$&#123;src_main_java&#125;&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;sqlMapGenerator targetPackage=&quot;$&#123;sqlMapperPackage&#125;&quot; targetProject=&quot;$&#123;src_main_resources&#125;&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--</span><br><span class="line">        type=ANNOTATEDMAPPER表示不生成xml文件</span><br><span class="line">        这里我用XMLMAPPER</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;javaClientGenerator targetPackage=&quot;$&#123;mapperPackage&#125;&quot; targetProject=&quot;$&#123;src_main_java&#125;&quot; type=&quot;XMLMAPPER&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--</span><br><span class="line">         sql占位符，表示所有的表</span><br><span class="line">         这里只用city表</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;!--&lt;table tableName=&quot;%&quot;&gt;--&gt;</span><br><span class="line">            &lt;!--&lt;generatedKey column=&quot;id&quot; sqlStatement=&quot;Mysql&quot; identity=&quot;true&quot; /&gt;--&gt;</span><br><span class="line">        &lt;!--&lt;/table&gt;--&gt;</span><br><span class="line">        &lt;table tableName=&quot;city&quot; domainObjectName=&quot;City&quot; enableCountByExample=&quot;false&quot; enableUpdateByExample=&quot;false&quot;</span><br><span class="line">               enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot; selectByExampleQueryId=&quot;false&quot;&gt;&lt;/table&gt;</span><br><span class="line">    &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在build.gradle中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">def getDbProperties = &#123;</span><br><span class="line">    def properties = new Properties()</span><br><span class="line">    file(&quot;src/main/resources/mybatis/config.properties&quot;).withInputStream &#123; inputStream -&gt;</span><br><span class="line">        properties.load(inputStream)</span><br><span class="line">    &#125;</span><br><span class="line">    properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task mybatisGenerate &lt;&lt; &#123;</span><br><span class="line">    def properties = getDbProperties()</span><br><span class="line">    ant.properties[&apos;targetProject&apos;] = projectDir.path</span><br><span class="line">    ant.properties[&apos;driverClass&apos;] = properties.getProperty(&quot;jdbc.driverClassName&quot;)</span><br><span class="line">    ant.properties[&apos;connectionURL&apos;] = properties.getProperty(&quot;jdbc.url&quot;)</span><br><span class="line">    ant.properties[&apos;userId&apos;] = properties.getProperty(&quot;jdbc.username&quot;)</span><br><span class="line">    ant.properties[&apos;password&apos;] = properties.getProperty(&quot;jdbc.password&quot;)</span><br><span class="line">    ant.properties[&apos;src_main_java&apos;] = sourceSets.main.java.srcDirs[0].path</span><br><span class="line">    ant.properties[&apos;src_main_resources&apos;] = sourceSets.main.resources.srcDirs[0].path</span><br><span class="line">    ant.properties[&apos;modelPackage&apos;] = properties.getProperty(&quot;package.model&quot;)</span><br><span class="line">    ant.properties[&apos;mapperPackage&apos;] = properties.getProperty(&quot;package.mapper&quot;)</span><br><span class="line">    ant.properties[&apos;sqlMapperPackage&apos;] = properties.getProperty(&quot;package.xml&quot;)</span><br><span class="line">    ant.taskdef(</span><br><span class="line">            name: &apos;mbgenerator&apos;,</span><br><span class="line">            classname: &apos;org.mybatis.generator.ant.GeneratorAntTask&apos;,</span><br><span class="line">            classpath: configurations.mybatisGenerator.asPath</span><br><span class="line">    )</span><br><span class="line">    ant.mbgenerator(overwrite: true,</span><br><span class="line">            configfile: &apos;src/main/resources/mybatis/generatorConfig.xml&apos;, verbose: true) &#123;</span><br><span class="line">        propertyset &#123;</span><br><span class="line">            propertyref(name: &apos;targetProject&apos;)</span><br><span class="line">            propertyref(name: &apos;userId&apos;)</span><br><span class="line">            propertyref(name: &apos;driverClass&apos;)</span><br><span class="line">            propertyref(name: &apos;connectionURL&apos;)</span><br><span class="line">            propertyref(name: &apos;password&apos;)</span><br><span class="line">            propertyref(name: &apos;src_main_java&apos;)</span><br><span class="line">            propertyref(name: &apos;src_main_resources&apos;)</span><br><span class="line">            propertyref(name: &apos;modelPackage&apos;)</span><br><span class="line">            propertyref(name: &apos;mapperPackage&apos;)</span><br><span class="line">            propertyref(name: &apos;sqlMapperPackage&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-29/28534463.jpg" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/29/gradle-中使用-mybatis-generator/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java-常见面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -252,405 +626,9 @@
 
 
   
-    <article id="post-zabbix-监控-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/25/zabbix-监控-mysql/">zabbix 监控 mysql</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/25/zabbix-监控-mysql/" class="archive-article-date">
-  	<time datetime="2018-01-25T12:37:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.percona.com/downloads/percona-monitoring-plugins/" target="_blank" rel="external">下载插件</a><br>安装</p>
-<p>安装之后<br>在zabbix的管理界面模板导入下面的配置<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-25/71211597.jpg" alt=""></p>
-<blockquote>
-<p>因为下载的模板是针对 zabbix2的,所以如果你是 zabbix3下载下面的模板</p>
-</blockquote>
-<p>链接: <a href="https://pan.baidu.com/s/1sm6hhwD" target="_blank" rel="external">https://pan.baidu.com/s/1sm6hhwD</a> 密码: 8bm2</p>
-<p><code># vim //var/lib/zabbix/percona/scripts/get_mysql_stats_wrapper.sh</code></p>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-25/92718600.jpg" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cp /var/lib/zabbix/percona/templates/userparameter_percona_mysql.conf /etc/zabbix/zabbix_agentd.d/</span><br><span class="line"></span><br><span class="line"># 修改agent的配置文件</span><br><span class="line">vim /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">Include=/etc/zabbix/zabbix_agentd.d/*.conf</span><br><span class="line"># 重启agent服务</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 配置权限</span><br><span class="line">mysql&gt; GRANT PROCESS,SUPER,REPLICATION CLIENT ON *.* TO zabbix@&apos;localhost&apos; IDENTIFIED BY &apos;zabbixpassword&apos;; </span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line"></span><br><span class="line"># vim /var/lib/zabbix/percona/scripts/ss_get_mysql_stats.php</span><br><span class="line">$mysql_user = &apos;zabbix&apos;;</span><br><span class="line">$mysql_pass = &apos;zabbixpassword&apos;;</span><br><span class="line">$mysql_port = 3306;</span><br><span class="line">$mysql_socket = &quot;/tmp/mysql.sock&quot;;</span><br></pre></td></tr></table></figure>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-25/86389085.jpg" alt=""><br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-25/38258011.jpg" alt=""></p>
-<h2 id="配置完成"><a href="#配置完成" class="headerlink" title="配置完成!"></a>配置完成!</h2><hr>
-<h2 id="gotcha"><a href="#gotcha" class="headerlink" title="gotcha"></a>gotcha</h2><ol>
-<li>如果你的 mysql 端口号不是默认的3306<br>在/tmp/下手动生成一个localhost-mysql_cacti_stats.txt:13798文件<br><code>touch localhost-mysql_cacti_stats.txt:13798</code><br><code>chown -R zabbix:zabbix localhost-mysql_cacti_stats.txt:13798</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># vim /var/lib/zabbix/percona/scripts/get_mysql_stats_wrapper.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-25/6659753.jpg" alt=""></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/25/zabbix-监控-mysql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-spring-boot-中遇到的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/22/spring-boot-中遇到的坑/">spring boot 中遇到的坑</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/22/spring-boot-中遇到的坑/" class="archive-article-date">
-  	<time datetime="2018-01-22T12:50:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>springboot 中使用 redis 报错<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/55422354.jpg" alt=""><br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/11455802.jpg" alt=""><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为我用的 jdk9的缘故,用 jdk8就没问题了,</span><br><span class="line">或者导入jaxb-api这个包</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-22/66221483.jpg" alt=""></p>
-<ol>
-<li><p>restdocs 不能使用<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-23/83286533.jpg" alt=""><br>需要加上 version</p>
-</li>
-<li><p>boot启动就停止,不报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将tomcat providedRuntime改成runtime</span><br><span class="line">//	providedRuntime(&apos;org.springframework.boot:spring-boot-starter-tomcat&apos;)</span><br><span class="line">	runtime(&apos;org.springframework.boot:spring-boot-starter-tomcat&apos;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注解@ModelAttribute和@RequestParam有所不同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RequestParam传递简单的参数,ModelAttribute传递对象</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用mybatis-generator生成的model,xml,dao,即使你配置里写着覆盖,xml还是会在后面添加,然后程序报错说xml解析错误</p>
-</li>
-<li><p>配置多数据源,一定要加上@primary注解,要不然会报singlematch错误<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-1-30/79725696.jpg" alt=""></p>
-</li>
-<li><p>jdk9的坑 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.base/jdk.internal.loader.ClassLoaders$AppClassLoader cannot be cast to java.base/java.net.URLClassLoader</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>jdk9 和 devtools 不兼容,换成 jdk8或者 spring-boot 2.0.0M 版本</p>
-<ol>
-<li><p>druid多数据源配置<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/60995053.jpg" alt=""><br>前面忘了加spring<br><img src="http://oqb4aabpb.bkt.clouddn.com/18-2-1/70213256.jpg" alt=""></p>
-</li>
-<li><p>boot 中集成的 ES 的版本要与服务器的 ES 的版本一致</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mongo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/22/spring-boot-中遇到的坑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mycat和mycat-web安装(ubuntu16.04)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">mycat和mycat-web安装（ubuntu16.04）</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/" class="archive-article-date">
-  	<time datetime="2018-01-09T14:41:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="mycat-安装"><a href="#mycat-安装" class="headerlink" title="mycat 安装"></a>mycat 安装</h2><ol>
-<li>安装环境</li>
-</ol>
-<ul>
-<li>java (mycat是用java写的)</li>
-<li>mysql<br>设置<br><strong>lower_case_table_names = 1</strong></li>
-</ul>
-<ol>
-<li>安装mycat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http://dl.mycat.io/</span><br><span class="line">下载最新发布版</span><br><span class="line">解压之后</span><br><span class="line">mv mycat /usr/local/src</span><br><span class="line"># mycat</span><br><span class="line">export MYCAT_HOME=/usr/local/src/mycat</span><br><span class="line"></span><br><span class="line"># PATH</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MYCAT_HOME/bin</span><br><span class="line">查看日志，mycat start启动</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<hr>
-<h2 id="mycat-web-安装"><a href="#mycat-web-安装" class="headerlink" title="mycat-web 安装"></a>mycat-web 安装</h2><ol>
-<li>下载mycat-web<br><code>http://dl.mycat.io/</code></li>
-<li><p>安装zookeeper</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zookeeper</span><br><span class="line"># ubuntu安装在/usr/share/zookeeper</span><br><span class="line">bash zkServer.sh start就可以启动服务了</span><br><span class="line"># 可以写脚本或者起别名方便操作</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动和配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mycat-web下bash start.sh</span><br><span class="line">访问地址http://localhost:8082/mycat</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<hr>
-<h2 id="gotCha"><a href="#gotCha" class="headerlink" title="gotCha"></a>gotCha</h2><ol>
-<li>远程连接一定要指定连接的数据库，不指定不显示任何数据</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.xml.sax.SAXParseException; lineNumber: 106; columnNumber: 16; The content of element type &quot;mycat:schema&quot; must match &quot;(schema*,dataNode*,dataHost*)&quot;.</span><br><span class="line">原因：要按照schema、datanode 、datahost的顺序放，不能打乱。也就是所有schema要放一起，然后接着才能放datanode。。。。</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/09/mycat和mycat-web安装(ubuntu16.04)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql-mariadb-修改最大连接数无效的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">mysql,mariadb 修改最大连接数无效的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/" class="archive-article-date">
-  	<time datetime="2018-01-04T14:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[root@emsc ~]# ulimit -n<br>1024</p>
-<p>可知，操作系统最大文件描述符限制为 1024， 在 配置文件中添加<br>修改配置文件位置：/etc/security/limits.conf末尾添加如下配置项目</p>
-<p>open_files_limit = 65535</p>
-<p>更改 MySQL 在 Linux 的最大文件描述符限制，编辑 /usr/lib/systemd/system/mysqld.service 文件，在文件最后添加:<br>ubuntu16.04 下面位于：/lib/systemd/system/mysql.servive,可以通过find 命令查找</p>
-<p>LimitNOFILE=65535<br>LimitNPROC=65535</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl daemon-reload</span><br><span class="line">$ systemctl restart  mysqld.service</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/04/mysql-mariadb-修改最大连接数无效的问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 
@@ -662,7 +640,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 神级第六人
+    		&copy; 2019 神级第六人
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -769,11 +747,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -801,15 +779,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,11 +799,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,11 +819,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">

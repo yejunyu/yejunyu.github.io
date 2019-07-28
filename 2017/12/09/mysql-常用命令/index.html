@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="大葉子の林中小屋">
 <meta property="og:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-03T15:28:18.366Z">
+<meta property="og:updated_time" content="2019-06-05T02:12:35.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 常用命令">
 <meta name="twitter:description" content="增 创建库create database DB     创建表create table t1(a integer, b char(10)) 添加一个新列alter table t1 add d timestamp 插入数据insert into table_name(col1,col2...) values(value1,value2...)   删 删除表drop table t1 删除库dro">
@@ -215,7 +215,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT(`first_name`) from `employees`</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>聚集函数(count,min,max,avg,sum)   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 查询总记录数</span><br><span class="line">SELECT COUNT(*) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询最小工号</span><br><span class="line">SELECT MIN(`emp_no`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询出生最晚(最年轻)的员工</span><br><span class="line">SELECT MAX(`birth_date`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询雇员平均薪水</span><br><span class="line">SELECT AVG(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 查询薪水总额</span><br><span class="line">SELECT SUM(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 统计&apos;1986-06-26&apos;和&apos;1985-11-21&apos;分别多少人入职    </span><br><span class="line">SELECT sum(`hire_date`=&apos;1986-06-26&apos;) as sum_1986_06_26,sum(`hire_date`=&apos;1985-11-21&apos;) as sum_1985_11_21 from `employees`</span><br><span class="line">查询语句里 hire_date=&apos;1986-06-26&apos;是一个计算表达式,满足为1,不满足为0</span><br><span class="line"></span><br><span class="line"># 分组统计 group by 子句</span><br><span class="line">查询 employees 表,按照 first_name 分组,并根据 first_name 出现次数降序排列</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># group by 用 having 来筛选</span><br><span class="line">查询 first_name 出现次数大于270的</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># 并集操作</span><br><span class="line">union 和 union all</span><br><span class="line">union 实际上是 union distinct</span><br><span class="line"></span><br><span class="line"># NULL 不能用 &gt; = &lt; 只能用 is NULL is not NULL</span><br><span class="line"></span><br><span class="line"># 连接</span><br><span class="line">join 和 子查询</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 查询总记录数</span><br><span class="line">SELECT COUNT(*) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询最小工号</span><br><span class="line">SELECT MIN(`emp_no`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询出生最晚(最年轻)的员工</span><br><span class="line">SELECT MAX(`birth_date`) FROM `employees`</span><br><span class="line"></span><br><span class="line"># 查询雇员平均薪水</span><br><span class="line">SELECT AVG(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 查询薪水总额</span><br><span class="line">SELECT SUM(`salary`) FROM `salaries`</span><br><span class="line"></span><br><span class="line"># 统计&apos;1986-06-26&apos;和&apos;1985-11-21&apos;分别多少人入职    </span><br><span class="line">SELECT sum(`hire_date`=&apos;1986-06-26&apos;) as sum_1986_06_26,sum(`hire_date`=&apos;1985-11-21&apos;) as sum_1985_11_21 from `employees`</span><br><span class="line">查询语句里 hire_date=&apos;1986-06-26&apos;是一个计算表达式,满足为1,不满足为0</span><br><span class="line"></span><br><span class="line"># 分组统计 group by 子句</span><br><span class="line">查询 employees 表,按照 first_name 分组,并根据 first_name 出现次数降序排列</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># group by 用 having 来筛选</span><br><span class="line">查询 first_name 出现次数大于270的</span><br><span class="line">select `first_name`,COUNT(*) as cnt from `employees` GROUP BY `first_name` having cnt&gt;270 ORDER BY cnt desc</span><br><span class="line"></span><br><span class="line"># 并集操作</span><br><span class="line">union 和 union all</span><br><span class="line">union 实际上是 union distinct</span><br><span class="line"></span><br><span class="line"># NULL 不能用 &gt; = &lt; 只能用 is NULL is not NULL</span><br><span class="line"></span><br><span class="line"># 连接</span><br><span class="line">join 和 子查询</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
@@ -273,6 +273,7 @@
 </ul>
 <hr>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>正在执行的操作<br><code>show processlist;</code></li>
 <li>查看表的引擎\<br><code>show table status like &#39;your_table&#39;\G;</code></li>
 <li>更改密码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR user@&apos;ip_range&apos; = PASSWORD(&apos;some password&apos;);</span><br><span class="line">或</span><br><span class="line">GRANT USAGE ON *.* TO user@&apos;ip_range&apos; IDENTIFIED BY &apos;some password&apos;;</span><br><span class="line">或</span><br><span class="line">shell&gt; mysql -u root</span><br><span class="line">mysql&gt; UPDATE mysql.user SET PASSWORD=PASSWORD(&apos;newpwd&apos;)</span><br><span class="line">WHERE user=&apos;root&apos;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
 </li>
@@ -450,7 +451,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 神级第六人
+    		&copy; 2019 神级第六人
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -557,11 +558,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,15 +590,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,11 +610,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +630,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
